@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context.xsd 
+			http://www.springframework.org/schema/mvc 
+			http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+
+	<mvc:annotation-driven />
+
+	<context:component-scan
+		base-package="com.Controller" />
+	<context:component-scan
+		base-package="com.Controller.AdminController" />
+	<context:component-scan
+		base-package="com.Controller.CustomerController" />
+	<context:component-scan
+		base-package="com.Controller.ProductController" />
+	<context:component-scan
+		base-package="com.Service" />
+	<context:component-scan
+		base-package="com.Repositary" />
+	<context:component-scan
+		base-package="com.Entity.AdminUserAddEntity" />
+	<context:component-scan
+		base-package="com.Entity.AdminAddProductEntity" />
+	<context:component-scan
+		base-package="com.Entity.AdminCustomerEntity" />
+	<context:component-scan
+		base-package="com.Entity.AdminMessageEntity" />
+	<context:component-scan
+		base-package="com.Entity.ShoppingCart" />
+	<context:component-scan
+		base-package="com.Entity.Order" />
+	<context:component-scan
+		base-package="com.Entity.OrderDetail" />
+
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/view/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${driver.class.name}"></property>
+		<property name="url" value="${db.url}"></property>
+		<property name="username" value="${db.username}"></property>
+	</bean>
+
+	<bean id="hibernateTemplate"
+		class="org.springframework.orm.hibernate4.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+		<property name="checkWriteOperations" value="false"></property>
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+
+		<property name="annotatedClasses">
+			<array>
+				<value>com.Entity.AdminUserAddEntity</value>
+				<value>com.Entity.AdminAddProductEntity</value>
+				<value>com.Entity.AdminCustomerEntity</value>
+				<value>com.Entity.AdminMessageEntity</value>
+				<value>com.Entity.ShoppingCart</value>
+				<value>com.Entity.Order</value>
+				<value>com.Entity.OrderDetail</value>
+			</array>
+		</property>
+
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<array>
+				<value>/WEB-INF/database.properties</value>
+			</array>
+		</property>
+	</bean>
+
+	<bean id="mailSender"
+		class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="parakramasuper808@gmail.com" />    <!-- your email address -->
+		<property name="password" value="parakrama@808" />    <!-- your password -->
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.debug">true</prop>
+				<prop key="mail.smtp.ssl.trust">*</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- Configuring multipart resolver -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+	</bean>
+
+	<mvc:resources location="/resources/"
+		mapping="/resources/**" />
+</beans>
