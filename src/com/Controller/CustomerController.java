@@ -65,6 +65,7 @@ public class CustomerController {
 		this.mailSender = mailSender;
 	}
 
+	// return login page
 	@RequestMapping("/")
 	public String welcome() {
 		return "login";
@@ -72,6 +73,7 @@ public class CustomerController {
 
 	// Customer Dash LINKS
 
+	// return home page
 	@RequestMapping("/indexCus")
 	public String indexCus(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -80,6 +82,7 @@ public class CustomerController {
 		return "index";
 	}
 
+	// return all-product page
 	@RequestMapping("/all-product")
 	public String allproduct(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -88,6 +91,14 @@ public class CustomerController {
 		return "all-product";
 	}
 
+	/**
+	 * return all-product page
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@GetMapping("/productCus")
 	public void productCus(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -104,6 +115,7 @@ public class CustomerController {
 
 	}
 
+	// return about page
 	@RequestMapping("/aboutCus")
 	public String aboutCus(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -114,12 +126,22 @@ public class CustomerController {
 
 	// CONTACT DETAILS////////////////////////////////////////////////
 ////////////////////////
+
+	// return contact page
 	@RequestMapping("/contact")
 	public String contact(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		return "contact";
 	}
 
+	/**
+	 * return contact page
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@RequestMapping("/contactCus")
 	public void contactCus(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -138,6 +160,9 @@ public class CustomerController {
 
 //ACCOUNT DETAILS////////////////////////////////////////////////
 ////////////////////////
+	/**
+	 * return account page
+	 */
 	@RequestMapping("/account")
 	public String account(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -145,6 +170,14 @@ public class CustomerController {
 		return "account";
 	}
 
+	/**
+	 * return account page
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@RequestMapping("/accountCus")
 	public void accountCus(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -168,6 +201,14 @@ public class CustomerController {
 	}
 
 	// category LINKS
+	/**
+	 * return fruit list to categoery-fruit page
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@RequestMapping("/fruitCatCus")
 	public String fruitCatCus(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -181,6 +222,14 @@ public class CustomerController {
 		return "incorrect";
 	}
 
+	/**
+	 * return vagitable list to categoery-vegi page
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@RequestMapping("/vegiCatCus")
 	public String vegiCatCus(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -194,6 +243,14 @@ public class CustomerController {
 		return "incorrect";
 	}
 
+	/**
+	 * return fish/meats list to categoery-meat page
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@RequestMapping("/meatCatCus")
 	public String meatCatCus(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -207,6 +264,14 @@ public class CustomerController {
 		return "incorrect";
 	}
 
+	/**
+	 * return fish/homewareitems list to categoery-homeware page
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@RequestMapping("/homewareCatCus")
 	public String homewareCatCus(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -220,6 +285,14 @@ public class CustomerController {
 		return "incorrect";
 	}
 
+	/**
+	 * return beauty products list to categoery-beauty page
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@RequestMapping("/beautyCatCus")
 	public String beautyCatCus(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -233,6 +306,14 @@ public class CustomerController {
 		return "incorrect";
 	}
 
+	/**
+	 * return electronic products list to categoery-electronic page
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@RequestMapping("/electronicCatCus")
 	public String electronicCatCus(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -247,7 +328,15 @@ public class CustomerController {
 	}
 
 	// Customer Dash LINKS End
-
+	/**
+	 * customer registration validation
+	 * 
+	 * @param customer
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(@ModelAttribute("user") AdminCustomerEntity user, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -264,6 +353,8 @@ public class CustomerController {
 	// --
 	// ---------------------------------------UPDATE CUSTOMER
 	// -- PERSONAL DETAILS------------------------------------//
+
+	// return index page
 	@RequestMapping("/index")
 	public String userDetails(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -273,6 +364,15 @@ public class CustomerController {
 
 	}
 
+	/**
+	 * customer login validation
+	 * 
+	 * @param customer
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "/loginprocess", method = RequestMethod.GET)
 	public String login(@ModelAttribute("userList") AdminCustomerEntity userList, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -297,7 +397,12 @@ public class CustomerController {
 		return "login";
 	}
 
-	// Save message controller
+	/**
+	 * Save message controller
+	 * 
+	 * @param customer
+	 * @return
+	 */
 	@RequestMapping(value = "/saveMessages")
 	public String saveMessage(AdminMessageEntity mesDetails) {
 		System.out.println("SAVE MEASSAGE CONTROLLER////////" + mesDetails.getName());
@@ -312,6 +417,13 @@ public class CustomerController {
 	// --
 	// ---------------------------------------UPDATE CUSTOMER
 	// -- PERSONAL DETAILS------------------------------------//
+
+	/**
+	 * update customer
+	 * 
+	 * @param customer
+	 * @return
+	 */
 	@RequestMapping(value = "/updatePersonal", method = RequestMethod.POST)
 	public String updatePersonal(AdminCustomerEntity personalList) {
 		System.out.println("UPDATE PERSONAL CONTROLLER////////" + personalList.getId());
@@ -338,11 +450,21 @@ public class CustomerController {
 	// -- RESET
 	// PASSWORD----------------------------------------------------------------------
 
+	// return recover password page
 	@RequestMapping("/recover")
 	public String recoverprocess() {
 		return "recoverpw";
 	}
 
+	/**
+	 * password recovery
+	 * 
+	 * @param customer
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "/recoverprocess", method = RequestMethod.GET)
 	public String recoverprocess(@ModelAttribute("userEmail") AdminCustomerEntity userEmail, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -407,6 +529,17 @@ public class CustomerController {
 		return "cart";
 	}
 
+	/**
+	 * add products for shopping cart page
+	 * 
+	 * @param id
+	 * @param session
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 * @return
+	 */
 	@GetMapping("/ordernow/{id}")
 	@ResponseBody
 	public String ordernow(@PathVariable int id, HttpSession session, HttpServletRequest request,
@@ -440,6 +573,13 @@ public class CustomerController {
 		return "cart";
 	}
 
+	/**
+	 * check existing products
+	 * 
+	 * @param id
+	 * @param session
+	 * @return
+	 */
 	private int productIsExisting(int id, HttpSession session) {
 		List<ShoppingCart> shoppingCart = (List<ShoppingCart>) session.getAttribute("proDetails");
 		for (int i = 0; i < shoppingCart.size(); i++) {
@@ -450,6 +590,17 @@ public class CustomerController {
 		return -1;
 	}
 
+	/**
+	 * delete product for shopping cart page
+	 * 
+	 * @param id
+	 * @param session
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 * @return
+	 */
 	@GetMapping("/proorderdelet/{id}")
 	@ResponseBody
 	public String proDeleteCart(@PathVariable int id, HttpSession session, HttpServletRequest request,
@@ -467,30 +618,16 @@ public class CustomerController {
 ////////////////////////
 //CART DETAILS////////////////////////////////////////////////
 ////////////////////////
-//CART DETAILS////////////////////////////////////////////////
-////////////////////////
 
-	// -- PAYPAL
-	// CONTROLLERS----------------------------------------------------------------------
-	// -- PAYPAL
-	// CONTROLLERS------------------------------------------------------------------------------------//
-
-	/*
-	 * @RequestMapping("/checkouts") public String checkouts() { return "checkout";
-	 * }
+	/**
+	 * @return customer details to checkout page
 	 * 
-	 * @GetMapping("/checkout") public void checkouthandller(HttpServletRequest
-	 * request, HttpServletResponse response) throws ServletException, IOException {
-	 * 
-	 * List<AdminCustomerEntity> cusDetails = service.getAllByUname(cusName);
-	 * request.setAttribute("cusDetails", cusDetails);
-	 * 
-	 * RequestDispatcher dis = request.getRequestDispatcher("/checkouts");
-	 * dis.forward(request, response);
-	 * 
-	 * }
+	 * @param session
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
 	 */
-
 	@RequestMapping("/checkout")
 	public String checkouts(AdminCustomerEntity userDetails, HttpSession session, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -500,6 +637,15 @@ public class CustomerController {
 		return "checkout";
 	}
 
+	/**
+	 * @return add product to cart
+	 * 
+	 * @param session
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@PostMapping("/saveorder")
 	@ResponseBody
 	public String saveorder(HttpSession session, HttpServletRequest request, HttpServletResponse response)

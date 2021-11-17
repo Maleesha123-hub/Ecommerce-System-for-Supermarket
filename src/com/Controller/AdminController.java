@@ -56,12 +56,17 @@ public class AdminController {
 	}
 
 	// AdminDashboard Links
-
+	/**
+	 * return admin-log page
+	 */
 	@RequestMapping("/adminlogin")
 	public String adminlogin() {
 		return "admin-log";
 	}
 
+	/**
+	 * return admin-user-list page
+	 */
 	@RequestMapping("/userlist")
 	public String userlist(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -70,6 +75,9 @@ public class AdminController {
 		return "admin-user-list";
 	}
 
+	/**
+	 * return admin-user-add page
+	 */
 	@RequestMapping("/adduser")
 	public String adduser(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -78,6 +86,9 @@ public class AdminController {
 		return "admin-user-add";
 	}
 
+	/**
+	 * return admin-message page
+	 */
 	@RequestMapping("/messages")
 	public String messages(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -85,6 +96,9 @@ public class AdminController {
 		return "admin-message";
 	}
 
+	/**
+	 * return admin-products page
+	 */
 	@RequestMapping("/products")
 	public String products(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -93,6 +107,9 @@ public class AdminController {
 		return "admin-products";
 	}
 
+	/**
+	 * return admin-add-product page
+	 */
 	@RequestMapping("/addproducts")
 	public String addproducts(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -101,6 +118,9 @@ public class AdminController {
 		return "admin-add-product";
 	}
 
+	/**
+	 * return admin-orders page
+	 */
 	@RequestMapping("/orders")
 	public String orders(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -109,6 +129,9 @@ public class AdminController {
 		return "admin-orders";
 	}
 
+	/**
+	 * return admin-customers page
+	 */
 	@RequestMapping("/customers")
 	public String customers(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -117,20 +140,18 @@ public class AdminController {
 		return "admin-customers";
 	}
 
-	/*
-	 * @RequestMapping("/reports") public String reports(HttpServletRequest request,
-	 * HttpServletResponse response) throws ServletException, IOException {
-	 * 
-	 * request.setAttribute("adminName", adminName); return "admin-reports"; }
+	/**
+	 * return admin-log page
 	 */
-
 	@RequestMapping("/adminBacklogin")
 	public String adminBacklogin() {
 		return "admin-log";
 	}
 	// End of dashboard//
 
-	// Save user controller
+	/**
+	 * return admin-save
+	 */
 	@RequestMapping(value = "/saveUser", method = RequestMethod.POST)
 	@ResponseBody
 	public String saveUser(@ModelAttribute("userDetails") AdminUserAddEntity userDetails) {
@@ -367,6 +388,15 @@ public class AdminController {
 		return "admin-index";
 	}
 
+	/**
+	 * admin login validation
+	 * 
+	 * @param admin
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@GetMapping("/adminlogpro")
 	public String Adminlogin(@ModelAttribute("adminList") AdminUserAddEntity adminList, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {

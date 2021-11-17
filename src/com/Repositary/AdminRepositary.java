@@ -38,6 +38,11 @@ public class AdminRepositary implements AdminRepositaryDao {
 		this.hibernateTemplate = hibernateTemplate;
 	}
 
+	/**
+	 * save user details
+	 * 
+	 * @return string value
+	 */
 	@Override
 	public String saveUser(AdminUserAddEntity au) {
 		if (au != null) {
@@ -51,6 +56,11 @@ public class AdminRepositary implements AdminRepositaryDao {
 		return "false";
 	}
 
+	/**
+	 * get all user details
+	 * 
+	 * @return list of users
+	 */
 	@Override
 	public List<AdminUserAddEntity> getAllUserList() {
 
@@ -66,6 +76,12 @@ public class AdminRepositary implements AdminRepositaryDao {
 
 	}
 
+	/**
+	 * get user details by id
+	 * 
+	 * @param id
+	 * @return list of users
+	 */
 	@Override
 	public AdminUserAddEntity getAllById(Long id) {
 		session = getHibernateTemplate().getSessionFactory().openSession();
@@ -81,6 +97,10 @@ public class AdminRepositary implements AdminRepositaryDao {
 
 	}
 
+	/**
+	 * update user details by id
+	 * 
+	 */
 	@Override
 	public void updateUser(AdminUserAddEntity au) {
 		System.out.print("REPOSITARY UPDATE!");
@@ -98,6 +118,11 @@ public class AdminRepositary implements AdminRepositaryDao {
 		}
 	}
 
+	/**
+	 * delete user details by id
+	 * 
+	 * @param id
+	 */
 	@Override
 	public void deleteUser(int id) {
 		System.out.print("REPOSITARY DELETE!");
@@ -117,6 +142,11 @@ public class AdminRepositary implements AdminRepositaryDao {
 	// ---------------------------------------ADD PRODUCT
 	// REPOSITARY------------------------------------//
 
+	/**
+	 * save product details
+	 * 
+	 * @return string value
+	 */
 	@Override
 	public String saveProduct(AdminAddProductEntity ap) {
 		if (ap != null) {
@@ -130,6 +160,11 @@ public class AdminRepositary implements AdminRepositaryDao {
 		return "false";
 	}
 
+	/**
+	 * get all product details
+	 * 
+	 * @return list of products
+	 */
 	@Override
 	public List<AdminAddProductEntity> getAllProductList() {
 		session = getHibernateTemplate().getSessionFactory().openSession();
@@ -143,6 +178,11 @@ public class AdminRepositary implements AdminRepositaryDao {
 		return listofproduct;
 	}
 
+	/**
+	 * get user details by id
+	 * 
+	 * @param id
+	 */
 	@Override
 	public AdminAddProductEntity getAllProById(Long id) {
 		session = getHibernateTemplate().getSessionFactory().openSession();
@@ -157,6 +197,9 @@ public class AdminRepositary implements AdminRepositaryDao {
 		return user;
 	}
 
+	/**
+	 * update product details by id
+	 */
 	@Override
 	public void updateProduct(AdminAddProductEntity product) {
 		System.out.print("REPOSITARY UPDATE!");
@@ -175,6 +218,9 @@ public class AdminRepositary implements AdminRepositaryDao {
 
 	}
 
+	/**
+	 * delete product by id
+	 */
 	@Override
 	public void deleteProduct(int id) {
 		System.out.print("REPOSITARY DELETE!");
@@ -188,6 +234,11 @@ public class AdminRepositary implements AdminRepositaryDao {
 
 	}
 
+	/**
+	 * get all customer details
+	 * 
+	 * @return list of customers
+	 */
 	@Override
 	public List<AdminCustomerEntity> getAllCustomerList() {
 		session = getHibernateTemplate().getSessionFactory().openSession();
@@ -201,6 +252,9 @@ public class AdminRepositary implements AdminRepositaryDao {
 		return listofcustomer;
 	}
 
+	/**
+	 * delete customer by id
+	 */
 	@Override
 	public void deleteCustomer(int id) {
 		System.out.print("REPOSITARY DELETE!");
@@ -220,6 +274,11 @@ public class AdminRepositary implements AdminRepositaryDao {
 	// ---------------------------------------Admin Message CONTROLLER HANDLING
 	// METHODS------------------------------------//
 
+	/**
+	 * get all message details
+	 * 
+	 * @return list of messages
+	 */
 	@Override
 	public List<AdminMessageEntity> getAllMessageList() {
 		session = getHibernateTemplate().getSessionFactory().openSession();
@@ -233,6 +292,12 @@ public class AdminRepositary implements AdminRepositaryDao {
 		return listofmassage;
 	}
 
+	/**
+	 * get message details by id
+	 * 
+	 * @param id
+	 * @return message
+	 */
 	@Override
 	public AdminMessageEntity getAllMesageById(Long id) {
 		session = getHibernateTemplate().getSessionFactory().openSession();
@@ -247,6 +312,11 @@ public class AdminRepositary implements AdminRepositaryDao {
 		return massage;
 	}
 
+	/**
+	 * delete message details by id
+	 * 
+	 * @param id
+	 */
 	@Override
 	public void deleteMessage(int id) {
 		System.out.print("REPOSITARY DELETE!");
@@ -266,6 +336,9 @@ public class AdminRepositary implements AdminRepositaryDao {
 	// ---------------------------------------ADMIN
 	// USER ADD------------------------------------//
 
+	/**
+	 * check login validation
+	 */
 	@Override
 	public boolean adminlog(AdminUserAddEntity au) {
 		boolean isSuccess = false;
@@ -295,6 +368,12 @@ public class AdminRepositary implements AdminRepositaryDao {
 
 	}
 
+	/**
+	 * get all user details
+	 * 
+	 * @param username
+	 * @return list of users
+	 */
 	@Override
 	public List<AdminUserAddEntity> getAllByUname(String uname) {
 		session = getHibernateTemplate().getSessionFactory().openSession();
@@ -322,6 +401,12 @@ public class AdminRepositary implements AdminRepositaryDao {
 	// --
 	// ---------------------------------------CUSTOMER
 	// SUmmery------------------------------------//
+
+	/**
+	 * get all user details
+	 * 
+	 * @return list of users
+	 */
 	@Override
 	public List<AdminCustomerEntity> getSUmmUserDetail() {
 		session = getHibernateTemplate().getSessionFactory().openSession();
@@ -335,6 +420,11 @@ public class AdminRepositary implements AdminRepositaryDao {
 		return listofcus;
 	}
 
+	/**
+	 * get all message details
+	 * 
+	 * @return list of messages
+	 */
 	@Override
 	public List<AdminMessageEntity> getSUmmMessaDetail() {
 		session = getHibernateTemplate().getSessionFactory().openSession();
@@ -348,6 +438,11 @@ public class AdminRepositary implements AdminRepositaryDao {
 		return listofmess;
 	}
 
+	/**
+	 * get count of customers
+	 * 
+	 * @return count
+	 */
 	@Override
 	public Long countCustomer() {
 		session = getHibernateTemplate().getSessionFactory().openSession();
@@ -362,6 +457,11 @@ public class AdminRepositary implements AdminRepositaryDao {
 		return cuscount;
 	}
 
+	/**
+	 * get count of products
+	 * 
+	 * @return count
+	 */
 	@Override
 	public Long countProduct() {
 		session = getHibernateTemplate().getSessionFactory().openSession();

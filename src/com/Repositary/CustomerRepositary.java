@@ -43,6 +43,11 @@ public class CustomerRepositary implements CustomerRepositaryDao {
 		this.hibernateTemplate = hibernateTemplate;
 	}
 
+	/**
+	 * save customer details
+	 * 
+	 * @return string value
+	 */
 	@Override
 	public String insert(AdminCustomerEntity ue) {
 		if (ue != null) {
@@ -56,6 +61,9 @@ public class CustomerRepositary implements CustomerRepositaryDao {
 		return "false";
 	}
 
+	/**
+	 * check login validation
+	 */
 	@Override
 	public boolean login(AdminCustomerEntity ue) {
 		boolean isSuccess = false;
@@ -86,6 +94,11 @@ public class CustomerRepositary implements CustomerRepositaryDao {
 		return isSuccess;
 	}
 
+	/**
+	 * save message details
+	 * 
+	 * @return string value
+	 */
 	@Override
 	public String insertMessage(AdminMessageEntity am) {
 		if (am != null) {
@@ -99,6 +112,12 @@ public class CustomerRepositary implements CustomerRepositaryDao {
 		return "false";
 	}
 
+	/**
+	 * get all customer details
+	 * 
+	 * @param username
+	 * @return list of customers
+	 */
 	@Override
 	public List<AdminCustomerEntity> getAllByUname(String uname) {
 		session = getHibernateTemplate().getSessionFactory().openSession();
@@ -121,6 +140,10 @@ public class CustomerRepositary implements CustomerRepositaryDao {
 
 	}
 
+	/**
+	 * update customer details by id
+	 * 
+	 */
 	@Override
 	public void updatePersonal(AdminCustomerEntity personalList) {
 		System.out.print("REPOSITARY UPDATE!");
@@ -143,6 +166,12 @@ public class CustomerRepositary implements CustomerRepositaryDao {
 	// --
 	// ---------------------------------------VEGITABLE TABLE REPOSITARY
 	// METHODS------------------------------------//
+
+	/**
+	 * get all category of vegitable details
+	 * 
+	 * @return list of vegitable details
+	 */
 	@Override
 	public List<AdminAddProductEntity> getAllVegiProList() {
 		session = getHibernateTemplate().getSessionFactory().openSession();
@@ -168,6 +197,11 @@ public class CustomerRepositary implements CustomerRepositaryDao {
 		return listofproduct;
 	}
 
+	/**
+	 * get all category of fruits details
+	 * 
+	 * @return list of fruits details
+	 */
 	@Override
 	public List<AdminAddProductEntity> getAllFruitProList() {
 		session = getHibernateTemplate().getSessionFactory().openSession();
@@ -193,6 +227,11 @@ public class CustomerRepositary implements CustomerRepositaryDao {
 		return listofproduct;
 	}
 
+	/**
+	 * get all category of meats details
+	 * 
+	 * @return list of meats details
+	 */
 	@Override
 	public List<AdminAddProductEntity> getAllMeatProList() {
 		session = getHibernateTemplate().getSessionFactory().openSession();
@@ -218,6 +257,11 @@ public class CustomerRepositary implements CustomerRepositaryDao {
 		return listofproduct;
 	}
 
+	/**
+	 * get all category of homeware items details
+	 * 
+	 * @return list of homeware items details
+	 */
 	@Override
 	public List<AdminAddProductEntity> getAllHomeWareProList() {
 		session = getHibernateTemplate().getSessionFactory().openSession();
@@ -243,6 +287,11 @@ public class CustomerRepositary implements CustomerRepositaryDao {
 		return listofproduct;
 	}
 
+	/**
+	 * get all category of electronic items details
+	 * 
+	 * @return list of electronic items details
+	 */
 	@Override
 	public List<AdminAddProductEntity> getAllElectronicsProList() {
 		session = getHibernateTemplate().getSessionFactory().openSession();
@@ -268,6 +317,11 @@ public class CustomerRepositary implements CustomerRepositaryDao {
 		return listofproduct;
 	}
 
+	/**
+	 * get all category of beauty items details
+	 * 
+	 * @return list of beauty items details
+	 */
 	@Override
 	public List<AdminAddProductEntity> getAllBeautyProList() {
 		session = getHibernateTemplate().getSessionFactory().openSession();
@@ -295,6 +349,12 @@ public class CustomerRepositary implements CustomerRepositaryDao {
 
 	/// RECOVERY PASSWORD/////////////
 	/////////////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * password Recovery by email
+	 * 
+	 * @return true or false
+	 */
 	@Override
 	public boolean recover(AdminCustomerEntity ue) {
 		boolean isSuccess = false;
@@ -324,6 +384,11 @@ public class CustomerRepositary implements CustomerRepositaryDao {
 		return isSuccess;
 	}
 
+	/**
+	 * get all customers details by email
+	 * 
+	 * @return list of customers details
+	 */
 	@Override
 	public List<AdminCustomerEntity> getAllByEmail(String email) {
 		session = getHibernateTemplate().getSessionFactory().openSession();
@@ -348,6 +413,12 @@ public class CustomerRepositary implements CustomerRepositaryDao {
 	//// PRODUCTS TO Cart//////
 	//////////// PRODUCTS TO Cart////////
 
+	/**
+	 * get product details by id
+	 * 
+	 * @param id
+	 * @return list of product
+	 */
 	@Override
 	public AdminAddProductEntity getProDetailsById(int id) {
 		session = getHibernateTemplate().getSessionFactory().openSession();
