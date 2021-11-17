@@ -65,13 +65,13 @@ public class CustomerController {
 		this.mailSender = mailSender;
 	}
 
-	// return login page
+	// return Login page
 	@RequestMapping("/")
 	public String welcome() {
 		return "login";
 	}
 
-	// Customer Dash LINKS
+	// Customer Dash LINKs
 
 	// return home page
 	@RequestMapping("/indexCus")
