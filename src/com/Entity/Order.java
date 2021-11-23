@@ -13,20 +13,41 @@ public class Order {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	@Column(name = "Order_ID")
+	private int orderId;
+	@Column(name = "Cus_ID")
+	private String cusid;
 	@Column(name = "Creation_Date")
 	private String date;
 	@Column(name = "Customer_Name")
 	private String name;
 	@Column(name = "Customer_Address")
 	private String address;
+	@Column(name = "Telephone")
+	private String telephone;
 
-	public int getId() {
-		return id;
+	public int getOrderId() {
+		return orderId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setOrderId(int orderId) {
+		this.orderId = orderId;
+	}
+
+	public String getCusid() {
+		return cusid;
+	}
+
+	public void setCusid(String cusid) {
+		this.cusid = cusid;
+	}
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
 	}
 
 	public String getDate() {

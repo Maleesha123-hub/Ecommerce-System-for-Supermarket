@@ -62,6 +62,13 @@
 <script type="text/javascript"
 	src="<spring:url value="/resources/js/multislider.min.js" />"></script>
 
+<script>
+
+function display() {
+alert("Everithing will be FINE !!");
+}
+
+</script>
 
 <script type="text/javascript">
 	paypal.Buttons({
@@ -257,8 +264,8 @@ hr {
 													<c:set var="streetname" value="${cus.streetname}" />
 													<c:set var="streetname" value="${cus.cityname}" />
 													<h5 class="font-size-14 mb-4">Address</h5>
-													<h5 class="font-size-14">${cus.houseno}
-														${cus.streetname}</h5>
+													<h5 class="font-size-14">${cus.houseno}, 
+														${cus.streetname},</h5>
 													<p class="mb-0">${cus.cityname}</p>
 												</c:forEach>
 											</div>
@@ -272,11 +279,12 @@ hr {
 				<div class="row my-4">
 					<div class="col">
 						<div class="text-end mt-2 mt-sm-0">
-							<a href="#">
-								<button type="button" class="btn btn-primary" style="font-size: 16px">Cash On
-									Delivary</button>
+							<a href="saveorder">
+								<button type="button" class="btn btn-primary"
+									style="font-size: 16px">Cash On Delivary</button>
 							</a> <a href="#">
-								<button type="button" class="btn btn-danger" style="font-size: 16px">Cancel Order...</button>
+								<button type="button" class="btn btn-danger"
+									style="font-size: 16px">Cancel Order...</button>
 							</a>
 						</div>
 					</div>
@@ -296,24 +304,27 @@ hr {
 							<table class="table table-centered mb-0 table-nowrap">
 								<thead>
 									<tr>
-										<th class="border-top-0" style="width: 110px;" scope="col">Product</th>
-										<th class="border-top-0" scope="col">Product Qty</th>
-										<th class="border-top-0" scope="col">Subtotal</th>
+										<th class="border-top-0" style="width: 110px;" scope="col">PRODUCT</th>
+										<th class="border-top-0" scope="col">PRODUCT QTY</th>
+										<th class="border-top-0" scope="col">SUBTOTAL</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<th scope="row">Nike N012 Running Shoes</th>
-										<td>
-											<p class="text-muted mb-0">LKR 260 x 2</p>
-										</td>
-										<td>LKR 520</td>
-									</tr>
+									<c:forEach var="pro" items="${proDetails}">
+										<tr>
+											<th scope="row" style="font-weight: normal">${pro.product.name}</th>
+											<td>
+												<p class="text-muted mb-0">LKR ${pro.product.price} x
+													${pro.quantity}</p>
+											</td>
+											<td>LKR ${pro.subTotal}</td>
+										</tr>
+									</c:forEach>
 									<tr class="bg-light">
 										<td colspan="2">
-											<h5 class="font-size-14 m-0">Total:</h5>
+											<h5 class="font-size-14 m-0" style="font-weight:bold">TOTAL:</h5>
 										</td>
-										<td>LKR <%
+										<td style="font-weight: bold;font-size:25px;color: red">LKR <%
 											out.print(proItemSubTotal);
 										%></td>
 									</tr>
@@ -370,8 +381,6 @@ hr {
 		// Required. Replace YOUR_CLIENT_ID with your sandbox client ID.
 	</script>
 	<script>
-		const tt = countTheSumPrice();
-		console.log(tt);
 		paypal
 				.Buttons(
 						{
@@ -430,6 +439,10 @@ hr {
 																	+ " Amount : LKR"
 																	+<%out.print(proItemSubTotal);%>)
 
+
+													 display();
+
+													 
 												});
 
 							},

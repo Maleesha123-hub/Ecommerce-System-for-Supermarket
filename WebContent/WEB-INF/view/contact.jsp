@@ -485,8 +485,8 @@ function insertMessages() {
 								name="email" type="email" name="email" id="email" class="form-control"
 								placeholder="Your Email" value="${mass.email}" required><br>
 							<textarea name="message" class="form-control" id="message"
-								placeholder="&nbsp;Message" rows="4" required></textarea>
-							<br>
+								placeholder="&nbsp;Message" rows="4" required></textarea><br>
+								
 							<Button type="submit" class="form-control submit"
 								id="saveMessage" onclick="insertMessages()">SEND MESSAGE</Button>
 						</form>

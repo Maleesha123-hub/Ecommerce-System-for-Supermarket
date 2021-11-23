@@ -33,16 +33,16 @@ public interface CustomerServiceBd {
 
 	public List<AdminAddProductEntity> getAllBeautyProList();
 
-
 	// -- PASSWORD
 	// RECOVERY------------------------------------------------------------------------------------//
 	public boolean recover(AdminCustomerEntity ue);
 
 	public List<AdminCustomerEntity> getAllByEmail(String email);
-	
 
 	// PRODUCTS TO Cart//
 	public AdminAddProductEntity getProDetailsById(int id);
-	
-	
+
+	// Save ORDER//
+	public boolean saveOrder(String proId, String name, String price, String qty, String cusId);
+
 }

@@ -41,4 +41,7 @@ public interface CustomerRepositaryDao {
 
 	// PRODUCTS TO Cart//
 	public AdminAddProductEntity getProDetailsById(int id);
+
+	// Save ORDER//
+	public boolean saveOrder(String proId, String name, String price, String qty, String cusId);
 }

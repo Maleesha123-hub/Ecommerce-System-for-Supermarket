@@ -34,6 +34,20 @@ import interf.Servicebd.CustomerServiceBd;
 @Controller
 public class CustomerController {
 
+	// Order Shipping DETAILS
+	String cusid;
+	// concat name
+	String fullname;
+	// concat address
+	String address;
+	// telephone
+	String telephone;
+	// Order DETAILS
+	String proid;
+	String name;
+	String price;
+	String qty;
+
 	String userEm;
 	String userPw;
 	String userNa;
@@ -145,7 +159,6 @@ public class CustomerController {
 	@RequestMapping("/contactCus")
 	public void contactCus(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		request.setAttribute("cusName", cusName);
 		List<AdminCustomerEntity> massDetails = service.getAllByUname(cusName);
 		for (AdminCustomerEntity s : massDetails) {
@@ -404,7 +417,8 @@ public class CustomerController {
 	 * @return
 	 */
 	@RequestMapping(value = "/saveMessages")
-	public String saveMessage(AdminMessageEntity mesDetails) {
+	public String saveMessage(AdminMessageEntity mesDetails, HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		System.out.println("SAVE MEASSAGE CONTROLLER////////" + mesDetails.getName());
 		System.out.println("SAVE MEASSAGE CONTROLLER////////" + mesDetails.getEmail());
 		System.out.println("SAVE MEASSAGE CONTROLLER////////" + mesDetails.getMessage());
@@ -646,19 +660,60 @@ public class CustomerController {
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	@PostMapping("/saveorder")
+	@GetMapping("/saveorder")
 	@ResponseBody
 	public String saveorder(HttpSession session, HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		// save to order variables
+		// request.setAttribute("cusName", cusName);
+		List<AdminCustomerEntity> accDetails = service.getAllByUname(cusName);
+
+		for (AdminCustomerEntity cus : accDetails) {
+			/*
+			 * System.out.println("Customer ID: " + cus.getId());
+			 */
+			cusid = String.valueOf(cus.getId());
+			// concat name
+			String cusfname = cus.getFname();
+			String cuslname = cus.getLname();
+			fullname = cusfname + " " + cuslname;
+			// concat address
+			String houseno = cus.getHouseno();
+			String street = cus.getStreetname();
+			String city = cus.getCityname();
+			address = houseno + ", " + street + ", " + city;
+			telephone = cus.getPhone();
+		}
+		System.out.println("/ORDERS Table/");
+		System.out.println("Customer ID: " + cusid);
+		System.out.println("Full Name: " + fullname);
+		System.out.println("Address: " + address);
+		System.out.println("Telephone: " + telephone);
+
 		List<ShoppingCart> shoppingCart = (List<ShoppingCart>) session.getAttribute("proDetails");
+		// Add new order
+		OrderDetail orderdetail = new OrderDetail();
+		for (ShoppingCart s : shoppingCart) {
+			/*
+			 * System.out.println("Product ID: " + s.getProduct().getId());
+			 */
+			// save to order details variables
+			proid = String.valueOf(s.getProduct().getId());
+			name = String.valueOf(s.getProduct().getName());
+			price = String.valueOf(s.getProduct().getPrice());
+			qty = String.valueOf(s.getQuantity());
 
-		for (int i = 0; i < shoppingCart.size(); i++) {
-
-			OrderDetail orderdetail = new OrderDetail();
+			System.out.println("/////RELEVANT ORDERS DETAILS//////");
+			System.out.println("/ORDERS DETAILS Table/");
+			System.out.println("Product ID: " + proid);
+			System.out.println("Name: " + name);
+			System.out.println("Price: " + price);
+			System.out.println("Qty: " + qty);
 
 		}
 
-		return "cart";
+		return "checkout";
 	}
 
 }

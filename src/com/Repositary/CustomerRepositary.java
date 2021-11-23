@@ -1,26 +1,21 @@
 package com.Repositary;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.Query;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.usertype.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.Entity.AdminAddProductEntity;
 import com.Entity.AdminCustomerEntity;
 import com.Entity.AdminMessageEntity;
 import com.Entity.AdminUserAddEntity;
+import com.Entity.OrderDetail;
 
 import AdminRepositaryDao.CustomerRepositaryDao;
 
@@ -432,4 +427,44 @@ public class CustomerRepositary implements CustomerRepositaryDao {
 
 		return user;
 	}
+
+	/**
+	 * save orderdetails by parameters
+	 * 
+	 */
+	@Override
+	public boolean saveOrder(String proId, String name, String price, String qty, String cusId) {
+
+		boolean isSuccess;
+		System.out.println("ORDER REPO");
+		try {
+			
+			System.out.println(proId);
+			System.out.println(name);
+			System.out.println(price);
+			System.out.println(qty);
+			System.out.println(cusId);
+
+			session = getHibernateTemplate().getSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			OrderDetail od = new OrderDetail();
+			od.setPrice(price);
+			od.setProductId(proId);
+			od.setProductname(name);
+			od.setQuantity(qty);
+			transaction = session.beginTransaction();
+			session.save(od);
+			transaction.commit();
+			session.close();
+
+			isSuccess = true;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			isSuccess = false;
+		}
+
+		return isSuccess;
+	}
+
 }

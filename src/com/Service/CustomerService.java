@@ -137,4 +137,11 @@ public class CustomerService implements CustomerServiceBd {
 		return repositary.getProDetailsById(id);
 	}
 
+
+	// Save ORDER//
+	@Override
+	public boolean saveOrder(String proId, String name, String price, String qty, String cusId) {
+		return repositary.saveOrder(proId, name, price, qty, cusId);
+	}
+
 }
