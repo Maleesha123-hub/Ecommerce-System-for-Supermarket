@@ -10,6 +10,7 @@ import com.Entity.AdminAddProductEntity;
 import com.Entity.AdminCustomerEntity;
 import com.Entity.AdminMessageEntity;
 import com.Entity.AdminUserAddEntity;
+import com.Entity.Order;
 
 import AdminRepositaryDao.AdminRepositaryDao;
 import interf.Servicebd.AdminServiceBd;
@@ -231,6 +232,21 @@ public class AdminService implements AdminServiceBd {
 	public Long countRevenue() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<Order> getAllOrderPendingList() {
+		return repositary.getAllOrderPendingList();
+	}
+
+	@Override
+	public List<Order> getAllOrderCanceledList() {
+		return repositary.getAllOrderCanceledList();
+	}
+
+	@Override
+	public List<Order> getAllOrderDeliveredList() {
+		return repositary.getAllOrderDeliveredList();
 	}
 
 }

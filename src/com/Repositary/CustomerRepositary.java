@@ -15,6 +15,7 @@ import com.Entity.AdminAddProductEntity;
 import com.Entity.AdminCustomerEntity;
 import com.Entity.AdminMessageEntity;
 import com.Entity.AdminUserAddEntity;
+import com.Entity.Order;
 import com.Entity.OrderDetail;
 
 import AdminRepositaryDao.CustomerRepositaryDao;
@@ -433,38 +434,21 @@ public class CustomerRepositary implements CustomerRepositaryDao {
 	 * 
 	 */
 	@Override
-	public boolean saveOrder(String proId, String name, String price, String qty, String cusId) {
-
-		boolean isSuccess;
-		System.out.println("ORDER REPO");
-		try {
-			
-			System.out.println(proId);
-			System.out.println(name);
-			System.out.println(price);
-			System.out.println(qty);
-			System.out.println(cusId);
-
-			session = getHibernateTemplate().getSessionFactory().openSession();
-			transaction = session.beginTransaction();
-			OrderDetail od = new OrderDetail();
-			od.setPrice(price);
-			od.setProductId(proId);
-			od.setProductname(name);
-			od.setQuantity(qty);
-			transaction = session.beginTransaction();
-			session.save(od);
-			transaction.commit();
-			session.close();
-
-			isSuccess = true;
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			isSuccess = false;
-		}
-
-		return isSuccess;
+	public void saveOrder(String address, String cus_id, String cus_name, String subtotal, String phone, String email, String zip, String status) {
+		session = getHibernateTemplate().getSessionFactory().openSession();
+		transaction = session.beginTransaction();
+		Order order = new Order();
+		order.setName(cus_name);
+		order.setSubtotal(subtotal);
+		order.setTelephone(phone);
+		order.setCusid(cus_id);
+		order.setAddress(address);
+		order.setEmail(email);
+		order.setZip(zip);
+		order.setStatus(status);
+		session.save(order);
+		transaction.commit();
+		session.close();
 	}
 
 }

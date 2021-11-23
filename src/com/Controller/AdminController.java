@@ -24,6 +24,7 @@ import com.Entity.AdminAddProductEntity;
 import com.Entity.AdminCustomerEntity;
 import com.Entity.AdminMessageEntity;
 import com.Entity.AdminUserAddEntity;
+import com.Entity.Order;
 
 import interf.Servicebd.AdminServiceBd;
 
@@ -484,6 +485,30 @@ public class AdminController {
 			throws ServletException, IOException {
 		request.setAttribute("adminName", adminName);
 		return "admin-reports";
+	}
+
+	// Load Order table
+	@RequestMapping(value = "/getAllOrderPendingList", method = RequestMethod.GET)
+	public @ResponseBody List<Order> getAllOrderPendingList() {
+		System.out.println("LOAD ORDER PENDING TABLE////////");
+		List<Order> ss = service.getAllOrderPendingList();
+		return ss;
+	}
+
+	// Load Order table
+	@RequestMapping(value = "/getAllOrderCanceledList", method = RequestMethod.GET)
+	public @ResponseBody List<Order> getAllOrderCanceledList() {
+		System.out.println("LOAD ORDER CANCELED TABLE////////");
+		List<Order> ss = service.getAllOrderCanceledList();
+		return ss;
+	}
+
+	// Load Order table
+	@RequestMapping(value = "/getAllOrderDeliveredList", method = RequestMethod.GET)
+	public @ResponseBody List<Order> getAllOrderDeliveredList() {
+		System.out.println("LOAD ORDER DELIVERED TABLE////////");
+		List<Order> ss = service.getAllOrderDeliveredList();
+		return ss;
 	}
 
 }

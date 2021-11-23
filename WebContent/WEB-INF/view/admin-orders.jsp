@@ -48,10 +48,139 @@
 <!-- App Css-->
 <link href="<spring:url value="/resources/css/app.min.css" />"
 	id="app-style" rel="stylesheet" type="text/css" />
-</head>
+
+
+<script>
+	function getAllOrderPendingList() {
+		$('#delivered').show();
+		$('#pending').show();
+		var data = "";
+		$
+				.ajax({
+					type : "GET",
+					url : "getAllOrderPendingList",
+					success : function(response) {
+						data = response
+
+						$('.tr').remove();
+						for (i = 0; i < data.length; i++) {
+							$("#orderTable")
+									.append(
+											'<tr class="tr"> <td>'
+													+ data[i].orderId
+													+ '</td> <td>'
+													+ data[i].name
+													+ '</td> <td>'
+													+ data[i].date
+													+ '</td> <td>'
+													+ data[i].subtotal
+													+ '</td> <td>'
+													+ '<input type="button" class="btn btn-warning btn-sm btn-rounded waves-effect waves-light" onclick="pendingBtn('
+													+ data[i].id
+													+ ')"  value="Pending"></input></td> <td>'
+													+ '<input type="button" class="btn btn-danger btn-sm btn-rounded waves-effect waves-light" onclick="cancelOrderBtn('
+													+ data[i].id
+													+ ')"  value="Cancel Order"></input>'
+													+ '</td> <td>'
+													+ '<input type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" onclick="cancelOrderBtn('
+													+ data[i].id
+													+ ')"  value="View Details"></input> </td> </tr>');
+
+						}
+					},
+					error : function(err) {
+						alert("error is" + err)
+					}
+				});
+	}
+	
+		function getAllOrderCanceledList() {
+			$('#delivered').show();
+			$('#pending').show();
+			var data = "";
+			$
+					.ajax({
+						type : "GET",
+						url : "getAllOrderCanceledList",
+						success : function(response) {
+							data = response
+
+							$('.tr').remove();
+							for (i = 0; i < data.length; i++) {
+								$("#ordercanceledTable")
+										.append(
+												'<tr class="tr"> <td>'
+														+ data[i].orderId
+														+ '</td> <td>'
+														+ data[i].name
+														+ '</td> <td>'
+														+ data[i].date
+														+ '</td> <td>'
+														+ data[i].subtotal
+														+ '</td> <td>'
+														+ '<input type="button" class="btn btn-light btn-sm btn-rounded waves-effect waves-light" onclick="deliveryBtn('
+														+ data[i].id
+														+ ');" value="Canceled"></input>'
+														+ ' </td> <td>'
+														+ '<input type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" onclick="cancelOrderBtn('
+														+ data[i].id
+														+ ')"  value="View Details"></input> </td> </tr>');
+
+							}
+						},
+						error : function(err) {
+							alert("error is" + err)
+						}
+					});
+		}
+
+
+	function getAllOrderDeliveredList() {
+		$('#delivered').show();
+		$('#pending').show();
+		var data = "";
+		$
+				.ajax({
+					type : "GET",
+					url : "getAllOrderDeliveredList",
+					success : function(response) {
+						data = response
+
+						$('.tr').remove();
+						for (i = 0; i < data.length; i++) {
+							$("#orderdeliveredTable")
+									.append(
+											'<tr class="tr"> <td>'
+													+ data[i].orderId
+													+ '</td> <td>'
+													+ data[i].name
+													+ '</td> <td>'
+													+ data[i].date
+													+ '</td> <td>'
+													+ data[i].subtotal
+													+ '</td> <td>'
+													+ '<input type="button" class="btn btn-light btn-sm btn-rounded waves-effect waves-light" onclick="deliveryBtn('
+													+ data[i].id
+													+ ');" value="Delivered"></input></td> <td>'
+													+ '<input type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" onclick="cancelOrderBtn('
+													+ data[i].id
+													+ ')"  value="View Details"></input> </td> </tr>');
+
+						}
+					},
+					error : function(err) {
+						alert("error is" + err)
+					}
+				});
+	}
+	
+</script>
+
+
 </head>
 
-<body>
+
+<body onload="getAllOrderPendingList()">
 	<!-- <body data-layout="horizontal" data-topbar="colored"> -->
 	<!-- Begin page -->
 	<div id="layout-wrapper">
@@ -309,9 +438,7 @@
 								<br> <br>
 
 								<!-- ---------------------END ORDER Fields LOAD AND ANALYS-------------------------------- -->
-								<h4>Latest Transactions</h4>
-
-
+								<h4>Recent Orders</h4>
 								<div class="row">
 									<div class="col-12">
 										<div class="card">
@@ -330,62 +457,8 @@
 															<th>View Details</th>
 														</tr>
 													</thead>
-													<tbody>
-														<tr>
-															<td><a href="javascript: void(0);"
-																class="text-body fw-bold">#MB2540</a></td>
-															<td>Neal Matthews</td>
-															<td>07 Oct, 2019</td>
-															<td>$400</td>
-															<td>
-																<button type="button"
-																	class="btn btn-warning btn-sm btn-rounded waves-effect waves-light">
-																	Hold</button>
-																<button type="button"
-																	class="btn btn-light btn-sm btn-rounded waves-effect waves-light">
-																	<small style="color: red; font-size: 13px">Delivered</small>
-																</button>
-															</td>
-															<td>
-																<button type="button"
-																	class="btn btn-danger btn-sm btn-rounded waves-effect waves-light">
-																	Cancel Order</button>
-															</td>
-															<td>
-																<button type="button"
-																	class="btn btn-primary btn-sm btn-rounded waves-effect waves-light">
-																	View Details</button>
-															</td>
-														</tr>
-														<tr>
-															<td><a href="javascript: void(0);"
-																class="text-body fw-bold">#MB2541</a></td>
-															<td>Jamal Burnett</td>
-															<td>07 Oct, 2019</td>
-															<td>$380</td>
-															<td>
-
-																<button type="button"
-																	class="btn btn-warning btn-sm btn-rounded waves-effect waves-light">
-																	Hold</button>
-																<button type="button"
-																	class="btn btn-light btn-sm btn-rounded waves-effect waves-light">
-																	<small style="color: red; font-size: 13px">Delivered</small>
-																</button>
-															</td>
-
-															<td>
-																<button type="button"
-																	class="btn btn-danger btn-sm btn-rounded waves-effect waves-light">
-																	Cancel Order</button>
-															</td>
-															<td>
-																<button type="button"
-																	class="btn btn-primary btn-sm btn-rounded waves-effect waves-light">
-																	View Details</button>
-															</td>
-														</tr>
-														<tr>
+													<tbody id="orderTable">
+														<!-- <tr>
 															<td><a href="javascript: void(0);"
 																class="text-body fw-bold">#MB2545</a></td>
 															<td>Jacob Hunter</td>
@@ -393,10 +466,10 @@
 															<td>$392</td>
 															<td>
 
-																<button type="button"
+																<button type="button" id="pending"
 																	class="btn btn-warning btn-sm btn-rounded waves-effect waves-light">
-																	Hold</button>
-																<button type="button"
+																	Pending</button>
+																<button type="button" id="delivered"
 																	class="btn btn-light btn-sm btn-rounded waves-effect waves-light">
 																	<small style="color: red; font-size: 13px">Delivered</small>
 																</button>
@@ -411,7 +484,7 @@
 																	class="btn btn-primary btn-sm btn-rounded waves-effect waves-light">
 																	View Details</button>
 															</td>
-														</tr>
+														</tr> -->
 													</tbody>
 												</table>
 											</div>
@@ -419,6 +492,121 @@
 									</div>
 								</div>
 								<!-- end table-responsive -->
+
+
+								<!-- ---------------------END ORDER Canceled LOAD AND ANALYS-------------------------------- -->
+								<h4>Canceled Orders</h4>
+								<div class="row">
+									<div class="col-12">
+										<div class="card">
+											<div class="card-body">
+												<table id="datatable"
+													class="table table-bordered dt-responsive nowrap"
+													style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+													<thead>
+														<tr class="bg-transparent">
+															<th>Order ID</th>
+															<th>Billing Name</th>
+															<th>Order Date</th>
+															<th>Total</th>
+															<th>Status</th>
+														</tr>
+													</thead>
+													<tbody id="ordercanceledTable">
+														<!-- <tr>
+															<td><a href="javascript: void(0);"
+																class="text-body fw-bold">#MB2545</a></td>
+															<td>Jacob Hunter</td>
+															<td>04 Oct, 2019</td>
+															<td>$392</td>
+															<td>
+
+																<button type="button" id="pending"
+																	class="btn btn-warning btn-sm btn-rounded waves-effect waves-light">
+																	Pending</button>
+																<button type="button" id="delivered"
+																	class="btn btn-light btn-sm btn-rounded waves-effect waves-light">
+																	<small style="color: red; font-size: 13px">Delivered</small>
+																</button>
+															</td>
+															<td>
+																<button type="button"
+																	class="btn btn-danger btn-sm btn-rounded waves-effect waves-light">
+																	Cancel Order</button>
+															</td>
+															<td>
+																<button type="button"
+																	class="btn btn-primary btn-sm btn-rounded waves-effect waves-light">
+																	View Details</button>
+															</td>
+														</tr> -->
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- end table-responsive -->
+
+
+
+								<!-- ---------------------END ORDER Deliverd LOAD AND ANALYS-------------------------------- -->
+								<h4>Delivered Orders</h4>
+								<div class="row">
+									<div class="col-12">
+										<div class="card">
+											<div class="card-body">
+												<table id="datatable"
+													class="table table-bordered dt-responsive nowrap"
+													style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+													<thead>
+														<tr class="bg-transparent">
+															<th>Order ID</th>
+															<th>Billing Name</th>
+															<th>Order Date</th>
+															<th>Total</th>
+															<th>Status</th>
+														</tr>
+													</thead>
+													<tbody id="orderdeliveredTable">
+														<!-- <tr>
+															<td><a href="javascript: void(0);"
+																class="text-body fw-bold">#MB2545</a></td>
+															<td>Jacob Hunter</td>
+															<td>04 Oct, 2019</td>
+															<td>$392</td>
+															<td>
+
+																<button type="button" id="pending"
+																	class="btn btn-warning btn-sm btn-rounded waves-effect waves-light">
+																	Pending</button>
+																<button type="button" id="delivered"
+																	class="btn btn-light btn-sm btn-rounded waves-effect waves-light">
+																	<small style="color: red; font-size: 13px">Delivered</small>
+																</button>
+															</td>
+															<td>
+																<button type="button"
+																	class="btn btn-danger btn-sm btn-rounded waves-effect waves-light">
+																	Cancel Order</button>
+															</td>
+															<td>
+																<button type="button"
+																	class="btn btn-primary btn-sm btn-rounded waves-effect waves-light">
+																	View Details</button>
+															</td>
+														</tr> -->
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- end table-responsive -->
+
+
+
+
 							</div>
 						</div>
 					</div>

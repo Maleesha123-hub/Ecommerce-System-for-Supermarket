@@ -16,6 +16,7 @@ import com.Entity.AdminAddProductEntity;
 import com.Entity.AdminCustomerEntity;
 import com.Entity.AdminMessageEntity;
 import com.Entity.AdminUserAddEntity;
+import com.Entity.Order;
 
 import AdminRepositaryDao.AdminRepositaryDao;
 
@@ -486,6 +487,64 @@ public class AdminRepositary implements AdminRepositaryDao {
 	public Long countRevenue() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	/**
+	 * get List of OrderPending
+	 * 
+	 * @return count
+	 */
+	@Override
+	public List<Order> getAllOrderPendingList() {
+
+		session = getHibernateTemplate().getSessionFactory().openSession();
+		transaction = session.beginTransaction();
+		String hql = "FROM Order WHERE Status = ? ";
+		query = session.createQuery(hql);
+		query.setString(0, "Pending");
+		List<Order> listofpendingorder = query.list();
+		transaction.commit();
+		session.close();
+
+		return listofpendingorder;
+	}
+	
+	/**
+	 * get List of OrderCanceled
+	 * 
+	 * @return count
+	 */
+	@Override
+	public List<Order> getAllOrderCanceledList() {
+		session = getHibernateTemplate().getSessionFactory().openSession();
+		transaction = session.beginTransaction();
+		String hql = "FROM Order WHERE Status = ? ";
+		query = session.createQuery(hql);
+		query.setString(0, "Canceled");
+		List<Order> listofcanceledorder = query.list();
+		transaction.commit();
+		session.close();
+
+		return listofcanceledorder;
+	}
+
+	/**
+	 * get List of Order Delivered
+	 * 
+	 * @return count
+	 */
+	@Override
+	public List<Order> getAllOrderDeliveredList() {
+		session = getHibernateTemplate().getSessionFactory().openSession();
+		transaction = session.beginTransaction();
+		String hql = "FROM Order WHERE Status = ? ";
+		query = session.createQuery(hql);
+		query.setString(0, "Delivered");
+		List<Order> listofdeliveredorder = query.list();
+		transaction.commit();
+		session.close();
+
+		return listofdeliveredorder;
 	}
 
 }

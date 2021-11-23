@@ -6,6 +6,7 @@ import com.Entity.AdminAddProductEntity;
 import com.Entity.AdminCustomerEntity;
 import com.Entity.AdminMessageEntity;
 import com.Entity.AdminUserAddEntity;
+import com.Entity.Order;
 
 public interface AdminRepositaryDao {
 
@@ -87,4 +88,12 @@ public interface AdminRepositaryDao {
 
 	public void deleteCustomer(int id);
 
+	// --
+	// --
+	// --
+	// ---------------------------------------ORDER
+	// REPODao------------------------------------//
+	public List<Order> getAllOrderPendingList();
+	public List<Order> getAllOrderCanceledList();
+	public List<Order> getAllOrderDeliveredList();
 }

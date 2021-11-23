@@ -7,6 +7,7 @@ import com.Entity.AdminAddProductEntity;
 import com.Entity.AdminCustomerEntity;
 import com.Entity.AdminMessageEntity;
 import com.Entity.AdminUserAddEntity;
+import com.Entity.Order;
 
 public interface AdminServiceBd {
 
@@ -87,5 +88,15 @@ public interface AdminServiceBd {
 	public List<AdminCustomerEntity> getAllCustomerList();
 
 	public void deleteCustomer(int id);
+
+
+	// --
+	// --
+	// --
+	// ---------------------------------------ORDER
+	// SERVICEBd------------------------------------//
+	public List<Order> getAllOrderPendingList();
+	public List<Order> getAllOrderCanceledList();
+	public List<Order> getAllOrderDeliveredList();
 
 }

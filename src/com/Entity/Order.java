@@ -25,6 +25,46 @@ public class Order {
 	private String address;
 	@Column(name = "Telephone")
 	private String telephone;
+	@Column(name = "Email")
+	private String email;
+	@Column(name = "Postal_Code")
+	private String zip;
+	@Column(name = "Subtotal")
+	private String subtotal;
+	@Column(name = "Status")
+	private String status;
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getZip() {
+		return zip;
+	}
+
+	public void setZip(String zip) {
+		this.zip = zip;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getSubtotal() {
+		return subtotal;
+	}
+
+	public void setSubtotal(String subtotal) {
+		this.subtotal = subtotal;
+	}
 
 	public int getOrderId() {
 		return orderId;

@@ -43,6 +43,8 @@ public interface CustomerServiceBd {
 	public AdminAddProductEntity getProDetailsById(int id);
 
 	// Save ORDER//
-	public boolean saveOrder(String proId, String name, String price, String qty, String cusId);
+	public void saveOrder(String address, String cus_id, String cus_name, String subtotal, String phone, String email, String zip, String status);
+
+	//public void saveOrderDetails(String address, String cus_id, String cus_name, String subtotal, String phone);
 
 }

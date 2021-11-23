@@ -47,6 +47,10 @@ public class CustomerController {
 	String name;
 	String price;
 	String qty;
+	String subtotal;
+	String email;
+	String zip;
+	String status;
 
 	String userEm;
 	String userPw;
@@ -562,7 +566,7 @@ public class CustomerController {
 		AdminAddProductEntity proDetails = service.getProDetailsById(id);
 
 		request.setAttribute("cusName", cusName);
-		System.out.println("ERROR//////" + proDetails.getName());
+		System.out.println("ADD TO CART//////" + proDetails.getName());
 		System.out.println(proDetails.getPrice());
 
 		if (session.getAttribute("proDetails") == null) {
@@ -661,47 +665,69 @@ public class CustomerController {
 	 * @throws IOException
 	 */
 	@GetMapping("/saveorder")
+
 	@ResponseBody
 	public String saveorder(HttpSession session, HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// save to order variables
-		// request.setAttribute("cusName", cusName);
+		// save to order variables // request.setAttribute("cusName", cusName);
 		List<AdminCustomerEntity> accDetails = service.getAllByUname(cusName);
 
 		for (AdminCustomerEntity cus : accDetails) {
-			/*
-			 * System.out.println("Customer ID: " + cus.getId());
-			 */
-			cusid = String.valueOf(cus.getId());
-			// concat name
+
+			System.out.println("Customer ID: " + cus.getId());
+
+			cusid = String.valueOf(cus.getId()); // concat name
 			String cusfname = cus.getFname();
 			String cuslname = cus.getLname();
-			fullname = cusfname + " " + cuslname;
-			// concat address
+			fullname = cusfname + " " + cuslname; // concat address
 			String houseno = cus.getHouseno();
 			String street = cus.getStreetname();
 			String city = cus.getCityname();
 			address = houseno + ", " + street + ", " + city;
 			telephone = cus.getPhone();
+			email = cus.getEmail();
+			zip = cus.getPostal();
+			status = "Pending";
 		}
 		System.out.println("/ORDERS Table/");
 		System.out.println("Customer ID: " + cusid);
 		System.out.println("Full Name: " + fullname);
 		System.out.println("Address: " + address);
 		System.out.println("Telephone: " + telephone);
+		System.out.println("Email: " + email);
+		System.out.println("Postal: " + zip);
+		System.out.println("Status: " + status);
 
-		List<ShoppingCart> shoppingCart = (List<ShoppingCart>) session.getAttribute("proDetails");
-		// Add new order
+		float proItemSubTotal = 0;
+		int proItemCount = 0;
+		if (session.getAttribute("proDetails") == null) {
+
+		} else {
+			List<ShoppingCart> proItemCartList = (List<ShoppingCart>) session.getAttribute("proDetails");
+
+			for (int a = 0; a < proItemCartList.size(); a++) {
+				proItemSubTotal = proItemSubTotal + proItemCartList.get(a).getSubTotal();
+				proItemCount = proItemCount + 1;
+			}
+		}
+		System.out.println("Subtotal: " + proItemSubTotal);
+		subtotal = String.valueOf(proItemSubTotal);
+
+		System.out.println("IS EVERYTHING ALRIGHT !");
+		service.saveOrder(address, cusid, fullname, subtotal, telephone, email, zip, status);
+
+		List<ShoppingCart> shoppingCart = (List<ShoppingCart>) session.getAttribute("proDetails"); // Add new order
 		OrderDetail orderdetail = new OrderDetail();
 		for (ShoppingCart s : shoppingCart) {
-			/*
-			 * System.out.println("Product ID: " + s.getProduct().getId());
-			 */
-			// save to order details variables
-			proid = String.valueOf(s.getProduct().getId());
+
+			System.out.println("Product ID: " + s.getProduct().getId());
+
+			// save to order details variables proid =
+			String.valueOf(s.getProduct().getId());
 			name = String.valueOf(s.getProduct().getName());
 			price = String.valueOf(s.getProduct().getPrice());
+			proid = String.valueOf(s.getProduct().getId());
 			qty = String.valueOf(s.getQuantity());
 
 			System.out.println("/////RELEVANT ORDERS DETAILS//////");
@@ -712,8 +738,6 @@ public class CustomerController {
 			System.out.println("Qty: " + qty);
 
 		}
-
 		return "checkout";
 	}
-
 }
