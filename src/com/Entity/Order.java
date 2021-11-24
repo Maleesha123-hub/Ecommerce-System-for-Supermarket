@@ -33,6 +33,16 @@ public class Order {
 	private String subtotal;
 	@Column(name = "Status")
 	private String status;
+	@Column(name = "Payment_Method")
+	private String payment;
+
+	public String getPayment() {
+		return payment;
+	}
+
+	public void setPayment(String payment) {
+		this.payment = payment;
+	}
 
 	public String getStatus() {
 		return status;

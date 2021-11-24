@@ -499,52 +499,54 @@ public class AdminRepositary implements AdminRepositaryDao {
 
 		session = getHibernateTemplate().getSessionFactory().openSession();
 		transaction = session.beginTransaction();
-		String hql = "FROM Order WHERE Status = ? ";
+		String hql = "FROM Order ORDER BY date DESC";
 		query = session.createQuery(hql);
-		query.setString(0, "Pending");
 		List<Order> listofpendingorder = query.list();
 		transaction.commit();
 		session.close();
 
 		return listofpendingorder;
 	}
+
+	@Override
+	public void deliveredOrder(int orderId) {
+		System.out.println("/////////////" + orderId);
+
+		try {
+			session = getHibernateTemplate().getSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			String qryString = "update Order s set s.status='Delivered' where s.orderId=?";
+			query = session.createQuery(qryString);
+			query.setParameter(0, orderId);
+			int count = query.executeUpdate();
+			transaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
-	/**
-	 * get List of OrderCanceled
-	 * 
-	 * @return count
-	 */
 	@Override
-	public List<Order> getAllOrderCanceledList() {
-		session = getHibernateTemplate().getSessionFactory().openSession();
-		transaction = session.beginTransaction();
-		String hql = "FROM Order WHERE Status = ? ";
-		query = session.createQuery(hql);
-		query.setString(0, "Canceled");
-		List<Order> listofcanceledorder = query.list();
-		transaction.commit();
-		session.close();
+	public void canceledOrder(int orderId) {
+		System.out.println("/////////////" + orderId);
 
-		return listofcanceledorder;
+		try {
+			session = getHibernateTemplate().getSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			String qryString = "update Order s set s.status='Canceled' where s.orderId=?";
+			query = session.createQuery(qryString);
+			query.setParameter(0, orderId);
+			int count = query.executeUpdate();
+			transaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
-	/**
-	 * get List of Order Delivered
-	 * 
-	 * @return count
-	 */
 	@Override
-	public List<Order> getAllOrderDeliveredList() {
-		session = getHibernateTemplate().getSessionFactory().openSession();
-		transaction = session.beginTransaction();
-		String hql = "FROM Order WHERE Status = ? ";
-		query = session.createQuery(hql);
-		query.setString(0, "Delivered");
-		List<Order> listofdeliveredorder = query.list();
-		transaction.commit();
-		session.close();
-
-		return listofdeliveredorder;
+	public Order getOneOrder(String orderId) {
+		
+		return null;
 	}
+	
 
 }

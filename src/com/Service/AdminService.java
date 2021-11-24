@@ -240,13 +240,18 @@ public class AdminService implements AdminServiceBd {
 	}
 
 	@Override
-	public List<Order> getAllOrderCanceledList() {
-		return repositary.getAllOrderCanceledList();
+	public void deliveredOrder(int orderId) {
+		repositary.deliveredOrder(orderId);
 	}
 
 	@Override
-	public List<Order> getAllOrderDeliveredList() {
-		return repositary.getAllOrderDeliveredList();
+	public void canceledOrder(int orderId) {
+		repositary.canceledOrder(orderId);
+	}
+
+	@Override
+	public Order getOneOrder(String orderId) {
+		return repositary.getOneOrder(orderId);
 	}
 
 }

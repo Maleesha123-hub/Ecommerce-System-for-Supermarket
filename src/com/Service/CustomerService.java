@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.Entity.AdminAddProductEntity;
 import com.Entity.AdminCustomerEntity;
 import com.Entity.AdminMessageEntity;
+import com.Entity.Order;
 
 import AdminRepositaryDao.CustomerRepositaryDao;
 import interf.Servicebd.CustomerServiceBd;
@@ -139,11 +140,27 @@ public class CustomerService implements CustomerServiceBd {
 
 	// Save ORDER//
 	@Override
-	public void saveOrder(String address, String cus_id, String cus_name, String subtotal, String phone, String email, String zip, String status) {
-		repositary.saveOrder(address, cus_id, cus_name, subtotal, phone, email, zip, status);
-		
+	public void saveOrder(String address, String cus_id, String cus_name, String subtotal, String phone, String email,
+			String zip, String status, String payment) {
+		repositary.saveOrder(address, cus_id, cus_name, subtotal, phone, email, zip, status, payment);
+
 	}
 
+	@Override
+	public void saveOrderDetails(int lastorderid, String price, String pro_id, String pro_name, String qty) {
+		repositary.saveOrderDetails(lastorderid, price, pro_id, pro_name, qty);
 
+	}
+
+	@Override
+	public Order getOrderIdFromLastRow() {
+		return repositary.getOrderIdFromLastRow();
+	}
+
+	@Override
+	public void cancelorderCashOnDelivery(int lastOrderId) {
+		repositary.cancelorderCashOnDelivery(lastOrderId);
+
+	}
 
 }

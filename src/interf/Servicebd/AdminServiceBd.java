@@ -89,14 +89,17 @@ public interface AdminServiceBd {
 
 	public void deleteCustomer(int id);
 
-
 	// --
 	// --
 	// --
 	// ---------------------------------------ORDER
 	// SERVICEBd------------------------------------//
 	public List<Order> getAllOrderPendingList();
-	public List<Order> getAllOrderCanceledList();
-	public List<Order> getAllOrderDeliveredList();
+
+	public void deliveredOrder(int orderId);
+
+	public void canceledOrder(int orderId);
+
+	public Order getOneOrder(String orderId);
 
 }

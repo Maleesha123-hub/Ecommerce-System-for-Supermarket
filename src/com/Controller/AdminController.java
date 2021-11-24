@@ -495,20 +495,35 @@ public class AdminController {
 		return ss;
 	}
 
-	// Load Order table
-	@RequestMapping(value = "/getAllOrderCanceledList", method = RequestMethod.GET)
-	public @ResponseBody List<Order> getAllOrderCanceledList() {
-		System.out.println("LOAD ORDER CANCELED TABLE////////");
-		List<Order> ss = service.getAllOrderCanceledList();
-		return ss;
+	// Delivered Order
+	@PostMapping("/deliveredOrder/{orderId}")
+	public String deliveredOrder(@PathVariable int orderId) {
+		System.out.println("DELIVERED ORDER BY ID////////");
+		service.deliveredOrder(orderId);
+		return "admin-orders";
 	}
 
-	// Load Order table
-	@RequestMapping(value = "/getAllOrderDeliveredList", method = RequestMethod.GET)
-	public @ResponseBody List<Order> getAllOrderDeliveredList() {
-		System.out.println("LOAD ORDER DELIVERED TABLE////////");
-		List<Order> ss = service.getAllOrderDeliveredList();
-		return ss;
+	// Delivered Order
+	@PostMapping("/canceledOrder/{orderId}")
+	public String canceledOrder(@PathVariable int orderId) {
+		System.out.println("CANCELED ORDER BY ID////////");
+		service.canceledOrder(orderId);
+		return "admin-orders";
 	}
+	
 
+	/*
+	 * Have to make this part Have to make this part Have to make this part Have to
+	 * make this part Have to make this part
+	 */
+	/*
+	 * Have to make this part Have to make this part Have to make this part Have to
+	 * make this part Have to make this part
+	 */
+	// getOneOrder use OrderID
+	@GetMapping("/getOneOrder/{orderId}")
+	public Order getOneOrder(@PathVariable String orderId) {
+		System.out.println("GET ORDER BY ORDERID////////");
+		return service.getOneOrder(orderId);
+	}
 }

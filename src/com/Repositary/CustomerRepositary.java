@@ -430,11 +430,12 @@ public class CustomerRepositary implements CustomerRepositaryDao {
 	}
 
 	/**
-	 * save orderdetails by parameters
+	 * save ordershipping details by parameters
 	 * 
 	 */
 	@Override
-	public void saveOrder(String address, String cus_id, String cus_name, String subtotal, String phone, String email, String zip, String status) {
+	public void saveOrder(String address, String cus_id, String cus_name, String subtotal, String phone, String email,
+			String zip, String status, String payment) {
 		session = getHibernateTemplate().getSessionFactory().openSession();
 		transaction = session.beginTransaction();
 		Order order = new Order();
@@ -446,9 +447,65 @@ public class CustomerRepositary implements CustomerRepositaryDao {
 		order.setEmail(email);
 		order.setZip(zip);
 		order.setStatus(status);
+		order.setPayment(payment);
 		session.save(order);
 		transaction.commit();
 		session.close();
+	}
+
+	/**
+	 * save order details by parameters
+	 * 
+	 */
+	@Override
+	public void saveOrderDetails(int lastorderid, String price, String pro_id, String pro_name, String qty) {
+		session = getHibernateTemplate().getSessionFactory().openSession();
+		transaction = session.beginTransaction();
+		OrderDetail orderdetails = new OrderDetail();
+		orderdetails.setPrice(price);
+		orderdetails.setProductId(pro_id);
+		orderdetails.setProductname(pro_name);
+		orderdetails.setQuantity(qty);
+		orderdetails.setOrderId(lastorderid);
+		session.save(orderdetails);
+		transaction.commit();
+		session.close();
+
+	}
+
+	/**
+	 * save getOrderIdFromLastRow
+	 * 
+	 */
+	@Override
+	public Order getOrderIdFromLastRow() {
+		session = getHibernateTemplate().getSessionFactory().openSession();
+		transaction = session.beginTransaction();
+		String hql = "from Order ORDER by orderId DESC";
+		query = session.createQuery(hql);
+		query.setMaxResults(1);
+		Order last = (Order) query.uniqueResult();
+		transaction.commit();
+		session.close();
+
+		return last;
+	}
+
+	@Override
+	public void cancelorderCashOnDelivery(int lastOrderId) {
+		System.out.println("/////////////" + lastOrderId);
+
+		try {
+			session = getHibernateTemplate().getSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			String qryString = "update Order s set s.status='Canceled' where s.orderId=?";
+			query = session.createQuery(qryString);
+			query.setParameter(0, lastOrderId);
+			int count = query.executeUpdate();
+			transaction.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -48,12 +48,21 @@
 <!-- App Css-->
 <link href="<spring:url value="/resources/css/app.min.css" />"
 	id="app-style" rel="stylesheet" type="text/css" />
-
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<!-- ----Sweet Alert ------->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
+	$(document).ready(function() {
+		getAllOrderPendingList();
+
+	});
+
 	function getAllOrderPendingList() {
 		$('#delivered').show();
 		$('#pending').show();
+		$('#sendMessage').hide();
+		$('#reset').hide();
 		var data = "";
 		$
 				.ajax({
@@ -64,28 +73,68 @@
 
 						$('.tr').remove();
 						for (i = 0; i < data.length; i++) {
-							$("#orderTable")
-									.append(
-											'<tr class="tr"> <td>'
-													+ data[i].orderId
-													+ '</td> <td>'
-													+ data[i].name
-													+ '</td> <td>'
-													+ data[i].date
-													+ '</td> <td>'
-													+ data[i].subtotal
-													+ '</td> <td>'
-													+ '<input type="button" class="btn btn-warning btn-sm btn-rounded waves-effect waves-light" onclick="pendingBtn('
-													+ data[i].id
-													+ ')"  value="Pending"></input></td> <td>'
-													+ '<input type="button" class="btn btn-danger btn-sm btn-rounded waves-effect waves-light" onclick="cancelOrderBtn('
-													+ data[i].id
-													+ ')"  value="Cancel Order"></input>'
-													+ '</td> <td>'
-													+ '<input type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" onclick="cancelOrderBtn('
-													+ data[i].id
-													+ ')"  value="View Details"></input> </td> </tr>');
-
+							if(data[i].status == "Pending"){
+								$("#orderTable")
+								.append(
+										'<tr class="tr"> <td>'
+												+ data[i].orderId
+												+ '</td> <td>'
+												+ data[i].name
+												+ '</td> <td>'
+												+ data[i].date
+												+ '</td> <td>'
+												+ data[i].subtotal
+												+ '</td> <td>'
+												+ '<input type="button" class="btn btn-warning btn-sm btn-rounded waves-effect waves-light" onclick="pendingBtn('
+												+ data[i].orderId
+												+ ')"  value="Pending"></input></td> <td>'
+												+ '<input type="button" class="btn btn-danger btn-sm btn-rounded waves-effect waves-light" onclick="cancelOrderBtn('
+												+ data[i].orderId
+												+ ')"  value="Cancel Order"></input>'
+												+ '</td> <td>'
+												+ '<input type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" onclick="viewOrderBtn('
+												+ data[i].orderId
+												+ ')"  value="View Details"></input> </td> </tr>');
+								}
+							else if(data[i].status == "Canceled"){
+								$("#ordercanceledTable")
+								.append(
+										'<tr class="tr"> <td>'
+												+ data[i].orderId
+												+ '</td> <td>'
+												+ data[i].name
+												+ '</td> <td>'
+												+ data[i].date
+												+ '</td> <td>'
+												+ data[i].subtotal
+												+ '</td> <td>'
+												+ '<input type="button" class="btn btn-secondary btn-sm btn-rounded waves-effect waves-light" onclick="deliveryBtn('
+												+ data[i].id
+												+ ');" value="Canceled"></input>'
+												+ ' </td> <td>'
+												+ '<input type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" onclick="cancelOrderBtn('
+												+ data[i].id
+												+ ')"  value="View Details"></input> </td> </tr>');
+								}
+							else if(data[i].status == "Delivered"){
+								$("#orderdeliveredTable")
+								.append(
+										'<tr class="tr"> <td>'
+												+ data[i].orderId
+												+ '</td> <td>'
+												+ data[i].name
+												+ '</td> <td>'
+												+ data[i].date
+												+ '</td> <td>'
+												+ data[i].subtotal
+												+ '</td> <td>'
+												+ '<input type="button" class="btn btn-success btn-sm btn-rounded waves-effect waves-light" onclick="deliveryBtn('
+												+ data[i].id
+												+ ');" value="Delivered"></input></td> <td>'
+												+ '<input type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" onclick="cancelOrderBtn('
+												+ data[i].id
+												+ ')"  value="View Details"></input> </td> </tr>');
+								}
 						}
 					},
 					error : function(err) {
@@ -93,85 +142,98 @@
 					}
 				});
 	}
-	
-		function getAllOrderCanceledList() {
-			$('#delivered').show();
-			$('#pending').show();
-			var data = "";
-			$
-					.ajax({
-						type : "GET",
-						url : "getAllOrderCanceledList",
-						success : function(response) {
-							data = response
 
-							$('.tr').remove();
-							for (i = 0; i < data.length; i++) {
-								$("#ordercanceledTable")
-										.append(
-												'<tr class="tr"> <td>'
-														+ data[i].orderId
-														+ '</td> <td>'
-														+ data[i].name
-														+ '</td> <td>'
-														+ data[i].date
-														+ '</td> <td>'
-														+ data[i].subtotal
-														+ '</td> <td>'
-														+ '<input type="button" class="btn btn-light btn-sm btn-rounded waves-effect waves-light" onclick="deliveryBtn('
-														+ data[i].id
-														+ ');" value="Canceled"></input>'
-														+ ' </td> <td>'
-														+ '<input type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" onclick="cancelOrderBtn('
-														+ data[i].id
-														+ ')"  value="View Details"></input> </td> </tr>');
+	function pendingBtn(orderId) {
 
-							}
-						},
-						error : function(err) {
-							alert("error is" + err)
-						}
-					});
-		}
+ 		 Swal.fire({
+ 			  title: 'Are you sure?',
+ 			  text: "Is this order delivered successfully !",
+ 			  icon: 'warning',
+ 			  showCancelButton: true,
+ 			  confirmButtonColor: '#095269',
+ 			  cancelButtonColor: '#d33',
+ 			  confirmButtonText: 'Yes, Delivered!'
+ 			}).then((result) => {
+ 			  if (result.isConfirmed) {
+ 			    Swal.fire(
+ 			      'Saved!',
+ 			      'Order has been delivered.',
+			      'success'
+ 			    )
+			    
+		$.ajax({
+			type : "POST",
+			url : "deliveredOrder/" + orderId,
+			success : function(response) {
+				getAllOrderPendingList();
+			},
+			error : function(err) {
+				alert("error is" + err)
+			}
+		});
+ 			 }
+			})
+	} 
+
+	function cancelOrderBtn(orderId) {
+
+		 Swal.fire({
+			  title: 'Are you sure?',
+			  text: "Do you want to cancel this Order !",
+			  icon: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#095269',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: 'Yes, Cancel!'
+			}).then((result) => {
+			  if (result.isConfirmed) {
+			    Swal.fire(
+			      'Canceled!',
+			      'Order has been canceled.',
+			      'success'
+			    )
+			    
+		$.ajax({
+			type : "POST",
+			url : "canceledOrder/" + orderId,
+			success : function(response) {
+				getAllOrderPendingList();
+			},
+			error : function(err) {
+				alert("error is" + err)
+			}
+		});
+			 }
+			})
+	} 
 
 
-	function getAllOrderDeliveredList() {
-		$('#delivered').show();
-		$('#pending').show();
-		var data = "";
-		$
-				.ajax({
-					type : "GET",
-					url : "getAllOrderDeliveredList",
-					success : function(response) {
-						data = response
+	function viewOrderBtn(orderId) {
+		Swal.fire('You can view order now....');
+		$('#sendMessage').show();
+		$('#reset').show();
+		$.ajax({
+			type : "GET",
+			url : "getOneOrder/" + orderId,
+			dataType : 'json',
+			success : function(response) {
 
-						$('.tr').remove();
-						for (i = 0; i < data.length; i++) {
-							$("#orderdeliveredTable")
-									.append(
-											'<tr class="tr"> <td>'
-													+ data[i].orderId
-													+ '</td> <td>'
-													+ data[i].name
-													+ '</td> <td>'
-													+ data[i].date
-													+ '</td> <td>'
-													+ data[i].subtotal
-													+ '</td> <td>'
-													+ '<input type="button" class="btn btn-light btn-sm btn-rounded waves-effect waves-light" onclick="deliveryBtn('
-													+ data[i].id
-													+ ');" value="Delivered"></input></td> <td>'
-													+ '<input type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" onclick="cancelOrderBtn('
-													+ data[i].id
-													+ ')"  value="View Details"></input> </td> </tr>');
+				$("#reply").val(response.orderId), 
+				$("#name").val(response.name + "fdsfdsfsdf"), 
+				$("#email").val(response.email), 
+				$("#telephone").val(response.telephone), 
+				$("#address").val(response.address), 
+				$("#date").val(response.date), 
+				$("#zip").val(response.zip) 
 
-						}
-					},
-					error : function(err) {
-						alert("error is" + err)
-					}
-				});
+
+
+				
+			},
+			error : function(err) {
+				alert("error is" + err)
+			}
+		});
 	}
 	
 </script>
@@ -180,7 +242,7 @@
 </head>
 
 
-<body onload="getAllOrderPendingList()">
+<body>
 	<!-- <body data-layout="horizontal" data-topbar="colored"> -->
 	<!-- Begin page -->
 	<div id="layout-wrapper">
@@ -368,7 +430,7 @@
 																		<div class="mb-3 mb-4">
 																			<label class="form-label" for="billing-name">Name</label>
 																			<input type="text" class="form-control"
-																				id="billing-name" placeholder="Enter name"
+																				id="name" placeholder="Enter name"
 																				required="required">
 																		</div>
 																	</div>
@@ -376,7 +438,7 @@
 																		<div class="mb-3 mb-4">
 																			<label class="form-label" for="billing-email-address">Email
 																				Address</label> <input type="email" class="form-control"
-																				id="billing-email-address" placeholder="Enter email"
+																				id="email" placeholder="Enter email"
 																				required="required">
 																		</div>
 																	</div>
@@ -384,23 +446,23 @@
 																		<div class="mb-3 mb-4">
 																			<label class="form-label" for="billing-phone">Phone</label>
 																			<input type="text" class="form-control"
-																				id="billing-phone" placeholder="Enter Phone no."
+																				id="telephone" placeholder="Enter Phone no."
 																				required="required">
 																		</div>
 																	</div>
 																</div>
 																<div class="mb-4">
 																	<label class="form-label" for="billing-address">Address</label>
-																	<textarea class="form-control" id="billing-address"
+																	<textarea class="form-control" id="address"
 																		rows="3" placeholder="Enter full address"
 																		required="required"></textarea>
 																</div>
 																<div class="row">
 																	<div class="col-lg-4">
 																		<div class="mb-4 mb-lg-0">
-																			<label class="form-label" for="billing-city">City</label>
+																			<label class="form-label" for="billing-city">Date</label>
 																			<input type="text" class="form-control"
-																				id="billing-city" placeholder="Enter City"
+																				id="date" placeholder="Enter City"
 																				required="required">
 																		</div>
 																	</div>
@@ -408,7 +470,7 @@
 																		<div class="mb-0">
 																			<label class="form-label" for="zip-code">Zip
 																				/ Postal code</label> <input type="text"
-																				class="form-control" id="zip-code"
+																				class="form-control" id="zip"
 																				placeholder="Enter Postal code" required="required">
 																		</div>
 																	</div>
@@ -510,6 +572,7 @@
 															<th>Order Date</th>
 															<th>Total</th>
 															<th>Status</th>
+															<th>View Details</th>
 														</tr>
 													</thead>
 													<tbody id="ordercanceledTable">
@@ -566,6 +629,7 @@
 															<th>Order Date</th>
 															<th>Total</th>
 															<th>Status</th>
+															<th>View Details</th>
 														</tr>
 													</thead>
 													<tbody id="orderdeliveredTable">

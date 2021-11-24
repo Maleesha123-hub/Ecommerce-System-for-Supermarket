@@ -20,12 +20,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.Entity.AdminAddProductEntity;
 import com.Entity.AdminCustomerEntity;
 import com.Entity.AdminMessageEntity;
-import com.Entity.AdminUserAddEntity;
+import com.Entity.Order;
 import com.Entity.OrderDetail;
 import com.Entity.ShoppingCart;
 
@@ -50,7 +51,9 @@ public class CustomerController {
 	String subtotal;
 	String email;
 	String zip;
-	String status;
+	String stat;
+	int lastOrderId;
+	String payment;
 
 	String userEm;
 	String userPw;
@@ -650,7 +653,6 @@ public class CustomerController {
 	public String checkouts(AdminCustomerEntity userDetails, HttpSession session, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		List<AdminCustomerEntity> userDetail = service.getAllByUname(cusName);
-
 		request.setAttribute("userDetail", userDetail);
 		return "checkout";
 	}
@@ -664,19 +666,14 @@ public class CustomerController {
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	@GetMapping("/saveorder")
-
+	@PostMapping("/saveorder")
 	@ResponseBody
-	public String saveorder(HttpSession session, HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	public String saveorder(@RequestParam("paymentmethod") String paymentmethod, HttpSession session,
+			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		// save to order variables // request.setAttribute("cusName", cusName);
 		List<AdminCustomerEntity> accDetails = service.getAllByUname(cusName);
-
 		for (AdminCustomerEntity cus : accDetails) {
-
-			System.out.println("Customer ID: " + cus.getId());
-
 			cusid = String.valueOf(cus.getId()); // concat name
 			String cusfname = cus.getFname();
 			String cuslname = cus.getLname();
@@ -688,7 +685,8 @@ public class CustomerController {
 			telephone = cus.getPhone();
 			email = cus.getEmail();
 			zip = cus.getPostal();
-			status = "Pending";
+			stat = "Pending";
+			payment = paymentmethod;
 		}
 		System.out.println("/ORDERS Table/");
 		System.out.println("Customer ID: " + cusid);
@@ -697,7 +695,8 @@ public class CustomerController {
 		System.out.println("Telephone: " + telephone);
 		System.out.println("Email: " + email);
 		System.out.println("Postal: " + zip);
-		System.out.println("Status: " + status);
+		System.out.println("Status: " + stat);
+		System.out.println("paymentmethod: " + payment);
 
 		float proItemSubTotal = 0;
 		int proItemCount = 0;
@@ -715,20 +714,19 @@ public class CustomerController {
 		subtotal = String.valueOf(proItemSubTotal);
 
 		System.out.println("IS EVERYTHING ALRIGHT !");
-		service.saveOrder(address, cusid, fullname, subtotal, telephone, email, zip, status);
+		service.saveOrder(address, cusid, fullname, subtotal, telephone, email, zip, stat, payment);
 
+		// Order details table
 		List<ShoppingCart> shoppingCart = (List<ShoppingCart>) session.getAttribute("proDetails"); // Add new order
-		OrderDetail orderdetail = new OrderDetail();
 		for (ShoppingCart s : shoppingCart) {
-
-			System.out.println("Product ID: " + s.getProduct().getId());
-
 			// save to order details variables proid =
 			String.valueOf(s.getProduct().getId());
 			name = String.valueOf(s.getProduct().getName());
 			price = String.valueOf(s.getProduct().getPrice());
 			proid = String.valueOf(s.getProduct().getId());
 			qty = String.valueOf(s.getQuantity());
+			Order proDetails = service.getOrderIdFromLastRow();
+			lastOrderId = proDetails.getOrderId();
 
 			System.out.println("/////RELEVANT ORDERS DETAILS//////");
 			System.out.println("/ORDERS DETAILS Table/");
@@ -736,8 +734,23 @@ public class CustomerController {
 			System.out.println("Name: " + name);
 			System.out.println("Price: " + price);
 			System.out.println("Qty: " + qty);
-
+			System.out.println("LastOrderId: " + proDetails.getOrderId());
+			System.out.println("Order Details saved Done!");
+			service.saveOrderDetails(lastOrderId, price, proid, name, qty);
 		}
-		return "checkout";
+		return "cart";
 	}
+
+	@PostMapping("/cancelorderCashOnDelivery")
+	@ResponseBody
+	public String cancelorderCashOnDelivery(@RequestParam("id") String id, HttpSession session,
+			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		Order proDetails = service.getOrderIdFromLastRow();
+		lastOrderId = proDetails.getOrderId();
+		System.out.println("Customer id : " + lastOrderId);
+		service.cancelorderCashOnDelivery(lastOrderId);
+		return "cart";
+	}
+
 }

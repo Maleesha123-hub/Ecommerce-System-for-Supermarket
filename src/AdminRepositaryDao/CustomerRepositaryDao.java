@@ -6,6 +6,7 @@ import com.Entity.AdminAddProductEntity;
 import com.Entity.AdminCustomerEntity;
 import com.Entity.AdminMessageEntity;
 import com.Entity.AdminUserAddEntity;
+import com.Entity.Order;
 
 public interface CustomerRepositaryDao {
 
@@ -43,5 +44,15 @@ public interface CustomerRepositaryDao {
 	public AdminAddProductEntity getProDetailsById(int id);
 
 	// Save ORDER//
-	public void saveOrder(String address, String cus_id, String cus_name, String subtotal, String phone, String email, String zip, String status);
+	public void saveOrder(String address, String cus_id, String cus_name, String subtotal, String phone, String email,
+			String zip, String status, String payment);
+
+	public void saveOrderDetails(int lastorderid, String price, String pro_id, String pro_name, String qty);
+
+	// get order id from last row
+	public Order getOrderIdFromLastRow();
+
+	// cancel order by id
+	public void cancelorderCashOnDelivery(int lastorderid);
+
 }

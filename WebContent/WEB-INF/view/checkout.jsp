@@ -66,6 +66,19 @@
 
 function display() {
 alert("Everithing will be FINE !!");
+$.ajax({
+	type : "POST",
+	url : "saveorder",
+	data : {
+		paymentmethod : "Paypal"
+	},
+	success : function(result) {
+		$('#checkout')[0].reset()
+	},
+	error : function(err) {
+		alert("error is" + err)
+	}
+});
 }
 
 </script>
@@ -93,6 +106,7 @@ alert("Everithing will be FINE !!");
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <!-- Optimal Internet Explorer compatibility -->
 
+
 <style>
 h1 {
 	width: 500px;
@@ -108,13 +122,91 @@ hr {
 </style>
 
 
+
+<script>
+
+<%float proItemSubTotal = 0;
+			int proItemCount = 0;
+			if (session.getAttribute("proDetails") == null) {
+
+			} else {
+				List<ShoppingCart> proItemCartList = (List<ShoppingCart>) session.getAttribute("proDetails");
+
+				for (int a = 0; a < proItemCartList.size(); a++) {
+					proItemSubTotal = proItemSubTotal + proItemCartList.get(a).getSubTotal();
+					proItemCount = proItemCount + 1;
+				}
+			}%>
+
+$(document).ready(function() {
+	$('#canceldelivery').hide();
+	$('#canceldemessage').hide();
+
+});
+
+ function cashondelivery() {
+	$('#cashondelivery').hide();
+	$('#canceldelivery').show();
+	$('#canceldemessage').hide();
+
+
+	Swal
+	.fire('*** Order Placed ***'
+			+'<br>'
+			+ " Amount : LKR"
+			+<%out.print(proItemSubTotal);%>)
+	
+	$.ajax({
+		type : "POST",
+		url : "saveorder",
+		data : {
+			paymentmethod : "Cash On Delivery"
+		},
+		success : function(result) {
+			$('#checkout')[0].reset()
+		},
+		error : function(err) {
+			alert("error is" + err)
+		}
+	});
+} 
+
+ function cancelOrder() {
+		$('#cashondelivery').hide();
+		$('#canceldelivery').hide();
+		$('#canceldemessage').show();
+		
+		Swal.fire({
+			  icon: 'error',
+			  title: 'Your Order Canceled!!!',
+			})
+			
+		$.ajax({
+			type : "POST",
+			url : "cancelorderCashOnDelivery",
+			data : {
+				id : "id"
+			},
+			success : function(result) {
+				$('#checkout')[0].reset()
+			},
+			error : function(err) {
+				alert("error is" + err)
+			}
+		});
+	} 
+
+</script>
+
+
+
+
 </head>
 
-<body>
 <body style="background: white">
 
 
-	<%
+	<%-- 	<%
 		float proItemSubTotal = 0;
 		int proItemCount = 0;
 		if (session.getAttribute("proDetails") == null) {
@@ -127,7 +219,7 @@ hr {
 				proItemCount = proItemCount + 1;
 			}
 		}
-	%>
+	%> --%>
 
 	<br>
 	<div class="container-fluid">
@@ -186,7 +278,7 @@ hr {
 									<c:set var="houseno" value="${cus.houseno}" />
 									<c:set var="streetname" value="${cus.streetname}" />
 									<c:set var="streetname" value="${cus.cityname}" />
-									<form>
+									<form method="post">
 										<div>
 											<div class="row">
 												<div class="col-lg-4">
@@ -264,7 +356,7 @@ hr {
 													<c:set var="streetname" value="${cus.streetname}" />
 													<c:set var="streetname" value="${cus.cityname}" />
 													<h5 class="font-size-14 mb-4">Address</h5>
-													<h5 class="font-size-14">${cus.houseno}, 
+													<h5 class="font-size-14">${cus.houseno},
 														${cus.streetname},</h5>
 													<p class="mb-0">${cus.cityname}</p>
 												</c:forEach>
@@ -274,24 +366,27 @@ hr {
 								</div>
 							</div>
 						</div>
+						<p id="canceldemessage" style="color: red; font-size: 25px">Your
+							Order Canceled, continue to shopping!!!</p>
 					</div>
 				</div>
 				<div class="row my-4">
 					<div class="col">
 						<div class="text-end mt-2 mt-sm-0">
-							<a href="saveorder">
-								<button type="button" class="btn btn-primary"
-									style="font-size: 16px">Cash On Delivary</button>
-							</a> <a href="#">
-								<button type="button" class="btn btn-danger"
-									style="font-size: 16px">Cancel Order...</button>
-							</a>
+							<button type="button" class="btn btn-primary"
+								style="font-size: 16px" id="cashondelivery"
+								onclick="cashondelivery()">Cash On Delivary</button>
+
+							<button type="button" class="btn btn-danger"
+								style="font-size: 16px" id="canceldelivery"
+								onclick="cancelOrder()">Cancel Order...</button>
 						</div>
 					</div>
 					<!-- end col -->
 				</div>
 				<!-- end row-->
 			</div>
+
 			<div class="col-xl-4">
 				<div class="card checkout-order-summary">
 					<div class="card-body">
@@ -322,11 +417,13 @@ hr {
 									</c:forEach>
 									<tr class="bg-light">
 										<td colspan="2">
-											<h5 class="font-size-14 m-0" style="font-weight:bold">TOTAL:</h5>
+											<h5 class="font-size-14 m-0" style="font-weight: bold">TOTAL:</h5>
 										</td>
-										<td style="font-weight: bold;font-size:25px;color: red">LKR <%
+										<td style="font-weight: bold; font-size: 25px; color: red">LKR
+											<%
 											out.print(proItemSubTotal);
-										%></td>
+										%>
+										</td>
 									</tr>
 								</tbody>
 							</table>

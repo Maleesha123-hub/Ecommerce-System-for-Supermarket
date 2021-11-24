@@ -6,6 +6,7 @@ import com.Entity.AdminAddProductEntity;
 import com.Entity.AdminCustomerEntity;
 import com.Entity.AdminMessageEntity;
 import com.Entity.AdminUserAddEntity;
+import com.Entity.Order;
 
 public interface CustomerServiceBd {
 
@@ -43,8 +44,14 @@ public interface CustomerServiceBd {
 	public AdminAddProductEntity getProDetailsById(int id);
 
 	// Save ORDER//
-	public void saveOrder(String address, String cus_id, String cus_name, String subtotal, String phone, String email, String zip, String status);
+	public void saveOrder(String address, String cus_id, String cus_name, String subtotal, String phone, String email,
+			String zip, String status, String payment);
 
-	//public void saveOrderDetails(String address, String cus_id, String cus_name, String subtotal, String phone);
+	public void saveOrderDetails(int lastOrderId, String price, String pro_id, String pro_name, String qty);
+
+	public Order getOrderIdFromLastRow();
+
+	// cancel order by id
+	public void cancelorderCashOnDelivery(int lastOrderId);
 
 }
