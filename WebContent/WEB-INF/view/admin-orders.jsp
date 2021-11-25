@@ -53,6 +53,11 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
+
+function refresh(){
+	$("#orderdetailtable").empty();
+}
+
 	$(document).ready(function() {
 		getAllOrderPendingList();
 
@@ -92,9 +97,12 @@
 												+ data[i].orderId
 												+ ')"  value="Cancel Order"></input>'
 												+ '</td> <td>'
-												+ '<input type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" onclick="viewOrderBtn('
+												+ '<input type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" onclick="refresh();viewOrderDetail('
+												+ data[i].orderId
+												+ '); viewOrderBtn(' 
 												+ data[i].orderId
 												+ ')"  value="View Details"></input> </td> </tr>');
+								
 								}
 							else if(data[i].status == "Canceled"){
 								$("#ordercanceledTable")
@@ -112,8 +120,10 @@
 												+ data[i].id
 												+ ');" value="Canceled"></input>'
 												+ ' </td> <td>'
-												+ '<input type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" onclick="cancelOrderBtn('
-												+ data[i].id
+												+ '<input type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" onclick="refresh();viewOrderDetail('
+												+ data[i].orderId
+												+ '); viewCanceledOrderBtn(' 
+												+ data[i].orderId
 												+ ')"  value="View Details"></input> </td> </tr>');
 								}
 							else if(data[i].status == "Delivered"){
@@ -130,10 +140,13 @@
 												+ '</td> <td>'
 												+ '<input type="button" class="btn btn-success btn-sm btn-rounded waves-effect waves-light" onclick="deliveryBtn('
 												+ data[i].id
-												+ ');" value="Delivered"></input></td> <td>'
-												+ '<input type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" onclick="cancelOrderBtn('
-												+ data[i].id
+												+ ')" value="Delivered"></input></td> <td>'
+												+ '<input type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" onclick="refresh();viewOrderDetail('
+												+ data[i].orderId
+												+ '); viewDeliveredOrderBtn(' 
+												+ data[i].orderId
 												+ ')"  value="View Details"></input> </td> </tr>');
+
 								}
 						}
 					},
@@ -150,7 +163,7 @@
  			  text: "Is this order delivered successfully !",
  			  icon: 'warning',
  			  showCancelButton: true,
- 			  confirmButtonColor: '#095269',
+ 			  confirmButtonColor: '#28a745',
  			  cancelButtonColor: '#d33',
  			  confirmButtonText: 'Yes, Delivered!'
  			}).then((result) => {
@@ -207,9 +220,8 @@
 			})
 	} 
 
-
 	function viewOrderBtn(orderId) {
-		Swal.fire('You can view order now....');
+		Swal.fire('You can view order details now....');
 		$('#sendMessage').show();
 		$('#reset').show();
 		$.ajax({
@@ -218,23 +230,128 @@
 			dataType : 'json',
 			success : function(response) {
 
-				$("#reply").val(response.orderId), 
-				$("#name").val(response.name + "fdsfdsfsdf"), 
+				$("#reply").val("Your order, (OID number : " + response.orderId + ")" + " | " + "(Amount : " + response.subtotal + ") "), 
+				$("#name").val(response.name), 
 				$("#email").val(response.email), 
 				$("#telephone").val(response.telephone), 
 				$("#address").val(response.address), 
 				$("#date").val(response.date), 
 				$("#zip").val(response.zip) 
 
-
-
-				
 			},
 			error : function(err) {
 				alert("error is" + err)
 			}
 		});
 	}
+	
+	function viewCanceledOrderBtn(orderId) {
+		Swal.fire('You can view order details now....');
+		$('#sendMessage').show();
+		$('#reset').show();
+		$.ajax({
+			type : "GET",
+			url : "getOneOrder/" + orderId,
+			dataType : 'json',
+			success : function(response) {
+
+				$("#reply").val("Your order, (OID number : " + response.orderId + ")" + " | " + "(Amount : " + response.subtotal + ")" + " was " + response.status + " by Parakrama Supermarket!"), 
+				$("#name").val(response.name), 
+				$("#email").val(response.email), 
+				$("#telephone").val(response.telephone), 
+				$("#address").val(response.address), 
+				$("#date").val(response.date), 
+				$("#zip").val(response.zip) 
+
+			},
+			error : function(err) {
+				alert("error is" + err)
+			}
+		});
+	}
+
+	function viewDeliveredOrderBtn(orderId) {
+		Swal.fire('You can view order details now....');
+		$('#sendMessage').show();
+		$('#reset').show();
+		$.ajax({
+			type : "GET",
+			url : "getOneOrder/" + orderId,
+			dataType : 'json',
+			success : function(response) {
+
+				$("#reply").val("Your order, (OID number : " + response.orderId + ")" + " | " + "(Amount : " + response.subtotal + ")" + " was " + response.status + " successfully. " + "*** Thank you for dealing with Parakrama Supermarket & Come again! ***"), 
+				$("#name").val(response.name), 
+				$("#email").val(response.email), 
+				$("#telephone").val(response.telephone), 
+				$("#address").val(response.address), 
+				$("#date").val(response.date), 
+				$("#zip").val(response.zip) 
+
+			},
+			error : function(err) {
+				alert("error is" + err)
+			}
+		});
+	}
+
+	function sendEmailBtn() {
+		$('#sendMessage').hide();
+		$('#reset').hide();
+		$.ajax({
+			type : "POST",
+			url : "sendingOrderEmail",
+			data : {
+				name : $("#name").val(),
+				email : $("#email").val(),
+				reply : $("#reply").val()
+			},
+			success : function(result) {
+				getAllOrderPendingList();
+				$('#admin-orders')[0].reset()
+			},
+			error : function(err) {
+				alert("error is" + err)
+			}
+		});
+	}
+
+	function cancelEmail() {
+		$('#sendMessage').hide();
+		$('#reset').hide();
+	}
+
+
+	function viewOrderDetail(orderId) {
+		var data = "";
+		$
+				.ajax({
+					type : "GET",
+					url : "getAllOrderDetailById/" + orderId,
+					success : function(response) {
+						data = response
+
+						for (i = 0; i < data.length; i++) {
+							$("#orderdetailtable")
+									.append(
+											'<tr class="tr"> <td>'
+													+ data[i].productId
+													+ '</td> <td>'
+													+ data[i].productname
+													+ '</td> <td>'
+													+ data[i].quantity
+													+ '</td> <td>'
+													+ data[i].price 
+													+ '</td> </tr>');
+
+						}
+					},
+					error : function(err) {
+						alert("error is" + err)
+					}
+				});
+	}
+
 	
 </script>
 
@@ -429,9 +546,8 @@
 																	<div class="col-lg-4">
 																		<div class="mb-3 mb-4">
 																			<label class="form-label" for="billing-name">Name</label>
-																			<input type="text" class="form-control"
-																				id="name" placeholder="Enter name"
-																				required="required">
+																			<input type="text" class="form-control" id="name"
+																				placeholder="Enter name" required="required">
 																		</div>
 																	</div>
 																	<div class="col-lg-4">
@@ -453,17 +569,15 @@
 																</div>
 																<div class="mb-4">
 																	<label class="form-label" for="billing-address">Address</label>
-																	<textarea class="form-control" id="address"
-																		rows="3" placeholder="Enter full address"
-																		required="required"></textarea>
+																	<textarea class="form-control" id="address" rows="3"
+																		placeholder="Enter full address" required="required"></textarea>
 																</div>
 																<div class="row">
 																	<div class="col-lg-4">
 																		<div class="mb-4 mb-lg-0">
 																			<label class="form-label" for="billing-city">Date</label>
-																			<input type="text" class="form-control"
-																				id="date" placeholder="Enter City"
-																				required="required">
+																			<input type="text" class="form-control" id="date"
+																				placeholder="Enter City" required="required">
 																		</div>
 																	</div>
 																	<div class="col-lg-4">
@@ -484,13 +598,31 @@
 																<div>
 																	<div>
 																		<button type="submit" id="sendMessage"
-																			class="btn btn-primary waves-effect waves-light me-1">Send</button>
+																			class="btn btn-primary waves-effect waves-light me-1"
+																			onclick="sendEmailBtn()">Send</button>
 																		<button type="reset" id="reset"
-																			class="btn btn-secondary waves-effect">Cancel</button>
+																			class="btn btn-secondary waves-effect"
+																			onclick="cancelEmail();refresh()">Cancel</button>
 																	</div>
 																</div>
 															</div>
 														</form>
+														<table id="datatable"
+															class="table table-bordered dt-responsive nowrap"
+															style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+															<thead>
+																<tr class="bg-transparent">
+																	<th>Product_ID</th>
+																	<th>Product_Name</th>
+																	<th>Quantity</th>
+																	<th>Price</th>
+																</tr>
+															</thead>
+															<tbody id="orderdetailtable">
+																<tr>
+																</tr>
+															</tbody>
+														</table>
 													</div>
 												</div>
 											</div>

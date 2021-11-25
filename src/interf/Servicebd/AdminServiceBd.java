@@ -8,6 +8,7 @@ import com.Entity.AdminCustomerEntity;
 import com.Entity.AdminMessageEntity;
 import com.Entity.AdminUserAddEntity;
 import com.Entity.Order;
+import com.Entity.OrderDetail;
 
 public interface AdminServiceBd {
 
@@ -100,6 +101,8 @@ public interface AdminServiceBd {
 
 	public void canceledOrder(int orderId);
 
-	public Order getOneOrder(String orderId);
+	public Order getOneOrder(int orderId);
+
+	public List<OrderDetail> getAllOrderDetailById(String orderId);
 
 }

@@ -25,6 +25,7 @@ import com.Entity.AdminCustomerEntity;
 import com.Entity.AdminMessageEntity;
 import com.Entity.AdminUserAddEntity;
 import com.Entity.Order;
+import com.Entity.OrderDetail;
 
 import interf.Servicebd.AdminServiceBd;
 
@@ -522,8 +523,43 @@ public class AdminController {
 	 */
 	// getOneOrder use OrderID
 	@GetMapping("/getOneOrder/{orderId}")
+	@ResponseBody
 	public Order getOneOrder(@PathVariable String orderId) {
-		System.out.println("GET ORDER BY ORDERID////////");
-		return service.getOneOrder(orderId);
+		int orderid = Integer.parseInt(orderId);
+		System.out.println("GET ORDER BY ORDERID////////" + orderid);
+		return service.getOneOrder(orderid);
+	}
+	
+	@GetMapping("/getAllOrderDetailById/{orderId}")
+	@ResponseBody
+	public List<OrderDetail> getAllOrderDetailById(@PathVariable String orderId) {
+		System.out.println("GET ORDERDETAIL BY ORDERID////////" + orderId);
+		List<OrderDetail> cus = service.getAllOrderDetailById(orderId);
+		for(OrderDetail cuss : cus) {
+			System.out.println(cuss.getProductname());
+			System.out.println(cuss.getQuantity());
+		}
+		return cus;
+	}
+	
+	@RequestMapping(value = "/sendingOrderEmail", method = RequestMethod.POST)
+	@ResponseBody
+	public String sendingOrderEmail(@ModelAttribute("sendingOrderEmail") Order orderdetails) {
+		// print debug info
+		System.out.println("SEND EMAIL BY ADMIN////////" + "Name" + orderdetails.getName());
+		System.out.println("SEND EMAIL BY ADMIN////////" + "To" + orderdetails.getEmail());
+		System.out.println("SEND EMAIL BY ADMIN////////" + "Subject" + "Parakrama Supermarket Order !");
+		System.out.println("SEND EMAIL BY ADMIN////////" + "message" + orderdetails.getReply());
+
+		// creates a simple email objecct
+		SimpleMailMessage simpleMessage = new SimpleMailMessage();
+		simpleMessage.setTo(orderdetails.getEmail());
+		simpleMessage.setSubject("Parakrama Supermarket Order !");
+		simpleMessage.setText(orderdetails.getReply());
+
+		// sends the email
+		mailSender.send(simpleMessage);
+		System.out.println("Order Email sent successfully!");
+		return "admin-orders";
 	}
 }

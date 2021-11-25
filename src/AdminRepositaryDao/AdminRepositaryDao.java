@@ -7,6 +7,7 @@ import com.Entity.AdminCustomerEntity;
 import com.Entity.AdminMessageEntity;
 import com.Entity.AdminUserAddEntity;
 import com.Entity.Order;
+import com.Entity.OrderDetail;
 
 public interface AdminRepositaryDao {
 
@@ -99,5 +100,8 @@ public interface AdminRepositaryDao {
 
 	public void canceledOrder(int orderId);
 
-	public Order getOneOrder(String orderId);
+	public Order getOneOrder(int orderId);
+
+	public List<OrderDetail> getAllOrderDetailById(String orderId);
+
 }

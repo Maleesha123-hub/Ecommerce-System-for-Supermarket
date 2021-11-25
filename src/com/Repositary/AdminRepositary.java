@@ -17,6 +17,7 @@ import com.Entity.AdminCustomerEntity;
 import com.Entity.AdminMessageEntity;
 import com.Entity.AdminUserAddEntity;
 import com.Entity.Order;
+import com.Entity.OrderDetail;
 
 import AdminRepositaryDao.AdminRepositaryDao;
 
@@ -391,10 +392,8 @@ public class AdminRepositary implements AdminRepositaryDao {
 			System.out.println(
 					"------------------------------GET ALL BY CONTACT MESSAGE UName  END!---------------------------");
 		}
-
 		session.close();
 		return adminList;
-
 	}
 
 	// --
@@ -517,7 +516,7 @@ public class AdminRepositary implements AdminRepositaryDao {
 			transaction = session.beginTransaction();
 			String qryString = "update Order s set s.status='Delivered' where s.orderId=?";
 			query = session.createQuery(qryString);
-			query.setParameter(0, orderId);
+			query.setParameter(0, 62);
 			int count = query.executeUpdate();
 			transaction.commit();
 		} catch (Exception e) {
@@ -543,10 +542,36 @@ public class AdminRepositary implements AdminRepositaryDao {
 	}
 
 	@Override
-	public Order getOneOrder(String orderId) {
-		
-		return null;
+	public Order getOneOrder(int orderId) {
+		System.out.println("GetOneOrder ID :" + orderId);
+		session = getHibernateTemplate().getSessionFactory().openSession();
+		transaction = session.beginTransaction();
+		String hql = "FROM Order WHERE orderId = ? ";
+		query = session.createQuery(hql);
+		query.setInteger(0, orderId);
+		Order user = (Order) query.uniqueResult();
+		System.out.println("GetOneOrder ID :" + user.getAddress());
+		System.out.println("GetOneOrder ID :" + user.getEmail());
+		System.out.println("GetOneOrder ID :" + user.getName());
+		System.out.println("GetOneOrder ID :" + user.getDate());
+		transaction.commit();
+		session.close();
+
+		return user;
 	}
 	
-
+	@Override
+	public List<OrderDetail> getAllOrderDetailById(String orderId) {
+		System.out.println("GetOneOrder ID :" + orderId);
+		session = getHibernateTemplate().getSessionFactory().openSession();
+		transaction = session.beginTransaction();
+		String hql = "FROM OrderDetail WHERE orderId = ? ";
+		query = session.createQuery(hql);
+		query.setString(0, orderId);
+		List<OrderDetail> listofOrderDetail = query.list();
+		transaction.commit();
+		session.close();
+		return listofOrderDetail;
+	}
+	
 }

@@ -172,7 +172,7 @@ public class CustomerRepositary implements CustomerRepositaryDao {
 	public List<AdminAddProductEntity> getAllVegiProList() {
 		session = getHibernateTemplate().getSessionFactory().openSession();
 		transaction = session.beginTransaction();
-		String hql = "FROM AdminAddProductEntity WHERE category = :category ";
+		String hql = "FROM AdminAddProductEntity WHERE category = :category ORDER BY id DESC";
 		query = session.createQuery(hql);
 		query.setParameter("category", "Vegitable");
 		List<AdminAddProductEntity> listofproduct = query.list();
@@ -202,7 +202,7 @@ public class CustomerRepositary implements CustomerRepositaryDao {
 	public List<AdminAddProductEntity> getAllFruitProList() {
 		session = getHibernateTemplate().getSessionFactory().openSession();
 		transaction = session.beginTransaction();
-		String hql = "FROM AdminAddProductEntity WHERE category = :category ";
+		String hql = "FROM AdminAddProductEntity WHERE category = :category ORDER BY id DESC";
 		query = session.createQuery(hql);
 		query.setParameter("category", "Fruit");
 		List<AdminAddProductEntity> listofproduct = query.list();
@@ -232,7 +232,7 @@ public class CustomerRepositary implements CustomerRepositaryDao {
 	public List<AdminAddProductEntity> getAllMeatProList() {
 		session = getHibernateTemplate().getSessionFactory().openSession();
 		transaction = session.beginTransaction();
-		String hql = "FROM AdminAddProductEntity WHERE category = :category ";
+		String hql = "FROM AdminAddProductEntity WHERE category = :category ORDER BY id DESC";
 		query = session.createQuery(hql);
 		query.setParameter("category", "Meat");
 		List<AdminAddProductEntity> listofproduct = query.list();
@@ -262,7 +262,7 @@ public class CustomerRepositary implements CustomerRepositaryDao {
 	public List<AdminAddProductEntity> getAllHomeWareProList() {
 		session = getHibernateTemplate().getSessionFactory().openSession();
 		transaction = session.beginTransaction();
-		String hql = "FROM AdminAddProductEntity WHERE category = :category ";
+		String hql = "FROM AdminAddProductEntity WHERE category = :category ORDER BY id DESC";
 		query = session.createQuery(hql);
 		query.setParameter("category", "Home Ware");
 		List<AdminAddProductEntity> listofproduct = query.list();
@@ -292,7 +292,7 @@ public class CustomerRepositary implements CustomerRepositaryDao {
 	public List<AdminAddProductEntity> getAllElectronicsProList() {
 		session = getHibernateTemplate().getSessionFactory().openSession();
 		transaction = session.beginTransaction();
-		String hql = "FROM AdminAddProductEntity WHERE category = :category ";
+		String hql = "FROM AdminAddProductEntity WHERE category = :category ORDER BY id DESC";
 		query = session.createQuery(hql);
 		query.setParameter("category", "Electronics");
 		List<AdminAddProductEntity> listofproduct = query.list();
@@ -322,7 +322,7 @@ public class CustomerRepositary implements CustomerRepositaryDao {
 	public List<AdminAddProductEntity> getAllBeautyProList() {
 		session = getHibernateTemplate().getSessionFactory().openSession();
 		transaction = session.beginTransaction();
-		String hql = "FROM AdminAddProductEntity WHERE category = :category ";
+		String hql = "FROM AdminAddProductEntity WHERE category = :category ORDER BY id DESC";
 		query = session.createQuery(hql);
 		query.setParameter("category", "Beauty");
 		List<AdminAddProductEntity> listofproduct = query.list();

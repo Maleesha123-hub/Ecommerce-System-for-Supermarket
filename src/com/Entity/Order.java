@@ -35,6 +35,16 @@ public class Order {
 	private String status;
 	@Column(name = "Payment_Method")
 	private String payment;
+	@Column(name = "Message")
+	private String reply;
+
+	public String getReply() {
+		return reply;
+	}
+
+	public void setReply(String reply) {
+		this.reply = reply;
+	}
 
 	public String getPayment() {
 		return payment;

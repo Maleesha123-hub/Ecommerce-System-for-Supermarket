@@ -11,6 +11,7 @@ import com.Entity.AdminCustomerEntity;
 import com.Entity.AdminMessageEntity;
 import com.Entity.AdminUserAddEntity;
 import com.Entity.Order;
+import com.Entity.OrderDetail;
 
 import AdminRepositaryDao.AdminRepositaryDao;
 import interf.Servicebd.AdminServiceBd;
@@ -250,8 +251,13 @@ public class AdminService implements AdminServiceBd {
 	}
 
 	@Override
-	public Order getOneOrder(String orderId) {
+	public Order getOneOrder(int orderId) {
 		return repositary.getOneOrder(orderId);
+	}
+
+	@Override
+	public List<OrderDetail> getAllOrderDetailById(String orderId) {
+		return repositary.getAllOrderDetailById(orderId);
 	}
 
 }
