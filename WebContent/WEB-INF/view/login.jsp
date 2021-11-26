@@ -54,7 +54,7 @@
 						<span onclick="login()">Login</span> <span onclick="register()">Register</span>
 						<hr id="Indicator">
 					</div>
-					<form action="loginprocess" method="get" id="LoginForm">
+					<form action="loginprocess" method="post" id="LoginForm">
 						<input type="text" name="uname" placeholder="User Name" required
 							id="uname"> <input type="password" name="password"
 							placeholder="Password" required> <small
@@ -72,8 +72,10 @@
 
 					<form action="register" method="post" id="RegForm">
 						<small style="color: red"><b>${userWrong}</b></small> 
-						<small style="color: #07c400"><b>${regSuccess}</b></small><input
-							type="text" name="fname" placeholder="First Name" required>
+						<small style="color: #07c400"><b>${regSuccess}</b></small>
+						<small style="color: red"><b>${userExists}</b></small>
+						<small style="color: red"><b>${emailExists}</b></small>
+						<input type="text" name="fname" placeholder="First Name" required>
 						<input type="text" name="lname" placeholder="Last Name" required>
 						<input type="text" name="uname" placeholder="User Name" required>
 						<input type="email" name="email" placeholder="Your Email" required>

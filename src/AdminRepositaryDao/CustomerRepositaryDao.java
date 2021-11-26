@@ -55,4 +55,9 @@ public interface CustomerRepositaryDao {
 	// cancel order by id
 	public void cancelorderCashOnDelivery(int lastorderid);
 
+	// get all customer details Verify
+	public List<AdminCustomerEntity> getAllCustomerListVerify(String uname, String password);
+
+	public List<AdminCustomerEntity> getAllCustomerListVerify(String enail);
+
 }

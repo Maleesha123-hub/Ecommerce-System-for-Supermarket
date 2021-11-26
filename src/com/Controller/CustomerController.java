@@ -61,6 +61,11 @@ public class CustomerController {
 	String userFn;
 	String userLn;
 
+	String userWrong;
+	String loginsuc;
+	String userExists;
+	String emailExists;
+
 	int cusId;
 	String cusName;
 
@@ -201,19 +206,9 @@ public class CustomerController {
 	@RequestMapping("/accountCus")
 	public void accountCus(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		request.setAttribute("cusName", cusName);
 		List<AdminCustomerEntity> accDetails = service.getAllByUname(cusName);
 		for (AdminCustomerEntity s : accDetails) {
-			System.out.println("/////////////////////////////////////" + s.getFname());
-			System.out.println("/////////////////////////////////////" + s.getLname());
-			System.out.println("/////////////////////////////////////" + s.getPassword());
-			System.out.println("/////////////////////////////////////" + s.getEmail());
-			System.out.println("/////////////////////////////////////" + s.getHouseno());
-			System.out.println("/////////////////////////////////////" + s.getStreetname());
-			System.out.println("/////////////////////////////////////" + s.getCityname());
-			System.out.println("/////////////////////////////////////" + s.getPostal());
-			System.out.println("/////////////////////////////////////" + s.getPhone());
 			request.setAttribute("accDetails", accDetails);
 			RequestDispatcher dis = request.getRequestDispatcher("/account");
 			dis.forward(request, response);
@@ -360,12 +355,45 @@ public class CustomerController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(@ModelAttribute("user") AdminCustomerEntity user, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String userWrong = "";
-		String loginsuc = "User Registered Successfull!";
+		userWrong = "";
+		loginsuc = "User Registered Successfull!";
+		userExists = "Username or Password is already in used!";
+		emailExists = "Email address is already in used!";
+
 		request.setAttribute("userWrong", userWrong);
-		request.setAttribute("regSuccess", loginsuc);
-		service.insert(user);
+
+		service.getAllCustomerListVerify(user.getUname(), user.getPassword());
+		service.getAllCustomerListVerify(user.getEmail());
+		boolean isresult = service.getAllCustomerListVerify(user.getUname(), user.getPassword());
+		boolean isresult2 = service.getAllCustomerListVerify(user.getEmail());
+
+		if (isresult == true) {
+			System.out.println("UNAME OR PASSWORD EXISTS");
+			request.setAttribute("userExists", userExists);
+			RequestDispatcher dis = request.getRequestDispatcher("/login");
+			dis.forward(request, response);
+
+		} else if (isresult2 == true) {
+			System.out.println("Email EXISTS");
+			request.setAttribute("emailExists", emailExists);
+			RequestDispatcher dis = request.getRequestDispatcher("/login");
+			dis.forward(request, response);
+		} else if (isresult == false && isresult2 == false) {
+			System.out.println("REGISTER DONE!");
+			service.insert(user);
+			request.setAttribute("regSuccess", loginsuc);
+			RequestDispatcher dis = request.getRequestDispatcher("/login");
+			dis.forward(request, response);
+		}
 		return "login";
+	}
+
+	@RequestMapping("/login")
+	public String registerVerify(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.setAttribute("cusName", cusName);
+		return "login";
+
 	}
 
 	// --
@@ -393,12 +421,12 @@ public class CustomerController {
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	@RequestMapping(value = "/loginprocess", method = RequestMethod.GET)
+	@RequestMapping(value = "/loginprocess", method = RequestMethod.POST)
 	public String login(@ModelAttribute("userList") AdminCustomerEntity userList, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
 		String userWrong = "Username or Password incorrect!";
-
+		System.out.println(userList.getUname());
 		boolean result = service.login(userList);
 
 		if (result == true) {
@@ -446,21 +474,26 @@ public class CustomerController {
 	 * @return
 	 */
 	@RequestMapping(value = "/updatePersonal", method = RequestMethod.POST)
-	public String updatePersonal(AdminCustomerEntity personalList) {
-		System.out.println("UPDATE PERSONAL CONTROLLER////////" + personalList.getId());
-		System.out.println("UPDATE PERSONAL CONTROLLER////////" + personalList.getFname());
-		System.out.println("UPDATE PERSONAL CONTROLLER////////" + personalList.getLname());
-		System.out.println("UPDATE PERSONAL CONTROLLER////////" + personalList.getUname());
-		System.out.println("UPDATE PERSONAL CONTROLLER////////" + personalList.getEmail());
-		System.out.println("UPDATE PERSONAL CONTROLLER////////" + personalList.getHouseno());
-		System.out.println("UPDATE PERSONAL CONTROLLER////////" + personalList.getStreetname());
-		System.out.println("UPDATE PERSONAL CONTROLLER////////" + personalList.getCityname());
-		System.out.println("UPDATE PERSONAL CONTROLLER////////" + personalList.getPassword());
-		System.out.println("UPDATE PERSONAL CONTROLLER////////" + personalList.getPhone());
-		System.out.println("UPDATE PERSONAL CONTROLLER////////" + personalList.getPostal());
+	public boolean updatePersonal(@ModelAttribute("updatePersonal") AdminCustomerEntity personalList) {
 
-		service.updatePersonal(personalList);
-		return "account";
+		service.getAllCustomerListVerify(personalList.getUname(), personalList.getPassword());
+		service.getAllCustomerListVerify(personalList.getEmail());
+		boolean isresult = service.getAllCustomerListVerify(personalList.getUname(), personalList.getPassword());
+		boolean isresult2 = service.getAllCustomerListVerify(personalList.getEmail());
+		boolean isResult = false;
+		if (isresult == true) {
+			System.out.println("UNAME OR PASSWORD EXISTS");
+			isResult = true;
+
+		} else if (isresult2 == true) {
+			System.out.println("Email EXISTS");
+			isResult = true;
+
+		} else if (isresult == false && isresult2 == false) {
+			System.out.println("REGISTER DONE!");
+			service.updatePersonal(personalList);
+		}
+		return isResult;
 	}
 
 	// -- SEARCH

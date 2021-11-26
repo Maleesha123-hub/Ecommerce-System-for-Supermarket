@@ -206,6 +206,14 @@ public class AdminService implements AdminServiceBd {
 	public List<AdminMessageEntity> getSUmmMessaDetail() {
 		return repositary.getSUmmMessaDetail();
 	}
+	
+	/**
+	 * get Order details
+	 */
+	@Override
+	public List<Order> getSUmmOrderDetail() {
+		return repositary.getSUmmOrderDetail();
+	}
 
 	/**
 	 * get Product count
@@ -224,16 +232,10 @@ public class AdminService implements AdminServiceBd {
 	}
 
 	@Override
-	public Long countOrder() {
-		// TODO Auto-generated method stub
-		return null;
+	public Long countPendingOrder() {
+		return repositary.countPendingOrder();
 	}
 
-	@Override
-	public Long countRevenue() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public List<Order> getAllOrderPendingList() {
@@ -259,5 +261,6 @@ public class AdminService implements AdminServiceBd {
 	public List<OrderDetail> getAllOrderDetailById(String orderId) {
 		return repositary.getAllOrderDetailById(orderId);
 	}
+
 
 }

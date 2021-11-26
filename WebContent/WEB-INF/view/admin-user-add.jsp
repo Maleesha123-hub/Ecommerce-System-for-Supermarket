@@ -19,11 +19,6 @@
 	name="description" />
 <meta content="Themesbrand" name="author" />
 
-<title>Parakrama | Inbox-Messages</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta content="Premium Multipurpose Admin & Dashboard Template"
-	name="description" />
-<meta content="Themesbrand" name="author" />
 <!-- App favicon -->
 <link rel="shortcut icon"
 	href="<spring:url value="/resources/images/main-icon.png" />">
@@ -43,30 +38,36 @@
 
 <script>
 	function insertUser() {
-			    Swal.fire('Saved!', '', 'success')
 			    $('#updateUser').hide();
 				$('#saveUser').show();
-				$.ajax({
-					type : "POST",
-					url : "saveUser",
-					data : {
-						id : $("#id").val(),
-						fname : $("#fname").val(),
-						lname : $("#lname").val(),
-						uname : $("#uname").val(),
-						position : $("#position").val(),
-						email : $("#email").val(),
-						password : $("#password").val()
+				
+				if($("#fname").val() == "" || $("#lname").val() == "" || $("#uname").val() == "" || $("#position").val() == "" || $("#email").val() == "" || $("#password").val() == ""){
+					//alert("faild");
+				}
+				else{
 
-					},
-					success : function(result) {
-						getAllrecord();
-						$('#admin-user-add')[0].reset()
-					},
-					error : function(err) {
-						alert("error is" + err)
-					}
-				});
+					$.ajax({
+								type : "POST",
+								url : "saveUser",
+								data : {
+									id : $("#id").val(),
+									fname : $("#fname").val(),
+									lname : $("#lname").val(),
+									uname : $("#uname").val(),
+									position : $("#position").val(),
+									email : $("#email").val(),
+									password : $("#password").val()
+
+								},
+								success : function(result) {
+									getAllrecord()
+								    Swal.fire('Saved!', '', 'success')
+								},
+								error : function(err) {
+									alert("error is" + err)
+								}
+							});
+			}
 	}
 
 	function getAllrecord() {
@@ -135,27 +136,31 @@
 	}
 
 	function updateUserbtn() {
+		if($("#fname").val() == "" || $("#lname").val() == "" || $("#uname").val() == "" || $("#position").val() == "" || $("#email").val() == "" || $("#password").val() == ""){
+			//alert("faild");
+		}else{
 
-	    Swal.fire('User Updated!', '', 'success')
-		$.ajax({
-			type : "POST",
-			url : "updateUser",
-			data : {
-				id : $("#id").val(),
-				fname : $("#fname").val(),
-				lname : $("#lname").val(),
-				uname : $("#uname").val(),
-				position : $("#position").val(),
-				email : $("#email").val(),
-				password : $("#password").val()
-			},
-			success : function(result) {
-				getAllrecord();
-			},
-			error : function(err) {
-				alert("error is" + err)
+			$.ajax({
+				type : "POST",
+				url : "updateUser",
+				data : {
+					id : $("#id").val(),
+					fname : $("#fname").val(),
+					lname : $("#lname").val(),
+					uname : $("#uname").val(),
+					position : $("#position").val(),
+					email : $("#email").val(),
+					password : $("#password").val()
+				},
+				success : function(result) {
+					$('#admin-user-add')[0].reset();
+				},
+				error : function(err) {
+					alert("error is" + err)
+				}
+			}); 
+		    Swal.fire('User Updated!', '', 'success');
 			}
-		});    
 	}
 
 
@@ -180,7 +185,9 @@
 			type : "POST",
 			url : "deleteUser/" + id,
 			success : function(response) {
+
 				getAllrecord();
+				
 			},
 			error : function(err) {
 				alert("error is" + err)

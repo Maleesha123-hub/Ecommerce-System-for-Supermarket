@@ -67,36 +67,30 @@
 								<caption>Orders Report</caption>
 								<thead>
 									<tr>
-										<th>ID</th>
-										<th>First_Name</th>
-										<th>Last_Name</th>
+										<th>Order_ID</th>
+										<th>Full_Name</th>
+										<th>Amount</th>
 										<th>Email</th>
 										<th>Phone</th>
-										<th>Houseno</th>
-										<th>Streetname</th>
-										<th>Cityname</th>
+										<th>Address</th>
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach var="cus" items="${cusList}">
+									<c:forEach var="cus" items="${ordList}">
 
-										<c:set var="fname" value="${cus.id}" />
-										<c:set var="fname" value="${cus.fname}" />
-										<c:set var="lname" value="${cus.lname}" />
+										<c:set var="orderId" value="${cus.orderId}" />
+										<c:set var="name" value="${cus.name}" />
+										<c:set var="subtotal" value="${cus.subtotal}" />
 										<c:set var="email" value="${cus.email}" />
-										<c:set var="email" value="${cus.phone}" />
-										<c:set var="houseno" value="${cus.houseno}" />
-										<c:set var="streetname" value="${cus.streetname}" />
-										<c:set var="cityname" value="${cus.cityname}" />
+										<c:set var="telephone" value="${cus.telephone}" />
+										<c:set var="address" value="${cus.address}" />
 										<tr>
-											<td>${cus.id}</td>
-											<td>${cus.fname}</td>
-											<td>${cus.lname}</td>
+											<td>${cus.orderId}</td>
+											<td>${cus.name}</td>
+											<td>${cus.subtotal}</td>
 											<td>${cus.email}</td>
-											<td>${cus.phone}</td>
-											<td>${cus.houseno}</td>
-											<td>${cus.streetname}</td>
-											<td>${cus.cityname}</td>
+											<td>${cus.telephone}</td>
+											<td>${cus.address}</td>
 										</tr>
 									</c:forEach>
 								</tbody>

@@ -439,6 +439,25 @@ public class AdminRepositary implements AdminRepositaryDao {
 	}
 
 	/**
+	 * get all order details
+	 * 
+	 * @return list of orders
+	 */
+	@Override
+	public List<Order> getSUmmOrderDetail() {
+		session = getHibernateTemplate().getSessionFactory().openSession();
+		transaction = session.beginTransaction();
+		String hql = "FROM Order ORDER WHERE status = ?";
+		query = session.createQuery(hql);
+		query.setString(0, "Pending");
+		List<Order> listoforder = query.list();
+		transaction.commit();
+		session.close();
+
+		return listoforder;
+	}
+
+	/**
 	 * get count of customers
 	 * 
 	 * @return count
@@ -477,15 +496,18 @@ public class AdminRepositary implements AdminRepositaryDao {
 	}
 
 	@Override
-	public Long countOrder() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public Long countPendingOrder() {
+		session = getHibernateTemplate().getSessionFactory().openSession();
+		transaction = session.beginTransaction();
+		String sql = "SELECT COUNT(*) FROM Order WHERE status = ?";
+		query = session.createQuery(sql);
+		query.setString(0, "Pending");
+		Long ordcount = (Long) query.uniqueResult();
+		System.out.println(">>>>>>>>--------Ord--------" + query.uniqueResult());
+		transaction.commit();
+		session.close();
 
-	@Override
-	public Long countRevenue() {
-		// TODO Auto-generated method stub
-		return null;
+		return ordcount;
 	}
 
 	/**
@@ -516,14 +538,14 @@ public class AdminRepositary implements AdminRepositaryDao {
 			transaction = session.beginTransaction();
 			String qryString = "update Order s set s.status='Delivered' where s.orderId=?";
 			query = session.createQuery(qryString);
-			query.setParameter(0, 62);
+			query.setParameter(0, orderId);
 			int count = query.executeUpdate();
 			transaction.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public void canceledOrder(int orderId) {
 		System.out.println("/////////////" + orderId);
@@ -559,7 +581,7 @@ public class AdminRepositary implements AdminRepositaryDao {
 
 		return user;
 	}
-	
+
 	@Override
 	public List<OrderDetail> getAllOrderDetailById(String orderId) {
 		System.out.println("GetOneOrder ID :" + orderId);
@@ -573,5 +595,5 @@ public class AdminRepositary implements AdminRepositaryDao {
 		session.close();
 		return listofOrderDetail;
 	}
-	
+
 }

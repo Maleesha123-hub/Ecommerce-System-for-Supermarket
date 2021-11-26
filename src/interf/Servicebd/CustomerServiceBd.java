@@ -54,4 +54,7 @@ public interface CustomerServiceBd {
 	// cancel order by id
 	public void cancelorderCashOnDelivery(int lastOrderId);
 
+	public boolean getAllCustomerListVerify(String uname, String password);
+
+	public boolean getAllCustomerListVerify(String email);
 }

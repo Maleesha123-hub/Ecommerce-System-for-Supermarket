@@ -18,13 +18,14 @@ public interface AdminRepositaryDao {
 
 	public List<AdminMessageEntity> getSUmmMessaDetail();
 
-	public Long countCustomer();
+	public List<Order> getSUmmOrderDetail();
 
-	public Long countOrder();
+	public Long countCustomer();
 
 	public Long countProduct();
 
-	public Long countRevenue();
+	public Long countPendingOrder();
+
 
 	// --
 	// --

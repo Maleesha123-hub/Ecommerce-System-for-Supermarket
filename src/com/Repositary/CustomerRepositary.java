@@ -508,4 +508,39 @@ public class CustomerRepositary implements CustomerRepositaryDao {
 		}
 	}
 
+	/**
+	 * get all customer details
+	 * 
+	 * @return list of customers
+	 */
+	@Override
+	public List<AdminCustomerEntity> getAllCustomerListVerify(String uname , String password) {
+		System.out.println(uname + "ANDDD" + password);
+		session = getHibernateTemplate().getSessionFactory().openSession();
+		transaction = session.beginTransaction();
+		String hql = "FROM AdminCustomerEntity where uname = ? or password = ?";
+		query = session.createQuery(hql);
+		query.setString(0, uname);
+		query.setString(1, password);
+		List<AdminCustomerEntity> listofcustomer = query.list();
+		transaction.commit();
+		session.close();
+
+		return listofcustomer;
+	}
+
+	@Override
+	public List<AdminCustomerEntity> getAllCustomerListVerify(String email) {
+		session = getHibernateTemplate().getSessionFactory().openSession();
+		transaction = session.beginTransaction();
+		String hql = "FROM AdminCustomerEntity where email = ?";
+		query = session.createQuery(hql);
+		query.setString(0, email);
+		List<AdminCustomerEntity> listofcustomer = query.list();
+		transaction.commit();
+		session.close();
+
+		return listofcustomer;
+	}
+	
 }

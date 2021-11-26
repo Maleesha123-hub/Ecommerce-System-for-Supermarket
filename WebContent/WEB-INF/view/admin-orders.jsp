@@ -633,6 +633,7 @@ function refresh(){
 
 								<!-- ---------------------END ORDER Fields LOAD AND ANALYS-------------------------------- -->
 								<h4>Recent Orders</h4>
+								<hr style="background: yellow">
 								<div class="row">
 									<div class="col-12">
 										<div class="card">
@@ -690,6 +691,7 @@ function refresh(){
 
 								<!-- ---------------------END ORDER Canceled LOAD AND ANALYS-------------------------------- -->
 								<h4>Canceled Orders</h4>
+								<hr style="background: gray">
 								<div class="row">
 									<div class="col-12">
 										<div class="card">
@@ -747,6 +749,7 @@ function refresh(){
 
 								<!-- ---------------------END ORDER Deliverd LOAD AND ANALYS-------------------------------- -->
 								<h4>Delivered Orders</h4>
+								<hr style="background: #28a745">
 								<div class="row">
 									<div class="col-12">
 										<div class="card">

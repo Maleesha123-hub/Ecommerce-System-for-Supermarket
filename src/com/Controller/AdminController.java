@@ -349,13 +349,24 @@ public class AdminController {
 			System.out.println(ss.getLname());
 			System.out.println(ss.getCityname());
 		}
+		List<Order> ordertopDetails = service.getSUmmOrderDetail();
+		for (Order ord : ordertopDetails) {
+			System.out.println(ord.getName());
+			System.out.println(ord.getPayment());
+			System.out.println(ord.getSubtotal());
+			System.out.println(ord.getDate());
+		}
 		Long cus = service.countCustomer();
 		Long pro = service.countProduct();
+		Long ord = service.countPendingOrder();
 		System.out.println(cus);
 		System.out.println(pro);
+		System.out.println(ord);
 		request.setAttribute("cus", cus);
 		request.setAttribute("pro", pro);
+		request.setAttribute("ord", ord);
 		request.setAttribute("mesDetails", mesDetails);
+		request.setAttribute("ordertopDetails", ordertopDetails);
 		request.setAttribute("custopDetails", custopDetails);
 		request.setAttribute("adminName", adminName);
 		return "admin-index";
@@ -380,10 +391,13 @@ public class AdminController {
 		}
 		Long cus = service.countCustomer();
 		Long pro = service.countProduct();
+		Long ord = service.countPendingOrder();
 		System.out.println(cus);
 		System.out.println(pro);
+		System.out.println(ord);
 		request.setAttribute("cus", cus);
 		request.setAttribute("pro", pro);
+		request.setAttribute("ord", ord);
 		request.setAttribute("mesDetails", mesDetails);
 		request.setAttribute("custopDetails", custopDetails);
 		request.setAttribute("adminName", adminName);
@@ -456,9 +470,27 @@ public class AdminController {
 	 * "products-reports"; }
 	 */
 
-	@RequestMapping("/orderreport")
+	/*
+	 * @GetMapping("/orderreport") public String orderListreport(HttpServletRequest
+	 * request, HttpServletResponse response) throws ServletException, IOException {
+	 * List<Order> ordList = service.getAllOrderPendingList(); for (Order ors :
+	 * ordList) { System.out.println(ors); } request.setAttribute("ordList",
+	 * ordList); RequestDispatcher dis =
+	 * request.getRequestDispatcher("/orders-reports"); dis.forward(request,
+	 * response); return "orders-reports"; }
+	 */
+
+	// Load Order report table
+	@RequestMapping(value = "/orderreport", method = RequestMethod.GET)
 	public String orderreport(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		System.out.println("LOAD ORDER REPORT PENDING TABLE////////");
+		List<Order> ordList = service.getAllOrderPendingList();
+		for (Order ordh : ordList) {
+			System.out.println(ordh.getName());
+			System.out.println(ordh.getSubtotal());
+		}
+		request.setAttribute("ordList", ordList);
 		return "orders-reports";
 	}
 
@@ -511,7 +543,6 @@ public class AdminController {
 		service.canceledOrder(orderId);
 		return "admin-orders";
 	}
-	
 
 	/*
 	 * Have to make this part Have to make this part Have to make this part Have to
@@ -529,19 +560,19 @@ public class AdminController {
 		System.out.println("GET ORDER BY ORDERID////////" + orderid);
 		return service.getOneOrder(orderid);
 	}
-	
+
 	@GetMapping("/getAllOrderDetailById/{orderId}")
 	@ResponseBody
 	public List<OrderDetail> getAllOrderDetailById(@PathVariable String orderId) {
 		System.out.println("GET ORDERDETAIL BY ORDERID////////" + orderId);
 		List<OrderDetail> cus = service.getAllOrderDetailById(orderId);
-		for(OrderDetail cuss : cus) {
+		for (OrderDetail cuss : cus) {
 			System.out.println(cuss.getProductname());
 			System.out.println(cuss.getQuantity());
 		}
 		return cus;
 	}
-	
+
 	@RequestMapping(value = "/sendingOrderEmail", method = RequestMethod.POST)
 	@ResponseBody
 	public String sendingOrderEmail(@ModelAttribute("sendingOrderEmail") Order orderdetails) {

@@ -209,7 +209,7 @@
 									</div>
 									<div>
 										<h4 class="mb-1 mt-1">
-											<span data-plugin="counterup">5,643</span>
+											<span data-plugin="counterup">${ord}</span>
 										</h4>
 										<p class="text-muted mb-0">Orders</p>
 									</div>
@@ -376,18 +376,19 @@
 									<h4 class="card-title mb-4">Recent Orders</h4>
 									<ol class="activity-feed mb-0 ps-2" data-simplebar
 										style="max-height: 336px;">
-										<c:forEach var="cus" items="${mesDetails}">
-											<li class="feed-item"><c:set var="message"
-													value="${cus.message}" /> <c:set var="email"
-													value="${cus.email}" /> <c:set var="publishedDate"
-													value="${cus.publishedDate}" />
+										<c:forEach var="cus" items="${ordertopDetails}">
+											<li class="feed-item"><c:set var="name"
+													value="${cus.name}" /> <c:set var="date"
+													value="${cus.date}" /> <c:set var="payment"
+													value="${cus.payment}" /><c:set var="subtotal"
+													value="${cus.subtotal}" />
 												<div class="feed-item-list">
 													<p class="text-muted mb-1 font-size-13">
-														<small class="d-inline-block ms-1">${cus.publishedDate}</small>
+														<small class="d-inline-block ms-1">${cus.date}</small>
 													</p>
-													<p class="mb-0">
-														${cus.message}<span class="text-primary">
-															${cus.email}</span>
+													<p class="mb-0">${cus.name}<span class="text-danger"> LKR 
+															${cus.subtotal}</span><span class="text-primary">
+															${cus.payment}</span>
 													</p>
 												</div></li>
 										</c:forEach>

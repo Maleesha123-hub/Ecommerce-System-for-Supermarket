@@ -163,4 +163,31 @@ public class CustomerService implements CustomerServiceBd {
 
 	}
 
+	@Override
+
+	public boolean getAllCustomerListVerify(String uname, String password) {
+		List<AdminCustomerEntity> adc = repositary.getAllCustomerListVerify(uname, password);
+		boolean issuccess;
+		if (adc.size() > 0) {
+
+			issuccess = true;
+		} else {
+			issuccess = false;
+		}
+		return issuccess;
+	}
+
+	@Override
+	public boolean getAllCustomerListVerify(String email) {
+		List<AdminCustomerEntity> adc = repositary.getAllCustomerListVerify(email);
+		boolean issuccess;
+		if (adc.size() > 0) {
+
+			issuccess = true;
+		} else {
+			issuccess = false;
+		}
+		return issuccess;
+	}
+
 }

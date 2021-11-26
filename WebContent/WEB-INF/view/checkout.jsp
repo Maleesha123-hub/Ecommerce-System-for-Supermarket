@@ -175,7 +175,7 @@ $(document).ready(function() {
 		$('#cashondelivery').hide();
 		$('#canceldelivery').hide();
 		$('#canceldemessage').show();
-		
+		$('#paypal-button-container').hide();
 		Swal.fire({
 			  icon: 'error',
 			  title: 'Your Order Canceled!!!',

@@ -46,6 +46,12 @@
 	 function insertProduct() {
 		$('#updatePro').hide();
 		$('#saveProduct').show();
+
+
+		if($("#name").val() == "" || $("#price").val() == "" || $("#category").val() == "" || $("#description").val() == ""){
+			//alert("faild");
+		}
+		else{
 		$.ajax({
 			type : "POST",
 			url : "saveProduct",
@@ -65,6 +71,7 @@
 				alert("error is" + err)
 			}
 		});
+		}
 	}
 
 	function getAllProRecord() {
@@ -368,14 +375,14 @@
 													<div class="mb-3">
 														<label class="form-label" for="productname">Product
 															Name</label> <input id="name" name="name" type="text"
-															class="form-control">
+															class="form-control" required="required">
 													</div>
 												</div>
 												<div class="col-lg-4">
 													<div class="mb-3">
 														<label class="form-label" for="price">Price</label> <input
 															id="price" name="price" id="price" type="text"
-															class="form-control">
+															class="form-control" required="required">
 													</div>
 												</div>
 											</div>
@@ -401,7 +408,7 @@
 												<label class="form-label" for="productdesc">Product
 													Description</label>
 												<textarea class="form-control" id="description"
-													name="description" rows="4"></textarea>
+													name="description" rows="4" required="required"></textarea>
 											</div>
 											<br>
 											<div class="flex-grow-1 overflow-hidden">

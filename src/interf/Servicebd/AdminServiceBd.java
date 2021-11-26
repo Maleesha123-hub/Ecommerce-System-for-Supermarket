@@ -19,13 +19,14 @@ public interface AdminServiceBd {
 
 	public List<AdminMessageEntity> getSUmmMessaDetail();
 
+	public List<Order> getSUmmOrderDetail();
+
 	public Long countCustomer();
 
-	public Long countOrder();
+	public Long countPendingOrder();
 
 	public Long countProduct();
 
-	public Long countRevenue();
 
 	// --
 	// --

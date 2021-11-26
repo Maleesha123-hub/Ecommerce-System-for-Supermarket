@@ -35,6 +35,7 @@
 	src="<spring:url value="/resources/js/multislider.min.js" />"></script>
 <!-- ----Sweet Alert ------->
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <style>
 
 /*-----------------Cart Button-------------*/
@@ -92,6 +93,10 @@ nav a {
 
 
 
+
+
+
+
 :not
 
 
@@ -107,7 +112,11 @@ nav a {
 
 
 
+
+
  
+
+
 
 
 
@@ -138,7 +147,11 @@ nav a {
 
 
 
+
+
  
+
+
 
 
 
@@ -169,7 +182,11 @@ nav a {
 
 
 
+
+
  
+
+
 
 
 
@@ -200,7 +217,11 @@ nav a {
 
 
 
+
+
  
+
+
 
 
 
@@ -246,7 +267,13 @@ cursor
 
 
 
+
+
+
+
 :
+
+
 
 
 
@@ -276,7 +303,13 @@ cursor
 
 
 
+
+
 pointer
+
+
+
+
 
 
 
@@ -389,6 +422,10 @@ pointer
 
 
 
+
+
+
+
 :not
 
 
@@ -404,7 +441,11 @@ pointer
 
 
 
+
+
  
+
+
 
 
 
@@ -435,7 +476,11 @@ pointer
 
 
 
+
+
  
+
+
 
 
 
@@ -466,7 +511,11 @@ pointer
 
 
 
+
+
  
+
+
 
 
 
@@ -497,7 +546,11 @@ pointer
 
 
 
+
+
  
+
+
 
 
 
@@ -543,7 +596,13 @@ cursor
 
 
 
+
+
+
+
 :
+
+
 
 
 
@@ -573,7 +632,13 @@ cursor
 
 
 
+
+
 pointer
+
+
+
+
 
 
 
@@ -697,8 +762,20 @@ pointer
 </style>
 
 <script>
-	function updateCustomerbtn() {
 
+$(document).ready(function() {
+	$('#regSuccess').hide();
+	$('#userExists').hide();
+	$('#emailExists').hide();
+
+});
+
+
+	function updateCustomerbtn() {
+		if($("#fname").val() == "" || $("#lname").val() == "" || $("#uname").val() == "" || $("#email").val() == "" || $("#houseno").val() == "" || $("#streetname").val() == "" || $("#cityname").val() == "" || $("#password").val() == "" || $("#postal").val() == "" || $("#phone").val() == ""){
+			//alert("faild");
+		}
+		else{
 		Swal.fire({
 			  title: 'Do you want to save the Account details?',
 			  showDenyButton: true,
@@ -726,7 +803,13 @@ pointer
 							postal : $("#postal").val()
 						},
 						success : function(result) {
+							alert(result)
+							if(result == true){
+								$('#userExists').show();
+							}else{
 
+								$('#userExists').show();
+							}
 						},
 						error : function(err) {
 							alert("error is" + err)
@@ -738,11 +821,12 @@ pointer
 			    Swal.fire('Details are not saved', '', 'info')
 			  }
 			})
+		}
 		
 	}
 </script>
 
-	
+
 </head>
 
 <body>
@@ -784,20 +868,20 @@ pointer
 				</ul>
 			</nav>
 
-<%
-		float proItemSubTotal = 0;
-		int proItemCount = 0;
-		if (session.getAttribute("proDetails") == null) {
+			<%
+				float proItemSubTotal = 0;
+				int proItemCount = 0;
+				if (session.getAttribute("proDetails") == null) {
 
-		} else {
-			List<ShoppingCart> proItemCartList = (List<ShoppingCart>) session.getAttribute("proDetails");
+				} else {
+					List<ShoppingCart> proItemCartList = (List<ShoppingCart>) session.getAttribute("proDetails");
 
-			for (int a = 0; a < proItemCartList.size(); a++) {
-				proItemSubTotal = proItemSubTotal + proItemCartList.get(a).getSubTotal();
-				proItemCount = proItemCount + 1;
-			}
-		}
-	%>
+					for (int a = 0; a < proItemCartList.size(); a++) {
+						proItemSubTotal = proItemSubTotal + proItemCartList.get(a).getSubTotal();
+						proItemCount = proItemCount + 1;
+					}
+				}
+			%>
 			<div class="navbar-top">
 				<div class="menuButto">
 					<a href=. />
@@ -810,13 +894,15 @@ pointer
 					<!--Shopping cart-->
 					<div class="shopping-cart">
 						<!--Shopping cart logo-->
-						<a href="cart" style="cursor: pointer"> <i class="fas fa-shopping-cart"> <b
-							style="font-size: 14px"> LKR <%
+						<a href="cart" style="cursor: pointer"> <i
+							class="fas fa-shopping-cart"> <b style="font-size: 14px">
+									LKR <%
  	out.print(proItemSubTotal);
  %>
-						</b>
+							</b>
 
-						</i> </a>
+						</i>
+						</a>
 
 					</div>
 				</div>
@@ -1077,6 +1163,12 @@ pointer
 			<!-- 					placeholder="Confirm New Password" -->
 			<!-- 					aria-label="Confirm New Password"> -->
 			<!-- 			</div> -->
+
+
+			<small style="color: #07c400" id="regSuccess"><b>User Updated Successfull!</b></small> <small
+				style="color: red" id="userExists"><b>Username or Password is already in used!</b></small> <small
+				style="color: red" id="emailExists"><b>Email address is already in used!</b></small>
+				
 			<div class="formAccSub-controlPW">
 				<Button type="submit" class="form-control submit" id="updatePass"
 					onclick="updateCustomerbtn()">SAVE</Button>

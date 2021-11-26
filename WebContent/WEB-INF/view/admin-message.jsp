@@ -37,6 +37,13 @@
 
 
 <script>
+
+
+function emailCancel() {
+	$('#sendMessage').hide();
+	$('#reset').hide();
+}
+
 	function getAllMessage() {
 		$('#sendMessage').hide();
 		$('#reset').hide();
@@ -405,7 +412,7 @@
 												class="btn btn-primary waves-effect waves-light me-1"
 												onclick="sendEmailBtn()">Send</button>
 											<button type="reset" id="reset"
-												class="btn btn-secondary waves-effect">Cancel</button>
+												class="btn btn-secondary waves-effect" onclick="emailCancel()">Cancel</button>
 										</div>
 									</div>
 								</form>
