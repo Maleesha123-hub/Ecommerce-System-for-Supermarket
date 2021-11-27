@@ -88,6 +88,8 @@ function refresh(){
 												+ '</td> <td>'
 												+ data[i].date
 												+ '</td> <td>'
+												+ data[i].payment
+												+ '</td> <td>'
 												+ data[i].subtotal
 												+ '</td> <td>'
 												+ '<input type="button" class="btn btn-warning btn-sm btn-rounded waves-effect waves-light" onclick="pendingBtn('
@@ -114,6 +116,8 @@ function refresh(){
 												+ '</td> <td>'
 												+ data[i].date
 												+ '</td> <td>'
+												+ data[i].payment
+												+ '</td> <td>'
 												+ data[i].subtotal
 												+ '</td> <td>'
 												+ '<input type="button" class="btn btn-secondary btn-sm btn-rounded waves-effect waves-light" onclick="deliveryBtn('
@@ -135,6 +139,8 @@ function refresh(){
 												+ data[i].name
 												+ '</td> <td>'
 												+ data[i].date
+												+ '</td> <td>'
+												+ data[i].payment
 												+ '</td> <td>'
 												+ data[i].subtotal
 												+ '</td> <td>'
@@ -646,6 +652,7 @@ function refresh(){
 															<th>Order ID</th>
 															<th>Billing Name</th>
 															<th>Order Date</th>
+															<th>Payment</th>
 															<th>Total</th>
 															<th>Status</th>
 															<th>Cancel Order</th>
@@ -704,6 +711,7 @@ function refresh(){
 															<th>Order ID</th>
 															<th>Billing Name</th>
 															<th>Order Date</th>
+															<th>Payment</th>
 															<th>Total</th>
 															<th>Status</th>
 															<th>View Details</th>
@@ -762,6 +770,7 @@ function refresh(){
 															<th>Order ID</th>
 															<th>Billing Name</th>
 															<th>Order Date</th>
+															<th>Payment</th>
 															<th>Total</th>
 															<th>Status</th>
 															<th>View Details</th>
@@ -801,11 +810,6 @@ function refresh(){
 										</div>
 									</div>
 								</div>
-								<!-- end table-responsive -->
-
-
-
-
 							</div>
 						</div>
 					</div>

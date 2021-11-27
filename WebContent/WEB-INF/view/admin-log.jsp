@@ -51,7 +51,7 @@
 								<p class="text-muted">Login to the admin dashboard.</p>
 							</div>
 							<div class="p-2 mt-4">
-								<form action="adminlogpro" method="GET">
+								<form action="adminlogpro" method="POST">
 									<div class="mb-3">
 										<label class="form-label" for="username">Username</label> <input
 											type="text" name="uname" class="form-control" id="uname"

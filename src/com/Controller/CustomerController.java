@@ -34,7 +34,8 @@ import interf.Servicebd.CustomerServiceBd;
 
 @Controller
 public class CustomerController {
-
+	// Order Past Details CusID
+	int cusiid;
 	// Order Shipping DETAILS
 	String cusid;
 	// concat name
@@ -53,6 +54,8 @@ public class CustomerController {
 	String zip;
 	String stat;
 	int lastOrderId;
+	String lastDate;
+	String lastStatus;
 	String payment;
 
 	String userEm;
@@ -115,6 +118,29 @@ public class CustomerController {
 
 		request.setAttribute("cusName", cusName);
 		return "all-product";
+	}
+
+	// return invoice page
+	@RequestMapping("/invoice")
+	public String invoice(HttpServletRequest request, HttpServletResponse response, HttpSession session)
+			throws ServletException, IOException {
+
+		List<AdminCustomerEntity> userDetail = service.getAllByUname(cusName);
+		for (AdminCustomerEntity s : userDetail) {
+			cusiid = s.getId();
+		}
+		
+		List<ShoppingCart> shoppingCart = (List<ShoppingCart>) session.getAttribute("proDetails");
+		session.setAttribute("proDetails", shoppingCart);
+		Order proDetails = service.getOrderIdFromLastRow();
+		lastOrderId = proDetails.getOrderId();
+		lastDate = proDetails.getDate();
+		lastStatus = proDetails.getStatus();
+		request.setAttribute("lastStatus", lastStatus);
+		request.setAttribute("lastDate", lastDate);
+		request.setAttribute("lastOrderId", lastOrderId);
+		request.setAttribute("userDetail", userDetail);
+		return "invoice";
 	}
 
 	/**
@@ -198,6 +224,8 @@ public class CustomerController {
 	/**
 	 * return account page
 	 * 
+	 * Get Past Order Details
+	 * 
 	 * @param request
 	 * @param response
 	 * @throws ServletException
@@ -209,10 +237,37 @@ public class CustomerController {
 		request.setAttribute("cusName", cusName);
 		List<AdminCustomerEntity> accDetails = service.getAllByUname(cusName);
 		for (AdminCustomerEntity s : accDetails) {
-			request.setAttribute("accDetails", accDetails);
-			RequestDispatcher dis = request.getRequestDispatcher("/account");
-			dis.forward(request, response);
+			cusiid = s.getId();
 		}
+
+		List<Order> pastOrdDetails = service.getAllPastOrderByCusID(cusiid);
+
+		request.setAttribute("pastOrdDetails", pastOrdDetails);
+		request.setAttribute("accDetails", accDetails);
+		RequestDispatcher dis = request.getRequestDispatcher("/account");
+		dis.forward(request, response);
+	}
+
+	@GetMapping("/accountPast")
+	public @ResponseBody List<Order> accountPast() {
+		List<AdminCustomerEntity> accDetails = service.getAllByUname(cusName);
+		for (AdminCustomerEntity s : accDetails) {
+			cusiid = s.getId();
+		}
+		List<Order> pastOrdDetails = service.getAllPastOrderByCusID(cusiid);
+		return pastOrdDetails;
+	}
+
+	@GetMapping("/getAllOrderDetailByIdFC/{orderId}")
+	@ResponseBody
+	public List<OrderDetail> getAllOrderDetailByIdFC(@PathVariable String orderId) {
+		System.out.println("GET ORDERDETAIL BY ORDERID////////" + orderId);
+		List<OrderDetail> cus = service.getAllOrderDetailByIdFC(orderId);
+		for (OrderDetail cuss : cus) {
+			System.out.println(cuss.getProductname());
+			System.out.println(cuss.getQuantity());
+		}
+		return cus;
 	}
 
 	// category LINKS

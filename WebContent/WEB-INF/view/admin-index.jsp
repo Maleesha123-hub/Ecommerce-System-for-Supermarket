@@ -394,7 +394,7 @@
 										</c:forEach>
 									</ol>
 									<div class="mt-3 text-center">
-										<a href="messages" class="text-primary font-size-14 fw-medium">View
+										<a href=orders class="text-primary font-size-14 fw-medium">View
 											All Orders <i class="mdi mdi-chevron-right"></i>
 										</a>
 									</div>

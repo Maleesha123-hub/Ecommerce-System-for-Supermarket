@@ -97,6 +97,26 @@ nav a {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 :not
 
 
@@ -114,7 +134,27 @@ nav a {
 
 
 
+
+
+
+
+
+
+
+
+
+
  
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -149,7 +189,27 @@ nav a {
 
 
 
+
+
+
+
+
+
+
+
+
+
  
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -184,7 +244,27 @@ nav a {
 
 
 
+
+
+
+
+
+
+
+
+
+
  
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -219,7 +299,27 @@ nav a {
 
 
 
+
+
+
+
+
+
+
+
+
+
  
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -271,7 +371,37 @@ cursor
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 :
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -305,7 +435,37 @@ cursor
 
 
 
+
+
+
+
+
+
+
+
+
+
 pointer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -426,6 +586,26 @@ pointer
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 :not
 
 
@@ -443,7 +623,27 @@ pointer
 
 
 
+
+
+
+
+
+
+
+
+
+
  
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -478,7 +678,27 @@ pointer
 
 
 
+
+
+
+
+
+
+
+
+
+
  
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -513,7 +733,27 @@ pointer
 
 
 
+
+
+
+
+
+
+
+
+
+
  
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -548,7 +788,27 @@ pointer
 
 
 
+
+
+
+
+
+
+
+
+
+
  
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -600,7 +860,37 @@ cursor
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 :
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -634,7 +924,37 @@ cursor
 
 
 
+
+
+
+
+
+
+
+
+
+
 pointer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -716,32 +1036,6 @@ pointer
 	background-color: radial-gradient(rgb(255, 255, 255), #f5dada);
 }
 
-.det-table {
-	background-color: rgb(80, 52, 0);
-	font-size: 12px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	color: rgb(255, 255, 255);
-	text-align: left;
-	letter-spacing: .01rem;
-	padding-top: 1px;
-	padding-bottom: 1px;
-}
-
-.det-table a {
-	background-color: rgb(80, 52, 0);
-	font-size: 12px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	color: rgb(255, 255, 255);
-	text-align: left;
-	letter-spacing: .01rem;
-	padding-top: 1px;
-	padding-bottom: 1px;
-}
-
 .formAccSub-controlPW .submit {
 	background: #ff523b;
 	border-color: transparent;
@@ -768,8 +1062,9 @@ $(document).ready(function() {
 	$('#userExists').hide();
 	$('#emailExists').hide();
 
-});
+	getAllOrderRecord();
 
+});
 
 	function updateCustomerbtn() {
 		if($("#fname").val() == "" || $("#lname").val() == "" || $("#uname").val() == "" || $("#email").val() == "" || $("#houseno").val() == "" || $("#streetname").val() == "" || $("#cityname").val() == "" || $("#password").val() == "" || $("#postal").val() == "" || $("#phone").val() == ""){
@@ -803,20 +1098,15 @@ $(document).ready(function() {
 							postal : $("#postal").val()
 						},
 						success : function(result) {
-							alert(result)
-							if(result == true){
-								$('#userExists').show();
-							}else{
-
-								$('#userExists').show();
-							}
+							alert(result + "RESULT WHAT")
+							
+			    			Swal.fire('Saved!', '', 'success')
 						},
 						error : function(err) {
 							alert("error is" + err)
 						}
 					});
 				  
-			    Swal.fire('Saved!', '', 'success')
 			  } else if (result.isDenied) {
 			    Swal.fire('Details are not saved', '', 'info')
 			  }
@@ -824,6 +1114,80 @@ $(document).ready(function() {
 		}
 		
 	}
+
+
+	function getAllOrderRecord() {
+		var data = "";
+		$
+				.ajax({
+					type : "GET",
+					url : "accountPast",
+					success : function(response) {
+						data = response
+
+						$('.tr').remove();
+						for (i = 0; i < data.length; i++) {
+							$("#pastordertable")
+									.append(
+											'<tr class="tr"> <td style="text-align:center">'
+													+ data[i].orderId
+													+ '</td> <td style="text-align:center">'
+													+ data[i].date
+													+ '</td> <td style="text-align:center">'
+													+ data[i].subtotal
+													+ '</td> <td style="text-align:center">'
+													+ data[i].payment 
+													+ '</td> <td style="text-align:center">'
+													+ data[i].status
+													+ '<td><input type="button" style="cursor: pointer; display: block; margin: auto" onclick="refresh();viewOrder('
+													+ data[i].orderId
+													+ ')"  value="View"></input></td> </tr>');
+
+						}
+					},
+					error : function(err) {
+						alert("error is" + err)
+					}
+				});
+	}
+
+	function refresh(){
+		$("#orderdetailtable").empty();
+	}
+	
+	function viewOrder(orderId) {
+		Swal.fire('You can view order details now....');
+		var data = "";
+		$
+				.ajax({
+					type : "GET",
+					url : "getAllOrderDetailByIdFC/" + orderId,
+					success : function(response) {
+						data = response
+
+						for (i = 0; i < data.length; i++) {
+							$("#orderdetailtable")
+									.append(
+											'<tr class="tr"> <td style="text-align:center">'
+													+ data[i].productId
+													+ '</td> <td style="text-align:center">'
+													+ data[i].productname
+													+ '</td> <td style="text-align:center">'
+													+ data[i].quantity
+													+ '</td> <td style="text-align:center">'
+													+ data[i].price 
+													+ '</td> </tr>');
+
+						}
+					},
+					error : function(err) {
+						alert("error is" + err)
+					}
+				});
+	}
+	
+	
+	
 </script>
 
 
@@ -952,7 +1316,7 @@ $(document).ready(function() {
 		Password</button>
 
 	<button class="tablink"
-		onclick="openPage('pastOrderEdit', this, '#22a7f0')">Past
+		onclick="openPage('pastOrderDetails', this, '#22a7f0')">Past
 		Order Details</button>
 
 	<div id="pastOrderEdit" class="tabcontent">
@@ -1150,25 +1514,11 @@ $(document).ready(function() {
 					placeholder="Current password" aria-label="password" required
 					id="passwords">
 			</div>
-			<!-- 			</div> -->
-			<!-- 			<div class="col-w"> -->
-			<!-- 				<input type="text" class="formAcc-control" placeholder="none" -->
-			<!-- 					aria-label="none"> -->
-			<!-- 			</div> -->
-			<!-- 			<div class="col"> -->
-			<!-- 				<h4> -->
-			<!-- 					<b>Enter Confirm Password:</b> -->
-			<!-- 				</h4> -->
-			<!-- 				<input type="text" class="formAcc-control" -->
-			<!-- 					placeholder="Confirm New Password" -->
-			<!-- 					aria-label="Confirm New Password"> -->
-			<!-- 			</div> -->
+			<small style="color: #07c400" id="regSuccess"><b>User
+					Updated Successfull!</b></small> <small style="color: red" id="userExists"><b>Username
+					or Password is already in used!</b></small> <small style="color: red"
+				id="emailExists"><b>Email address is already in used!</b></small>
 
-
-			<small style="color: #07c400" id="regSuccess"><b>User Updated Successfull!</b></small> <small
-				style="color: red" id="userExists"><b>Username or Password is already in used!</b></small> <small
-				style="color: red" id="emailExists"><b>Email address is already in used!</b></small>
-				
 			<div class="formAccSub-controlPW">
 				<Button type="submit" class="form-control submit" id="updatePass"
 					onclick="updateCustomerbtn()">SAVE</Button>
@@ -1176,6 +1526,72 @@ $(document).ready(function() {
 		</div>
 		</form>
 		</c:forEach>
+	</div>
+
+	<div id="pastOrderDetails" class="tabcontent">
+		<!-----Shipping Details form------>
+		<h3>PAST ORDER DETAILS</h3>
+		<div class="Acc-contact-title ">
+			<h2>PAST ORDER DETAILS</h2>
+			<p>Please Use this form to analyze your past order details</p>
+			<br> <br>
+		</div>
+
+
+		<div class="row g-3">
+			<div class="col">
+
+				<!-- end row-->
+				<!-- -----------------------TABLE CONTENT--------------------- -->
+				<h1 align="center"
+					style="color: #ff8e8e; font-size: 24px; font-weight: bolder">Order
+					Details</h1>
+				<br>
+				<table border="1" style="color: black; border-color: #26802a">
+					<thead>
+						<tr>
+							<th style="text-align: center; background: #3bc242" width="200px">Product_ID</th>
+							<th style="text-align: center; background: #3bc242" width="200px">Product_Name</th>
+							<th style="text-align: center; background: #3bc242" width="200px">Quantity</th>
+							<th style="text-align: center; background: #3bc242" width="200px">Price</th>
+						</tr>
+					</thead>
+					<tbody id="orderdetailtable">
+					</tbody>
+				</table>
+				<!-- -----------------------END TABLE CONTENT--------------------- -->
+
+			</div>
+		</div>
+
+
+		<div class="row g-3">
+			<div class="col">
+
+				<!-- end row-->
+				<!-- -----------------------TABLE CONTENT--------------------- -->
+				<h1 align="center"
+					style="color: #ff8e8e; font-size: 24px; font-weight: bolder">Past
+					Orders</h1>
+				<br>
+				<table border="1" style="color: black; border-color: orange">
+					<thead>
+						<tr>
+							<th style="text-align: center" width="200px">Order_Id</th>
+							<th style="text-align: center" width="200px">Date/Time</th>
+							<th style="text-align: center" width="200px">Subtotal</th>
+							<th style="text-align: center" width="200px">Payment_Method</th>
+							<th style="text-align: center" width="200px">Status</th>
+							<th style="text-align: center" width="100px">Show_Details</th>
+						</tr>
+					</thead>
+					<tbody id="pastordertable">
+					</tbody>
+				</table>
+				<!-- -----------------------END TABLE CONTENT--------------------- -->
+
+			</div>
+		</div>
 	</div>
 
 	<!-- Footer section Begin -->
@@ -1283,6 +1699,6 @@ $(document).ready(function() {
 	}
 </script>
 
-<script src="<spring:url value="/resources/js/script.js" />"></script>
-<script src="<spring:url value="/resources/shopping-cart.js" />"></script>
+<%-- <script src="<spring:url value="/resources/js/script.js" />"></script>
+<script src="<spring:url value="/resources/shopping-cart.js" />"></script> --%>
 </body>

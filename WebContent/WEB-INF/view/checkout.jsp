@@ -66,6 +66,9 @@
 
 function display() {
 alert("Everithing will be FINE !!");
+$('#invoiceBtn').show();
+$('#canceldelivery').hide();
+$('#cashondelivery').hide();
 $.ajax({
 	type : "POST",
 	url : "saveorder",
@@ -80,6 +83,7 @@ $.ajax({
 	}
 });
 }
+
 
 </script>
 
@@ -141,6 +145,7 @@ hr {
 $(document).ready(function() {
 	$('#canceldelivery').hide();
 	$('#canceldemessage').hide();
+	$('#invoiceBtn').hide();
 
 });
 
@@ -148,7 +153,8 @@ $(document).ready(function() {
 	$('#cashondelivery').hide();
 	$('#canceldelivery').show();
 	$('#canceldemessage').hide();
-
+	$('#invoiceBtn').show();
+	$('#paypal-button-container').hide();
 
 	Swal
 	.fire('*** Order Placed ***'
@@ -176,6 +182,7 @@ $(document).ready(function() {
 		$('#canceldelivery').hide();
 		$('#canceldemessage').show();
 		$('#paypal-button-container').hide();
+		$('#invoiceBtn').hide();
 		Swal.fire({
 			  icon: 'error',
 			  title: 'Your Order Canceled!!!',
@@ -392,7 +399,7 @@ $(document).ready(function() {
 					<div class="card-body">
 						<div class="p-3 bg-light mb-4">
 							<h5 class="font-size-16 mb-0">
-								Order Summary <span class="float-end ms-2">#MN0124</span>
+								Order Summary <span class="float-end ms-2"></span>
 							</h5>
 						</div>
 						<div class="table-responsive">
@@ -444,6 +451,21 @@ $(document).ready(function() {
 						</div>
 					</div>
 				</div>
+
+
+				<br> <a href="invoice" target="_blank">
+					<div class="row my-4">
+						<div class="col">
+							<div class="text-end mt-2 mt-sm-0">
+								<button type="button" class="btn btn-success"
+									style="font-size: 16px" id=invoiceBtn>+ Invoice</button>
+							</div>
+						</div>
+						<!-- end col -->
+					</div>
+				</a>
+
+
 			</div>
 		</div>
 	</div>

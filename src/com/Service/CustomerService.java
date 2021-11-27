@@ -9,6 +9,7 @@ import com.Entity.AdminAddProductEntity;
 import com.Entity.AdminCustomerEntity;
 import com.Entity.AdminMessageEntity;
 import com.Entity.Order;
+import com.Entity.OrderDetail;
 
 import AdminRepositaryDao.CustomerRepositaryDao;
 import interf.Servicebd.CustomerServiceBd;
@@ -188,6 +189,16 @@ public class CustomerService implements CustomerServiceBd {
 			issuccess = false;
 		}
 		return issuccess;
+	}
+
+	@Override
+	public List<Order> getAllPastOrderByCusID(int cusiid) {
+		return repositary.getAllPastOrderByCusID(cusiid);
+	}
+
+	@Override
+	public List<OrderDetail> getAllOrderDetailByIdFC(String orderId) {
+		return repositary.getAllOrderDetailByIdFC(orderId);
 	}
 
 }

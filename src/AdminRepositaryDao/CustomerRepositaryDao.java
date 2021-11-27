@@ -7,6 +7,7 @@ import com.Entity.AdminCustomerEntity;
 import com.Entity.AdminMessageEntity;
 import com.Entity.AdminUserAddEntity;
 import com.Entity.Order;
+import com.Entity.OrderDetail;
 
 public interface CustomerRepositaryDao {
 
@@ -60,4 +61,9 @@ public interface CustomerRepositaryDao {
 
 	public List<AdminCustomerEntity> getAllCustomerListVerify(String enail);
 
+	//Get Past Order Details of Customer
+	public List<Order> getAllPastOrderByCusID(int cusiid);
+
+	//Get Past Order Details of Customer by orderid
+	public List<OrderDetail> getAllOrderDetailByIdFC(String orderId);
 }

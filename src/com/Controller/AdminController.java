@@ -389,6 +389,13 @@ public class AdminController {
 			System.out.println(ss.getLname());
 			System.out.println(ss.getCityname());
 		}
+		List<Order> ordertopDetails = service.getSUmmOrderDetail();
+		for (Order ord : ordertopDetails) {
+			System.out.println(ord.getName());
+			System.out.println(ord.getPayment());
+			System.out.println(ord.getSubtotal());
+			System.out.println(ord.getDate());
+		}
 		Long cus = service.countCustomer();
 		Long pro = service.countProduct();
 		Long ord = service.countPendingOrder();
@@ -399,6 +406,7 @@ public class AdminController {
 		request.setAttribute("pro", pro);
 		request.setAttribute("ord", ord);
 		request.setAttribute("mesDetails", mesDetails);
+		request.setAttribute("ordertopDetails", ordertopDetails);
 		request.setAttribute("custopDetails", custopDetails);
 		request.setAttribute("adminName", adminName);
 		return "admin-index";
@@ -413,7 +421,7 @@ public class AdminController {
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	@GetMapping("/adminlogpro")
+	@PostMapping("/adminlogpro")
 	public String Adminlogin(@ModelAttribute("adminList") AdminUserAddEntity adminList, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 

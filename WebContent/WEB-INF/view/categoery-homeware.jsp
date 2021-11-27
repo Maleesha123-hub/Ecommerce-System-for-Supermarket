@@ -611,7 +611,7 @@ pointer
 	});
 
 	function proCart(id) {
-		alert(id);
+		alert("Add to Cart :"+(id));
 
 		$
 				.ajax({

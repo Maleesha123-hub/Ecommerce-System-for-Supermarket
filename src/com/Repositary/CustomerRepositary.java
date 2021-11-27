@@ -514,7 +514,7 @@ public class CustomerRepositary implements CustomerRepositaryDao {
 	 * @return list of customers
 	 */
 	@Override
-	public List<AdminCustomerEntity> getAllCustomerListVerify(String uname , String password) {
+	public List<AdminCustomerEntity> getAllCustomerListVerify(String uname, String password) {
 		System.out.println(uname + "ANDDD" + password);
 		session = getHibernateTemplate().getSessionFactory().openSession();
 		transaction = session.beginTransaction();
@@ -539,8 +539,42 @@ public class CustomerRepositary implements CustomerRepositaryDao {
 		List<AdminCustomerEntity> listofcustomer = query.list();
 		transaction.commit();
 		session.close();
-
 		return listofcustomer;
 	}
+
+	@Override
+	public List<Order> getAllPastOrderByCusID(int cusiid) {
+		System.out.println(cusiid);
+		session = getHibernateTemplate().getSessionFactory().openSession();
+		transaction = session.beginTransaction();
+		String hql = "FROM Order WHERE cusid = ?";
+		query = session.createQuery(hql);
+		query.setInteger(0, cusiid);
+		List<Order> UserOrderList = query.list();
+		transaction.commit();
+
+		for (Order s : UserOrderList) {
+			System.out.println(s.getOrderId());
+			System.out.println(s.getDate());
+			System.out.println(s.getSubtotal());
+			System.out.println(s.getPayment());
+		}
+		session.close();
+		return UserOrderList;
+	}
 	
+	@Override
+	public List<OrderDetail> getAllOrderDetailByIdFC(String orderId) {
+		System.out.println("GetOneOrder ID :" + orderId);
+		session = getHibernateTemplate().getSessionFactory().openSession();
+		transaction = session.beginTransaction();
+		String hql = "FROM OrderDetail WHERE orderId = ? ";
+		query = session.createQuery(hql);
+		query.setString(0, orderId);
+		List<OrderDetail> listofOrderDetail = query.list();
+		transaction.commit();
+		session.close();
+		return listofOrderDetail;
+	}
+
 }

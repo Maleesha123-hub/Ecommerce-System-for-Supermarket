@@ -7,6 +7,7 @@ import com.Entity.AdminCustomerEntity;
 import com.Entity.AdminMessageEntity;
 import com.Entity.AdminUserAddEntity;
 import com.Entity.Order;
+import com.Entity.OrderDetail;
 
 public interface CustomerServiceBd {
 
@@ -57,4 +58,10 @@ public interface CustomerServiceBd {
 	public boolean getAllCustomerListVerify(String uname, String password);
 
 	public boolean getAllCustomerListVerify(String email);
+
+	// Get Past Order Details of Customer
+	public List<Order> getAllPastOrderByCusID(int cusiid);
+
+	// Get Past Order Details of Customer by orderid
+	public List<OrderDetail> getAllOrderDetailByIdFC(String orderId);
 }
