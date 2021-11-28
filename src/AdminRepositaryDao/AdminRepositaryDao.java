@@ -1,5 +1,6 @@
 package AdminRepositaryDao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.Entity.AdminAddProductEntity;
@@ -8,6 +9,7 @@ import com.Entity.AdminMessageEntity;
 import com.Entity.AdminUserAddEntity;
 import com.Entity.Order;
 import com.Entity.OrderDetail;
+import com.Entity.SalesAnalytics;
 
 public interface AdminRepositaryDao {
 
@@ -104,5 +106,11 @@ public interface AdminRepositaryDao {
 	public Order getOneOrder(int orderId);
 
 	public List<OrderDetail> getAllOrderDetailById(String orderId);
+	// --
+	// --
+	// --
+	// ---------------------------------------SALES
+	// AMALYTICSDao------------------------------------//
+	public List<Order> getSalesDetailByDate(String fromDate, String toDate);
 
 }

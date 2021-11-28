@@ -49,6 +49,36 @@
 <link href="<spring:url value="/resources/css/app.min.css" />"
 	id="app-style" rel="stylesheet" type="text/css" />
 
+
+
+<script>
+	function insertsale() {
+
+		if ($("#expendvalue").val() == "") {
+			alert("Expenditure ?");
+		} else {
+			$.ajax({
+				type : "POST",
+				url : "salesbetweendates",
+				data : {
+					fromdate : $("#fromdate").val(),
+					todate : $("#todate").val(),
+					expenditure : $("#expendvalue").val()
+				},
+				success : function(result) {
+
+				},
+				error : function(err) {
+					alert("error is" + err)
+				}
+			});
+		}
+	}
+</script>
+
+
+
+
 </head>
 
 
@@ -221,7 +251,8 @@
 											class="card-img-top" alt="..." height="200px"></a>
 										<div class="card-body">
 											<h5 class="card-title">Customers Report</h5>
-											<p class="card-text">Customers report include all the details name, email, shipping details..etc.</p>
+											<p class="card-text">Customers report include all the
+												details name, email, shipping details..etc.</p>
 										</div>
 									</div>
 								</div>
@@ -233,7 +264,9 @@
 											class="card-img-top" alt="..." height="200px"></a>
 										<div class="card-body">
 											<h5 class="card-title">Orders Report</h5>
-											<p class="card-text">Orders report include all the details order produts, total, sutotal, orderid, date/time..etc.</p>
+											<p class="card-text">Orders report include all the
+												details order produts, total, sutotal, orderid,
+												date/time..etc.</p>
 										</div>
 									</div>
 								</div>
@@ -245,7 +278,8 @@
 											class="card-img-top" alt="..." height="200px"></a>
 										<div class="card-body">
 											<h5 class="card-title">Products Report</h5>
-											<p class="card-text">Products report include all the details name, description, price, image..etc.</p>
+											<p class="card-text">Products report include all the
+												details name, description, price, image..etc.</p>
 										</div>
 									</div>
 								</div>
@@ -256,6 +290,80 @@
 					</div>
 					<!-- end row -->
 					<!---------------------------End Customer Report---------------------------- -->
+
+
+
+					<h4 class="my-3">Sales Analytics</h4>
+
+
+
+
+
+					<div class="col-12">
+						<div class="card">
+							<div class="card-body">
+								<ul class="list-inline main-chart mb-0">
+									<li class="list-inline-item chart-border-left me-0 border-0">
+										<h3 class="text-primary">
+											LKR <span data-plugin="counterup">2,371</span><span
+												class="text-muted d-inline-block font-size-15 ms-3">Income</span>
+										</h3>
+									</li>
+									<li class="list-inline-item chart-border-left me-0">
+										<h3>
+											<span data-plugin="counterup" style="color: #20c02d">258</span><span
+												class="text-muted d-inline-block font-size-15 ms-3">Sales</span>
+										</h3>
+									</li>
+									<li class="list-inline-item chart-border-left me-0">
+										<h3>
+											<span data-plugin="counterup" style="color: red">37</span><span
+												class="text-muted d-inline-block font-size-15 ms-3">Canceled</span>
+										</h3>
+									</li>
+								</ul>
+								<hr style="color: #bdbdbd; height: 5px">
+								<form>
+									<div class="mb-3 row">
+										<label for="example-date-input"
+											class="col-md-2 col-form-label">FROM :</label>
+										<div class="col-md-10">
+											<input class="form-control" type="date" value="2019-08-19"
+												id="fromdate">
+										</div>
+									</div>
+									<div class="mb-3 row">
+										<label for="example-date-input"
+											class="col-md-2 col-form-label">TO :</label>
+										<div class="col-md-10">
+											<input class="form-control" type="date" value="2019-08-19"
+												id="todate">
+										</div>
+									</div>
+									<div class="row">
+										<label for="exampleDataList" class="col-md-2 col-form-label">EXPENDITURE
+											:</label>
+										<div class="col-md-10">
+											<input class="form-control" type="number" id="expendvalue"
+												placeholder="0.0" required="required">
+										</div>
+									</div>
+									<br>
+									<button type="button" type="submit"
+										class="btn btn-outline-dark btn-sm"
+										style="margin-right: 0; margin-left: auto; display: block"
+										id="calbtn" onclick="insertsale()">CALCULATE</button>
+									<button type="button" class="btn btn-primary btn-sm"
+										style="margin-right: 0; margin-left: auto; display: block">SAVE</button>
+								</form>
+								<hr style="color: #bdbdbd; height: 5px">
+
+							</div>
+						</div>
+					</div>
+					<!-- end col -->
+
+
 
 					<!-- End Page-content -->
 					<footer class="footer">

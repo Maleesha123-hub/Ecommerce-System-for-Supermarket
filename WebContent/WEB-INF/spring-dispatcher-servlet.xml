@@ -41,6 +41,8 @@
 		base-package="com.Entity.Order" />
 	<context:component-scan
 		base-package="com.Entity.OrderDetail" />
+	<context:component-scan
+		base-package="com.Entity.SalesAnalytics" />
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -74,6 +76,7 @@
 				<value>com.Entity.ShoppingCart</value>
 				<value>com.Entity.Order</value>
 				<value>com.Entity.OrderDetail</value>
+				<value>com.Entity.SalesAnalytics</value>
 			</array>
 		</property>
 

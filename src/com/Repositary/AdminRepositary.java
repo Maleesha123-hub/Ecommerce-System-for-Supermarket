@@ -1,7 +1,6 @@
 package com.Repositary;
 
-import java.io.File;
-import java.sql.Blob;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -18,6 +17,7 @@ import com.Entity.AdminMessageEntity;
 import com.Entity.AdminUserAddEntity;
 import com.Entity.Order;
 import com.Entity.OrderDetail;
+import com.Entity.SalesAnalytics;
 
 import AdminRepositaryDao.AdminRepositaryDao;
 
@@ -594,6 +594,27 @@ public class AdminRepositary implements AdminRepositaryDao {
 		transaction.commit();
 		session.close();
 		return listofOrderDetail;
+	}
+
+	// --
+	// --
+	// ---------------------------------------SALES
+	// AMALYTICSDao------------------------------------//
+	@Override
+	public List<Order> getSalesDetailByDate(String fromDate, String toDate) {
+		System.out.println("Sales Dates :" + fromDate +", "+toDate);
+		
+		
+		
+		session = getHibernateTemplate().getSessionFactory().openSession();
+		transaction = session.beginTransaction();
+		String hql = "FROM Order WHERE date BETWEEN '"+fromDate+"' AND '"+toDate+"'";
+		query = session.createQuery(hql);
+		List<Order> listofOrderDetail = query.list();
+		transaction.commit();
+		session.close();
+		return listofOrderDetail;
+		 //AND status = '"+"Delivered"+"' 
 	}
 
 }

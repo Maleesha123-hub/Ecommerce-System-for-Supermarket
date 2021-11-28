@@ -1,6 +1,6 @@
 package com.Service;
 
-import java.sql.Blob;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,7 @@ import com.Entity.AdminMessageEntity;
 import com.Entity.AdminUserAddEntity;
 import com.Entity.Order;
 import com.Entity.OrderDetail;
+import com.Entity.SalesAnalytics;
 
 import AdminRepositaryDao.AdminRepositaryDao;
 import interf.Servicebd.AdminServiceBd;
@@ -206,7 +207,7 @@ public class AdminService implements AdminServiceBd {
 	public List<AdminMessageEntity> getSUmmMessaDetail() {
 		return repositary.getSUmmMessaDetail();
 	}
-	
+
 	/**
 	 * get Order details
 	 */
@@ -236,7 +237,6 @@ public class AdminService implements AdminServiceBd {
 		return repositary.countPendingOrder();
 	}
 
-
 	@Override
 	public List<Order> getAllOrderPendingList() {
 		return repositary.getAllOrderPendingList();
@@ -262,5 +262,13 @@ public class AdminService implements AdminServiceBd {
 		return repositary.getAllOrderDetailById(orderId);
 	}
 
+	// --
+	// --
+	// ---------------------------------------SALES
+	// AMALYTICSDao------------------------------------//
+	@Override
+	public List<Order> getSalesDetailByDate(String fromDate, String toDate) {
+		return repositary.getSalesDetailByDate(fromDate, toDate);
+	}
 
 }

@@ -26,6 +26,7 @@ import com.Entity.AdminMessageEntity;
 import com.Entity.AdminUserAddEntity;
 import com.Entity.Order;
 import com.Entity.OrderDetail;
+import com.Entity.SalesAnalytics;
 
 import interf.Servicebd.AdminServiceBd;
 
@@ -35,6 +36,11 @@ public class AdminController {
 	int adminId;
 	String adminName;
 
+	int sales = 0;
+	int canceled = 0;
+	float subtotal = 0;
+	float income = 0;
+	float subt = 0;
 	@Autowired
 	private AdminServiceBd service;
 
@@ -600,5 +606,40 @@ public class AdminController {
 		mailSender.send(simpleMessage);
 		System.out.println("Order Email sent successfully!");
 		return "admin-orders";
+	}
+
+	/**
+	 * return calculate sales analatics
+	 */
+	@RequestMapping("/salesbetweendates")
+	public String salesbetweendates(@ModelAttribute("salesanalytics") SalesAnalytics salesanalytics,
+			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		// print debug info
+		System.out.println(salesanalytics.getFromdate());
+		System.out.println(salesanalytics.getTodate());
+		System.out.println(salesanalytics.getExpenditure());
+
+		// store dates in two variables
+		String fromDate = salesanalytics.getFromdate();
+		String toDate = salesanalytics.getTodate();
+		List<Order> saleDate = service.getSalesDetailByDate(fromDate, toDate);
+		for (Order ssa : saleDate) {
+			String sale = ssa.getStatus();
+			System.out.println("countDelivered : " + sale);
+			if (sale.equals("Delivered")) {
+				// calculate cont of sales
+				sales = sales + 1;
+			} else if (sale.equals("Canceled")) {
+				canceled = canceled + 1;
+			}
+		}
+		System.out.println("SALES : " + sales);
+		System.out.println("CANCELED : " + canceled);
+
+		sales = 0;
+		canceled = 0;
+
+		return "admin-reports";
 	}
 }
