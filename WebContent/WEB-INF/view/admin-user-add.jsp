@@ -125,7 +125,7 @@
 				$("#lname").val(response.lname),
 				$("#uname").val(response.uname),
 				$("#position").val(response.position),
-				$("#email").val(response.email)
+				$("#email").val(response.email),
 				$("#password").val(response.password)
 
 			},

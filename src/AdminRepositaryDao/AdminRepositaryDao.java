@@ -1,6 +1,5 @@
 package AdminRepositaryDao;
 
-import java.util.Date;
 import java.util.List;
 
 import com.Entity.AdminAddProductEntity;
@@ -22,12 +21,13 @@ public interface AdminRepositaryDao {
 
 	public List<Order> getSUmmOrderDetail();
 
+	public List<SalesAnalytics> getSUmmSalesDetail();
+
 	public Long countCustomer();
 
 	public Long countProduct();
 
 	public Long countPendingOrder();
-
 
 	// --
 	// --
@@ -106,11 +106,16 @@ public interface AdminRepositaryDao {
 	public Order getOneOrder(int orderId);
 
 	public List<OrderDetail> getAllOrderDetailById(String orderId);
+
 	// --
 	// --
 	// --
 	// ---------------------------------------SALES
 	// AMALYTICSDao------------------------------------//
 	public List<Order> getSalesDetailByDate(String fromDate, String toDate);
+
+	public String saveSales(SalesAnalytics sa);
+
+	public List<SalesAnalytics> getAllSalesList();
 
 }

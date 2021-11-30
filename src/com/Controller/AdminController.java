@@ -1,6 +1,7 @@
 package com.Controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -27,6 +28,7 @@ import com.Entity.AdminUserAddEntity;
 import com.Entity.Order;
 import com.Entity.OrderDetail;
 import com.Entity.SalesAnalytics;
+import com.paypal.api.payments.Sale;
 
 import interf.Servicebd.AdminServiceBd;
 
@@ -36,10 +38,12 @@ public class AdminController {
 	int adminId;
 	String adminName;
 
+	String saleDaily;
+
 	int sales = 0;
 	int canceled = 0;
 	float subtotal = 0;
-	float income = 0;
+	float incomeV = 0;
 	float subt = 0;
 	@Autowired
 	private AdminServiceBd service;
@@ -362,6 +366,10 @@ public class AdminController {
 			System.out.println(ord.getSubtotal());
 			System.out.println(ord.getDate());
 		}
+		List<SalesAnalytics> sss = service.getSUmmSalesDetail();
+		for (SalesAnalytics ord : sss) {
+			saleDaily = String.valueOf(ord.getIncome());
+		}
 		Long cus = service.countCustomer();
 		Long pro = service.countProduct();
 		Long ord = service.countPendingOrder();
@@ -371,6 +379,7 @@ public class AdminController {
 		request.setAttribute("cus", cus);
 		request.setAttribute("pro", pro);
 		request.setAttribute("ord", ord);
+		request.setAttribute("saleDaily", saleDaily);
 		request.setAttribute("mesDetails", mesDetails);
 		request.setAttribute("ordertopDetails", ordertopDetails);
 		request.setAttribute("custopDetails", custopDetails);
@@ -402,6 +411,10 @@ public class AdminController {
 			System.out.println(ord.getSubtotal());
 			System.out.println(ord.getDate());
 		}
+		List<SalesAnalytics> sss = service.getSUmmSalesDetail();
+		for (SalesAnalytics ord : sss) {
+			saleDaily = String.valueOf(ord.getIncome());
+		}
 		Long cus = service.countCustomer();
 		Long pro = service.countProduct();
 		Long ord = service.countPendingOrder();
@@ -411,6 +424,7 @@ public class AdminController {
 		request.setAttribute("cus", cus);
 		request.setAttribute("pro", pro);
 		request.setAttribute("ord", ord);
+		request.setAttribute("saleDaily", saleDaily);
 		request.setAttribute("mesDetails", mesDetails);
 		request.setAttribute("ordertopDetails", ordertopDetails);
 		request.setAttribute("custopDetails", custopDetails);
@@ -477,6 +491,24 @@ public class AdminController {
 		RequestDispatcher dis = request.getRequestDispatcher("/customer-reports");
 		dis.forward(request, response);
 		return "customers-reports";
+	}
+
+	@RequestMapping("/sales-reports")
+	public String slesAnalyitcsList() {
+		return "sales-reports";
+	}
+
+	// Load sale analytics table
+	@RequestMapping(value = "/getAllSalesList", method = RequestMethod.GET)
+	public String getAllSalesList(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		System.out.println("LOAD SALES TABLE////////");
+
+		List<SalesAnalytics> salesList = service.getAllSalesList();
+		request.setAttribute("salesList", salesList);
+		RequestDispatcher dis = request.getRequestDispatcher("/sales-reports");
+		dis.forward(request, response);
+		return "sales-reports";
 	}
 
 	/*
@@ -611,14 +643,16 @@ public class AdminController {
 	/**
 	 * return calculate sales analatics
 	 */
-	@RequestMapping("/salesbetweendates")
-	public String salesbetweendates(@ModelAttribute("salesanalytics") SalesAnalytics salesanalytics,
-			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	@PostMapping("/salesbetweendates")
+	public @ResponseBody SalesAnalytics salesbetweendates(
+			@ModelAttribute("salesanalytics") SalesAnalytics salesanalytics, HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 
 		// print debug info
 		System.out.println(salesanalytics.getFromdate());
 		System.out.println(salesanalytics.getTodate());
 		System.out.println(salesanalytics.getExpenditure());
+		float expe = salesanalytics.getExpenditure();
 
 		// store dates in two variables
 		String fromDate = salesanalytics.getFromdate();
@@ -626,20 +660,50 @@ public class AdminController {
 		List<Order> saleDate = service.getSalesDetailByDate(fromDate, toDate);
 		for (Order ssa : saleDate) {
 			String sale = ssa.getStatus();
-			System.out.println("countDelivered : " + sale);
-			if (sale.equals("Delivered")) {
+			String subtotal = ssa.getSubtotal();
+			incomeV = Float.parseFloat(ssa.getSubtotal());
+			System.out.println("countDelivered : " + sale + subtotal);
+			if (sale.equals("Delivered") && sale != "Canceled" && sale != "Pending") {
 				// calculate cont of sales
 				sales = sales + 1;
+				incomeV = incomeV + 0;
 			} else if (sale.equals("Canceled")) {
 				canceled = canceled + 1;
 			}
 		}
+		// Calculate income by minus expenditure
+		incomeV = incomeV - expe;
+		// SALES VALUE
 		System.out.println("SALES : " + sales);
+
+		// CANCEL VALUE
 		System.out.println("CANCELED : " + canceled);
+
+		// SALES/INCOME VALUE
+		System.out.println("SALES/INCOME : " + incomeV);
+
+		// EXPENDITURE VALUE
+		System.out.println("EXPENDITURE : " + expe);
+
+		SalesAnalytics snl = new SalesAnalytics();
+		snl.setSales(sales);
+		snl.setCanceled(canceled);
+		snl.setIncome(incomeV);
 
 		sales = 0;
 		canceled = 0;
+		incomeV = 0;
 
+		return snl;// return sales value and canceled value for ajax
+	}
+
+	/**
+	 * save sales analytics details
+	 */
+	@RequestMapping(value = "/saveSales", method = RequestMethod.POST)
+	@ResponseBody
+	public String saveSales(@ModelAttribute("salesanalytics") SalesAnalytics salesanalytics) {
+		service.saveSales(salesanalytics);
 		return "admin-reports";
 	}
 }

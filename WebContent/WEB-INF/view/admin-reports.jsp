@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1" import="com.Entity.SalesAnalytics"%>
 <%@ page import="java.util.List"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -48,31 +48,92 @@
 <!-- App Css-->
 <link href="<spring:url value="/resources/css/app.min.css" />"
 	id="app-style" rel="stylesheet" type="text/css" />
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<!-- ----Sweet Alert ------->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
 
 <script>
-	function insertsale() {
+	$(document).ready(function() {
+		$('#saveinfo').hide();
+		$('#savbtn').hide();
+	});
+
+	function calculatesale() {
 
 		if ($("#expendvalue").val() == "") {
-			alert("Expenditure ?");
+			//get INCOME
+			$("#expendvalue").val(0.0)
 		} else {
 			$.ajax({
 				type : "POST",
 				url : "salesbetweendates",
+				dataType : 'json',
+				success : function(response) {
+
+					$('#savbtn').show();
+					$('#saveinfo').show();
+
+					//get SALES
+					$("#sales").val(response.sales),
+					//get CANCELED
+					$("#canceled").val(response.canceled),
+					//get INCOME
+					$("#income").val(response.income)
+
+				},
 				data : {
 					fromdate : $("#fromdate").val(),
 					todate : $("#todate").val(),
 					expenditure : $("#expendvalue").val()
-				},
-				success : function(result) {
-
 				},
 				error : function(err) {
 					alert("error is" + err)
 				}
 			});
 		}
+	}
+
+	function insertsale() {
+		Swal.fire({
+			  title: 'Do you want to save the sales analytics info.?',
+			  showDenyButton: true,
+			  showCancelButton: true,
+			  confirmButtonText: 'Save',
+			  denyButtonText: `Don't save`,
+			}).then((result) => {
+			  /* Read more about isConfirmed, isDenied below */
+			  if (result.isConfirmed) {
+					$('#saveinfo').hide();
+			    Swal.fire('Saved!', '', 'success')
+
+			    $.ajax({
+					type : "POST",
+					url : "saveSales",
+					data : {
+						fromdate : $("#fromdate").val(),
+						todate : $("#todate").val(),
+						expenditure : $("#expendvalue").val(),
+						sales : $("#sales").val(),
+						canceled : $("#canceled").val(),
+						income : $("#income").val()
+					},
+					success : function(result) {
+					
+					},
+					error : function(err) {
+						alert("error is" + err)
+					}
+				});
+
+				$('#savbtn').hide();
+
+			    
+			  } else if (result.isDenied) {
+			    Swal.fire('Sales analytics .info are not saved', '', 'info')
+			  }
+			})
 	}
 </script>
 
@@ -240,6 +301,98 @@
 					</div>
 					<!-- end page title -->
 
+
+					<!-- end row -->
+					<!---------------------------End Customer Report---------------------------- -->
+
+
+
+					<h4 class="my-3">Sales Analytics</h4>
+
+					<div class="col-12">
+						<div class="card">
+							<div class="card-body">
+								<ul class="list-inline main-chart mb-0">
+									<li class="list-inline-item chart-border-left me-0 border-0">
+										<h3 class="text-primary">
+											<span class="text-muted d-inline-block font-size-15 ms-3"
+												id="Income">Sales <br>/ Income
+											</span> LKR &nbsp;&nbsp;<input type="text" value="0.0" id="income"
+												style="color: #5b73e8; border: none; width: 150px">
+										</h3>
+									</li>
+
+									<li class="list-inline-item chart-border-left me-0">
+										<h3>
+											<span class="text-muted d-inline-block font-size-15 ms-3"
+												id="Sales">Sales
+												<p style="color: #20c02d">(Orders)</p>
+											</span>&nbsp;&nbsp; <input type="text" value="0" id="sales"
+												style="color: #20c02d; border: none; width: 150px">
+										</h3>
+									</li>
+									<li class="list-inline-item chart-border-left me-0">
+										<h3>
+											<span class="text-muted d-inline-block font-size-15 ms-3"
+												id="Canceled">Canceled
+												<p style="color: red">(Orders)</p>
+											</span>&nbsp;&nbsp; <input type="text" value="0" id="canceled"
+												style="color: red; border: none; width: 150px">
+										</h3>
+									</li>
+								</ul>
+								<hr style="color: #bdbdbd; height: 5px">
+								<form>
+									<div class="mb-3 row">
+										<label for="example-date-input"
+											class="col-md-2 col-form-label">FROM :</label>
+										<div class="col-md-10">
+											<input class="form-control" type="date" value="2019-08-19"
+												id="fromdate" name="fromdate">
+										</div>
+									</div>
+									<div class="mb-3 row">
+										<label for="example-date-input"
+											class="col-md-2 col-form-label">TO :</label>
+										<div class="col-md-10">
+											<input class="form-control" type="date" value="2019-08-19"
+												id="todate" name="todate">
+										</div>
+									</div>
+									<div class="row">
+										<label for="exampleDataList" class="col-md-2 col-form-label">EXPENDITURE
+											:</label>
+										<div class="col-md-10">
+											<input class="form-control" type="number" id="expendvalue"
+												name="expendvalue" placeholder="0.0" required="required"
+												value=0.0>
+										</div>
+									</div>
+									<br>
+									<button type="button" type="submit"
+										class="btn btn-outline-dark btn-sm"
+										style="margin-right: 0; margin-left: auto; display: block"
+										id="calbtn" onclick="calculatesale()">CALCULATE</button>
+
+									<a href="getAllSalesList" target="_blank">
+										<button type="button" class="btn btn-outline-success btn-sm">Go To Report</button>
+									</a> <small id="saveinfo"
+										style="display: flex; color: red; justify-content: right; align-items: baseline; width: 300px">You
+										can save information now!</small>
+
+									<button type="button" class="btn btn-primary btn-sm"
+										style="margin-right: 0; margin-left: auto; display: block"
+										id="savbtn" onclick="insertsale()">SAVE</button>
+								</form>
+
+
+								<hr style="color: #bdbdbd; height: 5px">
+
+							</div>
+						</div>
+					</div>
+					<!-- end col -->
+
 					<div class="row">
 						<div class="col-sm-12">
 							<h4 class="my-3">Reports Section</h4>
@@ -288,82 +441,6 @@
 						</div>
 						<!-- end col -->
 					</div>
-					<!-- end row -->
-					<!---------------------------End Customer Report---------------------------- -->
-
-
-
-					<h4 class="my-3">Sales Analytics</h4>
-
-
-
-
-
-					<div class="col-12">
-						<div class="card">
-							<div class="card-body">
-								<ul class="list-inline main-chart mb-0">
-									<li class="list-inline-item chart-border-left me-0 border-0">
-										<h3 class="text-primary">
-											LKR <span data-plugin="counterup">2,371</span><span
-												class="text-muted d-inline-block font-size-15 ms-3">Income</span>
-										</h3>
-									</li>
-									<li class="list-inline-item chart-border-left me-0">
-										<h3>
-											<span data-plugin="counterup" style="color: #20c02d">258</span><span
-												class="text-muted d-inline-block font-size-15 ms-3">Sales</span>
-										</h3>
-									</li>
-									<li class="list-inline-item chart-border-left me-0">
-										<h3>
-											<span data-plugin="counterup" style="color: red">37</span><span
-												class="text-muted d-inline-block font-size-15 ms-3">Canceled</span>
-										</h3>
-									</li>
-								</ul>
-								<hr style="color: #bdbdbd; height: 5px">
-								<form>
-									<div class="mb-3 row">
-										<label for="example-date-input"
-											class="col-md-2 col-form-label">FROM :</label>
-										<div class="col-md-10">
-											<input class="form-control" type="date" value="2019-08-19"
-												id="fromdate">
-										</div>
-									</div>
-									<div class="mb-3 row">
-										<label for="example-date-input"
-											class="col-md-2 col-form-label">TO :</label>
-										<div class="col-md-10">
-											<input class="form-control" type="date" value="2019-08-19"
-												id="todate">
-										</div>
-									</div>
-									<div class="row">
-										<label for="exampleDataList" class="col-md-2 col-form-label">EXPENDITURE
-											:</label>
-										<div class="col-md-10">
-											<input class="form-control" type="number" id="expendvalue"
-												placeholder="0.0" required="required">
-										</div>
-									</div>
-									<br>
-									<button type="button" type="submit"
-										class="btn btn-outline-dark btn-sm"
-										style="margin-right: 0; margin-left: auto; display: block"
-										id="calbtn" onclick="insertsale()">CALCULATE</button>
-									<button type="button" class="btn btn-primary btn-sm"
-										style="margin-right: 0; margin-left: auto; display: block">SAVE</button>
-								</form>
-								<hr style="color: #bdbdbd; height: 5px">
-
-							</div>
-						</div>
-					</div>
-					<!-- end col -->
-
-
 
 					<!-- End Page-content -->
 					<footer class="footer">

@@ -129,7 +129,7 @@ public class CustomerController {
 		for (AdminCustomerEntity s : userDetail) {
 			cusiid = s.getId();
 		}
-		
+
 		List<ShoppingCart> shoppingCart = (List<ShoppingCart>) session.getAttribute("proDetails");
 		session.setAttribute("proDetails", shoppingCart);
 		Order proDetails = service.getOrderIdFromLastRow();
@@ -239,9 +239,7 @@ public class CustomerController {
 		for (AdminCustomerEntity s : accDetails) {
 			cusiid = s.getId();
 		}
-
 		List<Order> pastOrdDetails = service.getAllPastOrderByCusID(cusiid);
-
 		request.setAttribute("pastOrdDetails", pastOrdDetails);
 		request.setAttribute("accDetails", accDetails);
 		RequestDispatcher dis = request.getRequestDispatcher("/account");
@@ -506,9 +504,10 @@ public class CustomerController {
 	 * @param customer
 	 * @return
 	 */
-	@RequestMapping(value = "/saveMessages")
-	public String saveMessage(AdminMessageEntity mesDetails, HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	@PostMapping(value = "/saveMessages")
+	@ResponseBody
+	public String saveMessage(@ModelAttribute("mesDetails") AdminMessageEntity mesDetails, HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("SAVE MEASSAGE CONTROLLER////////" + mesDetails.getName());
 		System.out.println("SAVE MEASSAGE CONTROLLER////////" + mesDetails.getEmail());
 		System.out.println("SAVE MEASSAGE CONTROLLER////////" + mesDetails.getMessage());
@@ -529,26 +528,10 @@ public class CustomerController {
 	 * @return
 	 */
 	@RequestMapping(value = "/updatePersonal", method = RequestMethod.POST)
-	public boolean updatePersonal(@ModelAttribute("updatePersonal") AdminCustomerEntity personalList) {
-
-		service.getAllCustomerListVerify(personalList.getUname(), personalList.getPassword());
-		service.getAllCustomerListVerify(personalList.getEmail());
-		boolean isresult = service.getAllCustomerListVerify(personalList.getUname(), personalList.getPassword());
-		boolean isresult2 = service.getAllCustomerListVerify(personalList.getEmail());
-		boolean isResult = false;
-		if (isresult == true) {
-			System.out.println("UNAME OR PASSWORD EXISTS");
-			isResult = true;
-
-		} else if (isresult2 == true) {
-			System.out.println("Email EXISTS");
-			isResult = true;
-
-		} else if (isresult == false && isresult2 == false) {
-			System.out.println("REGISTER DONE!");
-			service.updatePersonal(personalList);
-		}
-		return isResult;
+	public String updatePersonal(@ModelAttribute("updatePersonal") AdminCustomerEntity personalList) {
+		System.out.println("REGISTER DONE!");
+		service.updatePersonal(personalList);
+		return "account";
 	}
 
 	// -- SEARCH

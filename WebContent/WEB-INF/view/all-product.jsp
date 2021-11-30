@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1" import="com.Entity.ShoppingCart"%>
 <%@ page import="java.util.List"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -32,12 +32,8 @@
 	src="<spring:url value="/resources/js/jquery-3.5.1.min.js" />"></script>
 <script type="text/javascript"
 	src="<spring:url value="/resources/js/multislider.min.js" />"></script>
-<script type="text/javascript"
-	src="https://www.paypal.com/sdk/js?client-id=........"></script>
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Ensures optimal rendering on mobile devices. -->
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <!-- Optimal Internet Explorer compatibility -->
 
 
@@ -178,6 +174,12 @@ nav a {
 
 
 
+
+
+
+
+
+
 :not
 
 
@@ -231,7 +233,13 @@ nav a {
 
 
 
+
+
+
  
+
+
+
 
 
 
@@ -338,7 +346,13 @@ nav a {
 
 
 
+
+
+
  
+
+
+
 
 
 
@@ -445,7 +459,13 @@ nav a {
 
 
 
+
+
+
  
+
+
+
 
 
 
@@ -552,7 +572,13 @@ nav a {
 
 
 
+
+
+
  
+
+
+
 
 
 
@@ -712,7 +738,16 @@ cursor
 
 
 
+
+
+
+
+
+
 :
+
+
+
 
 
 
@@ -818,7 +853,16 @@ cursor
 
 
 
+
+
+
 pointer
+
+
+
+
+
+
 
 
 
@@ -1083,6 +1127,12 @@ pointer
 
 
 
+
+
+
+
+
+
 :not
 
 
@@ -1136,7 +1186,13 @@ pointer
 
 
 
+
+
+
  
+
+
+
 
 
 
@@ -1243,7 +1299,13 @@ pointer
 
 
 
+
+
+
  
+
+
+
 
 
 
@@ -1350,7 +1412,13 @@ pointer
 
 
 
+
+
+
  
+
+
+
 
 
 
@@ -1457,7 +1525,13 @@ pointer
 
 
 
+
+
+
  
+
+
+
 
 
 
@@ -1617,6 +1691,12 @@ cursor
 
 
 
+
+
+
+
+
+
 :
 
 
@@ -1670,7 +1750,13 @@ cursor
 
 
 
+
+
+
  
+
+
+
 
 
 
@@ -1828,6 +1914,12 @@ pointer
 
 
 
+
+
+
+
+
+
 ;
 }
 .product-card-button-add {
@@ -1863,28 +1955,6 @@ pointer
 	padding-bottom: 1px;
 }
 </style>
-
-<script type="text/javascript">
-	paypal.Buttons({
-		createOrder : function(data, actions) {
-			// specify order details...
-		},
-
-		onApprove : function(data, actions) {
-			// payment approved...
-		},
-		onCancel : function(data) {
-			// customer cancelled...
-		},
-		onError : function(err) {
-			//error that prevents customer from checkout
-		}
-	}).render('#paypal-button-container'); // Display payment options on your web page
-</script>
-
-
-
-
 
 </head>
 
@@ -1924,115 +1994,45 @@ pointer
 					</a></li>
 				</ul>
 			</nav>
+			<%
+				float proItemSubTotal = 0;
+				int proItemCount = 0;
+				if (session.getAttribute("proDetails") == null) {
 
+				} else {
+					List<ShoppingCart> proItemCartList = (List<ShoppingCart>) session.getAttribute("proDetails");
+
+					for (int a = 0; a < proItemCartList.size(); a++) {
+						proItemSubTotal = proItemSubTotal + proItemCartList.get(a).getSubTotal();
+						proItemCount = proItemCount + 1;
+					}
+				}
+			%>
 			<div class="navbar-top">
 				<div class="menuButto">
-					<a href="./">
-						<button id="menuButton" class="menuButton">
-							<i class="fa fa-times-circle" aria-hidden="true"></i>
-						</button>
-					</a>
+					<a href=. />
+					<button id="menuButton" class="menuButton">
+						<i class="fa fa-times-circle" aria-hidden="true"></i>
+					</button>
+					Exit </a>
 				</div>
 				<div>
 					<!--Shopping cart-->
 					<div class="shopping-cart">
-						<div class="sum-prices">
-							<!--Shopping cart logo-->
-							<i class="fas fa-shopping-cart shoppingCartButton"></i>
-							<!--The total prices of products in the shopping cart -->
-							<h6 id="sum-prices"></h6>
-						</div>
+						<!--Shopping cart logo-->
+						<a href="cart" style="cursor: pointer"> <i
+							class="fas fa-shopping-cart"> <b style="font-size: 14px">
+									LKR <%
+ 	out.print(proItemSubTotal);
+ %>
+							</b>
+
+						</i>
+						</a>
+
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="producstOnCart hide" onload>
-			<div class="overlay"></div>
-			<div class="top">
-				<button id="closeButton">
-					<i class="fas fa-times-circle"></i>
-				</button>
-				<h3>Cart</h3>
-			</div>
-			<div class="buyItems">
-				<ul id="buyItems">
-					<h4 class="empty">
-						Your Shopping Cart Is <br>Empty!
-					</h4>
-				</ul>
-			</div>
-
-
-			<script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID">
-				// Required. Replace YOUR_CLIENT_ID with your sandbox client ID.
-			</script>
-
-
-			<script>
-				// This function displays Smart Payment Buttons on your web page.
-					paypal.Buttons().render('#paypal-button-container');
-			</script>
-
-			<!-- 			<a href="checkout"> -->
-			<button class="btn checkout hidden" id="checkoutDetails"
-				onClick="getInputValue();">Check Out</button>
-			<!-- 			</a> -->
-
-			<div id="paypal-button-container"></div>
-
-			<!----------------------- ORDER SUMMARY TABLE-------------------->
-
-			<div class="small-container cart-page">
-				<c:forEach var="cus" items="${cusDetails}">
-					<c:set var="id" value="${cus.id}" />
-					<table border="2">
-						<h3 align="left">- Order Summary -</h3>
-						<h3 align="right">ORD00${cus.id}</h3>
-						</c:forEach>
-						<tr>
-							<!-- <th>Customer</th>
-				<th>OrderDate</th> -->
-							<th>Product</th>
-							<th>Price</th>
-							<th>Quantity</th>
-							<th>Total</th>
-						</tr>
-						<tr>
-							<td></td>
-							<td>Rs 310.00</td>
-							<td><input type="number" value="5"></td>
-							<td>Rs 310.00</td>
-						</tr>
-					</table>
-					<br>
-					<div class="total-price">
-						<table border="1">
-							<tr>
-								<td>Subtotal</td>
-								<td>Rs 200.00</td>
-							</tr>
-							<tr>
-								<td>Discount</td>
-								<td>Rs 22.00</td>
-							</tr>
-							<tr>
-								<td>Estimated Tax</td>
-								<td>Rs 35.00</td>
-							</tr>
-							<tr>
-								<td>Shipping Charge</td>
-								<td>Rs 120.00</td>
-							</tr>
-							<tr>
-								<td>Total</td>
-								<td>Rs 235.00</td>
-							</tr>
-						</table>
-					</div>
-			</div>
-
-
-
 		</div>
 	</div>
 
@@ -2474,84 +2474,6 @@ pointer
 		}
 	</script>
 
-
-	<script src="<spring:url value="/resources/js/script.js" />"></script>
-	<script src="<spring:url value="/resources/shopping-cart.js" />"></script>
-
-	<script
-		src="https://www.paypal.com/sdk/js?client-id=AfnkTohqsH1-_GA6ywZZvaz6nTjKy9LHUz_MGhpwJsaaCR44pqAl1M68qhWnFztEigGyPrW0TKmoOU4d">
-		// Required. Replace YOUR_CLIENT_ID with your sandbox client ID.
-	</script>
-
-
-
-	<c:forEach var="cus" items="${cusDetails}">
-
-		<c:set var="id" value="${cus.id}" />
-		<c:set var="fname" value="${cus.fname}" />
-		<c:set var="lname" value="${cus.lname}" />
-		<c:set var="uname" value="${cus.uname}" />
-		<c:set var="email" value="${cus.email}" />
-		<c:set var="houseno" value="${cus.houseno}" />
-		<c:set var="streetname" value="${cus.streetname}" />
-		<c:set var="cityname" value="${cus.cityname}" />
-		<c:set var="password" value="${cus.password}" />
-
-
-	</c:forEach>
-	<script>
-		const tt = countTheSumPrice();
-		console.log(tt);
-		paypal
-				.Buttons(
-						{
-							createOrder : function(data, actions) {
-								// This function sets up the details of the transaction, including the amount and line item details.
-								return actions.order.create({
-									intent : 'CAPTURE',
-									payer : {
-										name : {
-											given_name : 'Maleesha',
-											surname : 'Sandakalum'
-										},
-									},
-									purchase_units : [ {
-										amount : {
-											value : String(tt)
-										}
-									} ]
-								});
-							},
-
-							onApprove : function(data, actions) {
-								//payment approved
-								return actions.order
-										.capture()
-										.then(
-												function(details) {
-													console.log(details);
-													orderId = details.id;
-													status = details.status;
-													update_time = details.update_time;
-													alert("Thanks for making payment!!!! Order ID: "
-															+ orderId
-															+ " status: "
-															+ status
-															+ " update_time :"
-															+ update_time
-															+ " Amount :"${amount});
-												});
-							},
-
-							//payment cancelled
-							onCancel : function(data) {
-								alert("Payment Cancelled !!!");
-							},
-							onError : function(err) {
-								alert("Something Wrong with informations !!!");
-							}
-						}).render('#paypal-button-container');
-	</script>
 
 </body>
 

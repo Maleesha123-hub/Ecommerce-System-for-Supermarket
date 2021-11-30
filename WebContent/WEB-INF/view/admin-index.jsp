@@ -189,9 +189,9 @@
 									</div>
 									<div>
 										<h4 class="mb-1 mt-1">
-											LKR <span data-plugin="counterup">8859</span>
+											LKR <span data-plugin="counterup">${saleDaily}</span>
 										</h4>
-										<p class="text-muted mb-0">Total Revenue</p>
+										<p class="text-muted mb-0">Daily Revenue</p>
 									</div>
 									<!-- <p class="text-muted mt-3 mb-0">
 										<span class="text-success me-1"><i

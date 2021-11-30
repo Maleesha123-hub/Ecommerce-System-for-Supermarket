@@ -28,6 +28,8 @@ public interface AdminServiceBd {
 
 	public Long countProduct();
 
+	public List<SalesAnalytics> getSUmmSalesDetail();
+
 	// --
 	// --
 	// --
@@ -112,5 +114,9 @@ public interface AdminServiceBd {
 	// ---------------------------------------SALES
 	// AMALYTICSDao------------------------------------//
 	public List<Order> getSalesDetailByDate(String fromDate, String toDate);
+
+	public String saveSales(SalesAnalytics sa);
+
+	public List<SalesAnalytics> getAllSalesList();
 
 }

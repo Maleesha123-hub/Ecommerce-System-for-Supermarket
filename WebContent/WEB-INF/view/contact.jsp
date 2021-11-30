@@ -303,8 +303,16 @@ pointer
 }
 </style>
 
+
+
 <script>
 function insertMessages() {
+	
+	if($("#message").val() == ""){
+		//alert("faild");
+	}
+	else{
+	
 	$.ajax({
 		type : "POST",
 		url : "saveMessages",
@@ -321,9 +329,13 @@ function insertMessages() {
 		}
 	});
 }
+
+}
 </script>
 
 </head>
+
+
 
 <body>
 	<!-------------------Customer Details bar------------------>
@@ -474,24 +486,23 @@ function insertMessages() {
 					<div class="contact-title ">
 						<h1>Send Message</h1>
 					</div>
+					<div class="contact-form">
 					<c:forEach var="mass" items="${massDetails}">
 					<c:set var="fname" value="${mass.fname}" />
 					<c:set var="lname" value="${mass.lname}" />
 					<c:set var="email" value="${mass.email}" />
-					<div class="contact-form">
 						<form>
-							<input name="name" type="text" name="name" id="name" class="form-control"
-								placeholder="Your Name" value="${mass.fname} ${mass.lname}" required><br> <input
-								name="email" type="email" name="email" id="email" class="form-control"
-								placeholder="Your Email" value="${mass.email}" required><br>
-							<textarea name="message" class="form-control" id="message"
+							<input name="name" type="text" id="name" class="form-control"
+								placeholder="Your Name" value="${mass.fname} ${mass.lname}" readonly="readonly"><br> <input
+								name="email" type="email" id="email" class="form-control"
+								placeholder="Your Email" value="${mass.email}" readonly="readonly"><br>
+							<textarea class="form-control" id="message"
 								placeholder="&nbsp;Message" rows="4" required></textarea><br>
 								
-							<Button type="submit" class="form-control submit"
-								id="saveMessage" onclick="insertMessages()">SEND MESSAGE</Button>
+							<Button type="submit" class="form-control submit" onclick="insertMessages()">SEND MESSAGE</Button>
 						</form>
-					</div>
 					</c:forEach>
+					</div>
 				</div>
 			</td>
 		</tr>

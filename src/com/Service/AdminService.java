@@ -271,4 +271,20 @@ public class AdminService implements AdminServiceBd {
 		return repositary.getSalesDetailByDate(fromDate, toDate);
 	}
 
+	@Override
+	public String saveSales(SalesAnalytics sa) {
+		return repositary.saveSales(sa);
+	}
+
+	@Override
+	public List<SalesAnalytics> getAllSalesList() {
+		return repositary.getAllSalesList();
+	}
+
+	@Override
+	public List<SalesAnalytics> getSUmmSalesDetail() {
+		return repositary.getSUmmSalesDetail();
+	}
+
+
 }

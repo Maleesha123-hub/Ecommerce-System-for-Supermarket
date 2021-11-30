@@ -1,6 +1,5 @@
 package com.Repositary;
 
-import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -456,6 +455,27 @@ public class AdminRepositary implements AdminRepositaryDao {
 
 		return listoforder;
 	}
+	
+	/**
+	 * get all Sales details
+	 * 
+	 * @return list of sales
+	 */
+	@Override
+	public List<SalesAnalytics> getSUmmSalesDetail() {
+		session = getHibernateTemplate().getSessionFactory().openSession();
+		transaction = session.beginTransaction();
+		String hql = "FROM SalesAnalytics ORDER BY id DESC";
+		query = session.createQuery(hql);
+		query.setMaxResults(1);
+		List<SalesAnalytics> listofsales = query.list();
+		transaction.commit();
+		session.close();
+		for (SalesAnalytics sld : listofsales) {
+			System.out.println(sld.getIncome() + "SALES ANALYTICS ");
+		}
+		return listofsales;
+	}
 
 	/**
 	 * get count of customers
@@ -603,9 +623,6 @@ public class AdminRepositary implements AdminRepositaryDao {
 	@Override
 	public List<Order> getSalesDetailByDate(String fromDate, String toDate) {
 		System.out.println("Sales Dates :" + fromDate +", "+toDate);
-		
-		
-		
 		session = getHibernateTemplate().getSessionFactory().openSession();
 		transaction = session.beginTransaction();
 		String hql = "FROM Order WHERE date BETWEEN '"+fromDate+"' AND '"+toDate+"'";
@@ -615,6 +632,37 @@ public class AdminRepositary implements AdminRepositaryDao {
 		session.close();
 		return listofOrderDetail;
 		 //AND status = '"+"Delivered"+"' 
+	}
+
+	@Override
+	public String saveSales(SalesAnalytics sa) {
+		if (sa != null) {
+			session = getHibernateTemplate().getSessionFactory().openSession();
+			transaction = session.beginTransaction();
+			session.save(sa);
+			transaction.commit();
+			session.close();
+			return "success";
+		}
+		return "false";
+	}
+	
+	/**
+	 * get all sales details
+	 * 
+	 * @return list of sales analytics
+	 */
+	@Override
+	public List<SalesAnalytics> getAllSalesList() {
+		session = getHibernateTemplate().getSessionFactory().openSession();
+		transaction = session.beginTransaction();
+		String hql = "FROM SalesAnalytics ORDER BY id DESC";
+		query = session.createQuery(hql);
+		List<SalesAnalytics> listofsales = query.list();
+		transaction.commit();
+		session.close();
+
+		return listofsales;
 	}
 
 }

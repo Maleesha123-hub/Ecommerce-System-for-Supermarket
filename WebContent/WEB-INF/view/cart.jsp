@@ -219,6 +219,15 @@ input[type="button"] {
 				<th>Quantity</th>
 				<th>Subtotal</th>
 			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td><button value="Update"
+						style="cursor: pointer; width: 80px; height: 20px">Update</button></td>
+				<td></td>
+			</tr>
 			<c:forEach var="pro" items="${proDetails}">
 				<tr>
 					<td><a href="" style="font-size: 15px"
@@ -274,63 +283,64 @@ input[type="button"] {
 				</tr>
 			</table>
 		</div>
-<!-- 
+		<!-- 
 		<input type="image"
 			src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif">
 	</div>
  -->
-	<!-- Footer section Begin -->
-	<footer class="footer">
-		<div class="container1">
-			<div class="row">
-				<div class="footer-col-1">
-					<div class="payment">
-						<img src="<spring:url value="/resources/images/payment.png" />">
+		<!-- Footer section Begin -->
+		<footer class="footer">
+			<div class="container1">
+				<div class="row">
+					<div class="footer-col-1">
+						<div class="payment">
+							<img src="<spring:url value="/resources/images/payment.png" />">
+						</div>
+						<h3>Download Our App</h3>
+						<p>Download App for Android and ios mobile phone.</p>
+						<div class="app-logo">
+							<img src="<spring:url value="/resources/images/app-store.png" />">
+							<img
+								src="<spring:url value="/resources/images/play-store.png" />">
+						</div>
 					</div>
-					<h3>Download Our App</h3>
-					<p>Download App for Android and ios mobile phone.</p>
-					<div class="app-logo">
-						<img src="<spring:url value="/resources/images/app-store.png" />">
-						<img src="<spring:url value="/resources/images/play-store.png" />">
+					<div class="footer-col-2">
+						<a href=./indexCus><img
+							src="<spring:url value="/resources/images/logo.png" />"></a>
+						<p>Our passion is to deliver pleasure and nutrition throughout
+							peoples lives, through exciting and superior products, whenever
+							and wherever they choose to eat and drink.</p>
+					</div>
+					<div class="footer-col-3">
+						<h3>Useful Links</h3>
+						<ul>
+							<li>Coupons</li>
+							<li>Blog Post</li>
+							<li>Return Policy</li>
+							<li>Join Affliate</li>
+						</ul>
+					</div>
+					<div class="footer-col-4">
+						<h3>Follow us</h3>
+						<ul>
+							<li>Facebook</li>
+							<li>Twitter</li>
+							<li>Instagram</li>
+							<li>YouTube</li>
+						</ul>
 					</div>
 				</div>
-				<div class="footer-col-2">
-					<a href=./indexCus><img
-						src="<spring:url value="/resources/images/logo.png" />"></a>
-					<p>Our passion is to deliver pleasure and nutrition throughout
-						peoples lives, through exciting and superior products, whenever
-						and wherever they choose to eat and drink.</p>
-				</div>
-				<div class="footer-col-3">
-					<h3>Useful Links</h3>
-					<ul>
-						<li>Coupons</li>
-						<li>Blog Post</li>
-						<li>Return Policy</li>
-						<li>Join Affliate</li>
-					</ul>
-				</div>
-				<div class="footer-col-4">
-					<h3>Follow us</h3>
-					<ul>
-						<li>Facebook</li>
-						<li>Twitter</li>
-						<li>Instagram</li>
-						<li>YouTube</li>
-					</ul>
-				</div>
+				<hr>
+				<p class="copyright">Copyright @ 2021 All rights reserved |
+					Parakrama Supermarket</p>
+
 			</div>
-			<hr>
-			<p class="copyright">Copyright @ 2021 All rights reserved |
-				Parakrama Supermarket</p>
+		</footer>
 
-		</div>
-	</footer>
+		<!-------------------------End fotter---------------------->
 
-	<!-------------------------End fotter---------------------->
-
-	<!-------------js for toggle menu----------->
-	<script>
+		<!-------------js for toggle menu----------->
+		<script>
 		var MenuItems = document.getElementById("MenuItems");
 		MenuItems.style.maxHeight = "0px";
 
@@ -344,8 +354,8 @@ input[type="button"] {
 	</script>
 
 
-	<!--------------------js for toggle Menu--------------->
-	<script>
+		<!--------------------js for toggle Menu--------------->
+		<script>
 		var MenuItems = document.getElementById("MenuItems");
 		MenuItems.style.maxHeight = "0px";
 
@@ -357,8 +367,8 @@ input[type="button"] {
 			}
 		}
 	</script>
-	<script src="<spring:url value="/resources/js/script.js" />"></script>
-	<script src="<spring:url value="/resources/shopping-cart.js" />"></script>
+		<script src="<spring:url value="/resources/js/script.js" />"></script>
+		<script src="<spring:url value="/resources/shopping-cart.js" />"></script>
 </body>
 
 </html>

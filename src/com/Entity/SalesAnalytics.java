@@ -20,13 +20,23 @@ public class SalesAnalytics {
 	@Column(name = "To_Date")
 	private String todate;
 	@Column(name = "Expenditure")
-	private String expenditure;
+	private Float expenditure;
 	@Column(name = "Sales_Income")
-	private String income;
+	private Float income;
 	@Column(name = "Sales_Order")
-	private String sales;
+	private int sales;
 	@Column(name = "Canceled_Order")
-	private String canceled;
+	private int canceled;
+	@Column(name = "Save_Date")
+	private String savedate;
+
+	public String getSavedate() {
+		return savedate;
+	}
+
+	public void setSavedate(String savedate) {
+		this.savedate = savedate;
+	}
 
 	public int getId() {
 		return id;
@@ -52,35 +62,35 @@ public class SalesAnalytics {
 		this.todate = todate;
 	}
 
-	public String getExpenditure() {
+	public Float getExpenditure() {
 		return expenditure;
 	}
 
-	public void setExpenditure(String expenditure) {
+	public void setExpenditure(Float expenditure) {
 		this.expenditure = expenditure;
 	}
 
-	public String getIncome() {
+	public Float getIncome() {
 		return income;
 	}
 
-	public void setIncome(String income) {
+	public void setIncome(Float income) {
 		this.income = income;
 	}
 
-	public String getSales() {
+	public int getSales() {
 		return sales;
 	}
 
-	public void setSales(String sales) {
+	public void setSales(int sales) {
 		this.sales = sales;
 	}
 
-	public String getCanceled() {
+	public int getCanceled() {
 		return canceled;
 	}
 
-	public void setCanceled(String canceled) {
+	public void setCanceled(int canceled) {
 		this.canceled = canceled;
 	}
 

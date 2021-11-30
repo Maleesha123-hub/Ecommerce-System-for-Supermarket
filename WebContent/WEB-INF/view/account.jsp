@@ -1098,8 +1098,6 @@ $(document).ready(function() {
 							postal : $("#postal").val()
 						},
 						success : function(result) {
-							alert(result + "RESULT WHAT")
-							
 			    			Swal.fire('Saved!', '', 'success')
 						},
 						error : function(err) {
@@ -1364,7 +1362,7 @@ $(document).ready(function() {
 				<div class="row g-3">
 					<div class="col">
 						<h4>
-							<b>Enter lD:</b>
+							<b>Customer lD:</b>
 						</h4>
 						<input type="text" class="formAcc-control" placeholder="lD"
 							aria-label="idp" required="required" value="${cus.id}" id="idp"
