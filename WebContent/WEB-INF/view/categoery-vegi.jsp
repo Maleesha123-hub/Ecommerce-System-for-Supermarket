@@ -108,6 +108,10 @@ nav a {
 
 
 
+
+
+
+
 :not
 
 
@@ -130,7 +134,11 @@ nav a {
 
 
 
+
+
  
+
+
 
 
 
@@ -175,7 +183,11 @@ nav a {
 
 
 
+
+
  
+
+
 
 
 
@@ -220,7 +232,11 @@ nav a {
 
 
 
+
+
  
+
+
 
 
 
@@ -265,7 +281,11 @@ nav a {
 
 
 
+
+
  
+
+
 
 
 
@@ -332,7 +352,13 @@ cursor
 
 
 
+
+
+
+
 :
+
+
 
 
 
@@ -376,7 +402,13 @@ cursor
 
 
 
+
+
 pointer
+
+
+
+
 
 
 
@@ -517,6 +549,10 @@ pointer
 
 
 
+
+
+
+
 :not
 
 
@@ -539,7 +575,11 @@ pointer
 
 
 
+
+
  
+
+
 
 
 
@@ -584,7 +624,11 @@ pointer
 
 
 
+
+
  
+
+
 
 
 
@@ -629,7 +673,11 @@ pointer
 
 
 
+
+
  
+
+
 
 
 
@@ -674,7 +722,11 @@ pointer
 
 
 
+
+
  
+
+
 
 
 
@@ -741,7 +793,13 @@ cursor
 
 
 
+
+
+
+
 :
+
+
 
 
 
@@ -785,7 +843,13 @@ cursor
 
 
 
+
+
 pointer
+
+
+
+
 
 
 
@@ -920,20 +984,20 @@ pointer
 					</a></li>
 				</ul>
 			</nav>
-<%
-		float proItemSubTotal = 0;
-		int proItemCount = 0;
-		if (session.getAttribute("proDetails") == null) {
+			<%
+				float proItemSubTotal = 0;
+				int proItemCount = 0;
+				if (session.getAttribute("proDetails") == null) {
 
-		} else {
-			List<ShoppingCart> proItemCartList = (List<ShoppingCart>) session.getAttribute("proDetails");
+				} else {
+					List<ShoppingCart> proItemCartList = (List<ShoppingCart>) session.getAttribute("proDetails");
 
-			for (int a = 0; a < proItemCartList.size(); a++) {
-				proItemSubTotal = proItemSubTotal + proItemCartList.get(a).getSubTotal();
-				proItemCount = proItemCount + 1;
-			}
-		}
-	%>
+					for (int a = 0; a < proItemCartList.size(); a++) {
+						proItemSubTotal = proItemSubTotal + proItemCartList.get(a).getSubTotal();
+						proItemCount = proItemCount + 1;
+					}
+				}
+			%>
 			<div class="navbar-top">
 				<div class="menuButto">
 					<a href=. />
@@ -946,13 +1010,15 @@ pointer
 					<!--Shopping cart-->
 					<div class="shopping-cart">
 						<!--Shopping cart logo-->
-						<a href="cart" style="cursor: pointer"> <i class="fas fa-shopping-cart"> <b
-							style="font-size: 14px"> LKR <%
+						<a href="cart" style="cursor: pointer"> <i
+							class="fas fa-shopping-cart"> <b style="font-size: 14px">
+									LKR <%
  	out.print(proItemSubTotal);
  %>
-						</b>
+							</b>
 
-						</i> </a>
+						</i>
+						</a>
 
 					</div>
 				</div>
@@ -962,8 +1028,8 @@ pointer
 
 	<!-------------------Product Search Bar--------------->
 	<div class="search-box">
-		<form action="##" method="POST">
-			<input type="text" name="search" placeholder="search here...">
+		<form action="searchvegi" method="POST">
+			<input type="text" name="name" placeholder="search here...">
 			<input type="submit" name="submit" value="search">
 		</form>
 	</div>
@@ -1000,6 +1066,11 @@ pointer
 
 		<div class="row">
 			<ul class="products">
+
+
+
+
+
 				<c:forEach var="pro" items="${proDetails}">
 
 					<c:set var="id" value="${pro.id}" />
@@ -1028,6 +1099,12 @@ pointer
 						</div>
 					</li>
 				</c:forEach>
+				
+				
+				
+				
+				
+				
 			</ul>
 		</div>
 

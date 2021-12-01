@@ -79,6 +79,8 @@ nav a {
 
 
 
+
+
 :not
 
 
@@ -88,7 +90,9 @@ nav a {
 
 
 
+
  
+
 
 
 
@@ -107,7 +111,9 @@ nav a {
 
 
 
+
  
+
 
 
 
@@ -126,7 +132,9 @@ nav a {
 
 
 
+
  
+
 
 
 
@@ -145,7 +153,9 @@ nav a {
 
 
 
+
  
+
 
 
 
@@ -173,7 +183,10 @@ cursor
 
 
 
+
+
 :
+
 
 
 
@@ -191,7 +204,10 @@ cursor
 
 
 
+
 pointer
+
+
 
 
 
@@ -280,6 +296,8 @@ pointer
 
 
 
+
+
 :not
 
 
@@ -289,7 +307,9 @@ pointer
 
 
 
+
  
+
 
 
 
@@ -308,7 +328,9 @@ pointer
 
 
 
+
  
+
 
 
 
@@ -327,7 +349,9 @@ pointer
 
 
 
+
  
+
 
 
 
@@ -346,7 +370,9 @@ pointer
 
 
 
+
  
+
 
 
 
@@ -374,7 +400,10 @@ cursor
 
 
 
+
+
 :
+
 
 
 
@@ -392,7 +421,10 @@ cursor
 
 
 
+
 pointer
+
+
 
 
 
@@ -477,6 +509,8 @@ pointer
 
 
 
+
+
 :not
 
 
@@ -484,7 +518,9 @@ pointer
 
 
 
+
  
+
 
 
 
@@ -499,7 +535,9 @@ pointer
 
 
 
+
  
+
 
 
 
@@ -514,7 +552,9 @@ pointer
 
 
 
+
  
+
 
 
 
@@ -529,7 +569,9 @@ pointer
 
 
 
+
  
+
 
 
 
@@ -551,7 +593,10 @@ cursor
 
 
 
+
+
 :
+
 
 
 
@@ -565,7 +610,10 @@ cursor
 
 
 
+
 pointer
+
+
 
 
 
@@ -646,6 +694,8 @@ pointer
 
 
 
+
+
 :not
 
 
@@ -653,7 +703,9 @@ pointer
 
 
 
+
  
+
 
 
 
@@ -668,7 +720,9 @@ pointer
 
 
 
+
  
+
 
 
 
@@ -683,7 +737,9 @@ pointer
 
 
 
+
  
+
 
 
 
@@ -698,7 +754,9 @@ pointer
 
 
 
+
  
+
 
 
 
@@ -720,7 +778,10 @@ cursor
 
 
 
+
+
 :
+
 
 
 
@@ -734,7 +795,10 @@ cursor
 
 
 
+
 pointer
+
+
 
 
 
@@ -2118,7 +2182,7 @@ small {
 						</figure>
 						<div class="product-summary">
 							<h4 class="productName">Top Crust Bread</h4>
-							<p>Top Crust Bread luctus quis et est. Integer pretium purus</p>
+							<p>luctus quis et est. Integer pretium purus</p>
 							<h6 class="price">
 								<span class="product-card-original-price ">Rs 450.00 | </span>Rs
 								<span class="priceValue">140</span> / Unit
@@ -2140,8 +2204,7 @@ small {
 						</figure>
 						<div class="product-summary">
 							<h4 class="productName">Parakrama Dinner Bun 4S</h4>
-							<p>Parakrama Dinner Bun 4S luctus quis et est. Integer
-								pretium purus</p>
+							<p>luctus quis et est. Integer pretium purus</p>
 							<h6 class="price">
 								<span class="product-card-original-price ">Rs 75.00 | </span>Rs
 								<span class="priceValue">60</span> / Unit
@@ -2163,7 +2226,7 @@ small {
 						</figure>
 						<div class="product-summary">
 							<h4 class="productName">Big Onion</h4>
-							<p>Big Onion luctus quis et est. Integer pretium purus</p>
+							<p>luctus quis et est. Integer pretium purus</p>
 							<h6 class="price">
 								<span class="product-card-original-price ">Rs 145.00 | </span>Rs
 								<span class="priceValue">140</span> / KG
@@ -2185,8 +2248,7 @@ small {
 						</figure>
 						<div class="product-summary">
 							<h4 class="productName">RiceRed Kekulu Bulk Kg-Local</h4>
-							<p>RiceRed Kekulu Bulk Kg-Locals quis et est. Integer pretium
-								purus</p>
+							<p>quis et est. Integer pretium purus</p>
 							<h6 class="price">
 								<span class="product-card-original-price ">Rs 132.00 | </span>Rs
 								<span class="priceValue">93</span> / KG
@@ -2263,7 +2325,7 @@ small {
 					</figure>
 					<div class="product-summary">
 						<h4 class="productName">Watawala Kahata Tea Pouch 400g</h4>
-						<p>Watawala Kahata Tea Pouch 400g quis et est. Integer pretium
+						<p>quis et est. Integer pretium
 							purus</p>
 						<h6 class="price">
 							<span class="product-card-original-price ">Rs 550.00 | </span>Rs
@@ -2286,7 +2348,7 @@ small {
 					</figure>
 					<div class="product-summary">
 						<h4 class="productName">Parakrama Dinner Bun 4S</h4>
-						<p>Munchee Snacks Cracker 260g quis et est. Integer pretium
+						<p>quis et est. Integer pretium
 							purus</p>
 						<h6 class="price">
 							<span class="product-card-original-price ">Rs 355.00 | </span>Rs
@@ -2309,7 +2371,7 @@ small {
 					</figure>
 					<div class="product-summary">
 						<h4 class="productName">Baraka Wild Bees Honey 100% Pure 275g</h4>
-						<p>Baraka Wild Bees Honey 100% Pure 275gs et est. Integer
+						<p>et est. Integer
 							pretium purus</p>
 						<h6 class="price">
 							<span class="product-card-original-price ">Rs 1450.00 | </span>Rs
@@ -2332,7 +2394,7 @@ small {
 					</figure>
 					<div class="product-summary">
 						<h4 class="productName">Ratthi Set Yoghurt Multi Pack 320G 4S</h4>
-						<p>Ratthi Set Yoghurt Multi Pack 320G 4S et est. Integer
+						<p>et est. Integer
 							pretium purus</p>
 						<h6 class="price">
 							<span class="product-card-original-price ">Rs 220.00 | </span>Rs

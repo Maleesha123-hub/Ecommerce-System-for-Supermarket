@@ -868,9 +868,9 @@ pointer
 
 	<!-------------------Product Search Bar--------------->
 	<div class="search-box">
-		<form action="##" method="POST">
-			<input type="text" name="search" placeholder="search here...">
-			<input type="submit" name="submit" value="search">
+		<form action="searchfru" method="POST">
+			<input type="text" name="name" placeholder="search here...">
+			<input type="submit" value="search">
 		</form>
 	</div>
 	<!-------------------END Product Search Bar--------------->

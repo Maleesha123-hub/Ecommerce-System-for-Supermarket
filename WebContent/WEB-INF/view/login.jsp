@@ -44,7 +44,7 @@
 			height="60"> <br> <br> <br> <br> <br>
 		<div class="row">
 			<div class="col-2">
-				<br> <br> <br> <br> <img alt="MainPic"
+				<br> <br> <img alt="MainPic" style="float: right; margin: 0px 0px 15px 15px"
 					src="<spring:url value="/resources/images/mainpic.png" />"
 					width="100%">
 			</div>

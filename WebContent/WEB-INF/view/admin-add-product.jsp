@@ -381,7 +381,7 @@
 												<div class="col-lg-4">
 													<div class="mb-3">
 														<label class="form-label" for="price">Price</label> <input
-															id="price" name="price" id="price" type="text"
+															id="price" name="price" id="price" type="number"
 															class="form-control" required="required">
 													</div>
 												</div>

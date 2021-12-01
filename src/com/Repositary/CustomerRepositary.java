@@ -562,7 +562,7 @@ public class CustomerRepositary implements CustomerRepositaryDao {
 		session.close();
 		return UserOrderList;
 	}
-	
+
 	@Override
 	public List<OrderDetail> getAllOrderDetailByIdFC(String orderId) {
 		System.out.println("GetOneOrder ID :" + orderId);
@@ -577,4 +577,104 @@ public class CustomerRepositary implements CustomerRepositaryDao {
 		return listofOrderDetail;
 	}
 
+	@Override
+	public List<AdminAddProductEntity> searchVegiProList(String vegisrc) {
+		System.out.println("Src Name :" + vegisrc);
+		String veg = "Vegitable";
+		session = getHibernateTemplate().getSessionFactory().openSession();
+		transaction = session.beginTransaction();
+		String hql = "FROM AdminAddProductEntity adorg WHERE lower(adorg.category) like lower('%" + veg
+				+ "%') AND lower(adorg.name) like lower('%" + vegisrc + "%')";
+		query = session.createQuery(hql);
+		List<AdminAddProductEntity> listofvagiDetail = query.list();
+		transaction.commit();
+		session.close();
+		return listofvagiDetail;
+	}
+
+	@Override
+	public List<AdminAddProductEntity> searchFruitProList(String fruitsrc) {
+		System.out.println("Src Name :" + fruitsrc);
+		String fru = "Fruit";
+		session = getHibernateTemplate().getSessionFactory().openSession();
+		transaction = session.beginTransaction();
+		String hql = "FROM AdminAddProductEntity adorg WHERE lower(adorg.category) like lower('%" + fru
+				+ "%') AND lower(adorg.name) like lower('%" + fruitsrc + "%')";
+		query = session.createQuery(hql);
+		List<AdminAddProductEntity> listoffruitDetail = query.list();
+		transaction.commit();
+		session.close();
+		return listoffruitDetail;
+	}
+
+	@Override
+	public List<AdminAddProductEntity> searchMeatProList(String meatsrc) {
+		System.out.println("Src Name :" + meatsrc);
+		String mea = "Meat";
+		session = getHibernateTemplate().getSessionFactory().openSession();
+		transaction = session.beginTransaction();
+		String hql = "FROM AdminAddProductEntity adorg WHERE  lower(adorg.category) like lower('%" + mea
+				+ "%') AND lower(adorg.name) like lower('%" + meatsrc + "%')";
+		query = session.createQuery(hql);
+		List<AdminAddProductEntity> listofmeatDetail = query.list();
+		transaction.commit();
+		session.close();
+		return listofmeatDetail;
+	}
+
+	@Override
+	public List<AdminAddProductEntity> searchHomeWareProList(String homesrc) {
+		System.out.println("Src Name :" + homesrc);
+		String hom = "Home Ware";
+		session = getHibernateTemplate().getSessionFactory().openSession();
+		transaction = session.beginTransaction();
+		String hql = "FROM AdminAddProductEntity adorg WHERE  lower(adorg.category) like lower('%" + hom
+				+ "%') AND  lower(adorg.name) like lower('%" + homesrc + "%')";
+		query = session.createQuery(hql);
+		List<AdminAddProductEntity> listofhomesrcDetail = query.list();
+		transaction.commit();
+		session.close();
+		return listofhomesrcDetail;
+	}
+
+	@Override
+	public List<AdminAddProductEntity> searchElectProList(String electsrc) {
+		System.out.println("Src Name :" + electsrc);
+		String elec = "Electronics";
+		session = getHibernateTemplate().getSessionFactory().openSession();
+		transaction = session.beginTransaction();
+		String hql = "FROM AdminAddProductEntity adorg WHERE  lower(adorg.category) like lower('%" + elec
+				+ "%') AND   lower(adorg.name) like lower('%" + electsrc + "%')";
+		query = session.createQuery(hql);
+		List<AdminAddProductEntity> listofelectDetail = query.list();
+		transaction.commit();
+		session.close();
+		return listofelectDetail;
+	}
+
+	@Override
+	public List<AdminAddProductEntity> searchBeautyProList(String beausrc) {
+		System.out.println("Src Name :" + beausrc);
+		String bea = "Beauty";
+		session = getHibernateTemplate().getSessionFactory().openSession();
+		transaction = session.beginTransaction();
+		String hql = "FROM AdminAddProductEntity adorg WHERE  lower(adorg.category) like lower('%" + bea
+				+ "%') AND   lower(adorg.name) like lower('%" + beausrc + "%')";
+		query = session.createQuery(hql);
+		List<AdminAddProductEntity> listofbeautiDetail = query.list();
+		transaction.commit();
+		session.close();
+		return listofbeautiDetail;
+	}
+
+	/*
+	 * @Override public List<AdminAddProductEntity> searchallProList(String allp) {
+	 * System.out.println("Src Name :" + allp); session =
+	 * getHibernateTemplate().getSessionFactory().openSession(); transaction =
+	 * session.beginTransaction(); String hql =
+	 * "FROM AdminAddProductEntity adorg WHERE lower(adorg.name) like lower('%" +
+	 * allp + "%')"; query = session.createQuery(hql); List<AdminAddProductEntity>
+	 * listofsearchallProList = query.list(); transaction.commit(); session.close();
+	 * return listofsearchallProList; }
+	 */
 }

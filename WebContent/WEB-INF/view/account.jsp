@@ -1396,7 +1396,7 @@ $(document).ready(function() {
 						<h4>
 							<b>Enter Email:</b>
 						</h4>
-						<input type="text" class="formAcc-control" placeholder="Email"
+						<input type="text" class="formAcc-control" type="email" placeholder="Email"
 							aria-label="Email" required="required" id="email"
 							value="${cus.email}">
 					</div>

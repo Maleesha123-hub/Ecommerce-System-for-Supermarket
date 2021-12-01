@@ -35,6 +35,38 @@ public interface CustomerServiceBd {
 
 	public List<AdminAddProductEntity> getAllBeautyProList();
 
+	// -- SEARCH
+	// PRODUCTS------------------------------------------------------------------------------------//
+	// Search vegitable page
+	public List<AdminAddProductEntity> searchVegiProList(String vegisrc);
+
+	// Search Fruit page
+	public List<AdminAddProductEntity> searchFruitProList(String fruitsrc);
+
+	// Search Meat page
+	public List<AdminAddProductEntity> searchMeatProList(String meatsrc);
+
+	// Search Homeware Item page
+	public List<AdminAddProductEntity> searchHomeWareProList(String homesrc);
+
+	// Search electtronic page
+	public List<AdminAddProductEntity> searchElectProList(String electsrc);
+
+	// Search beauty page
+	public List<AdminAddProductEntity> searchBeautyProList(String beausrc);
+
+	/*
+	 * // Search all pro page public List<AdminAddProductEntity>
+	 * searchallProList(String allp);
+	 */
+
+	// ------------------------------------------------------------------------------------//
+	// ------------------------------------------------------------------------------------//
+	// ------------------------------------------------------------------------------------//
+	// ---
+	// ---
+	// ---
+
 	// -- PASSWORD
 	// RECOVERY------------------------------------------------------------------------------------//
 	public boolean recover(AdminCustomerEntity ue);

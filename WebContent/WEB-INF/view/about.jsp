@@ -451,7 +451,7 @@ pointer
 						</a>
 					</ul>
 				</div>
-				<h2>Premasiri Kemadasa</h2>
+				<h2>Nirosha Wirajini</h2>
 				<h3>Marketing Head</h3>
 				<p>
 					Parakrama group and <br>holding Chain

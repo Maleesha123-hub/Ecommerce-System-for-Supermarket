@@ -180,6 +180,14 @@ nav a {
 
 
 
+
+
+
+
+
+
+
+
 :not
 
 
@@ -236,7 +244,15 @@ nav a {
 
 
 
+
+
+
+
  
+
+
+
+
 
 
 
@@ -349,7 +365,15 @@ nav a {
 
 
 
+
+
+
+
  
+
+
+
+
 
 
 
@@ -462,7 +486,15 @@ nav a {
 
 
 
+
+
+
+
  
+
+
+
+
 
 
 
@@ -575,7 +607,15 @@ nav a {
 
 
 
+
+
+
+
  
+
+
+
+
 
 
 
@@ -744,7 +784,19 @@ cursor
 
 
 
+
+
+
+
+
+
+
+
 :
+
+
+
+
 
 
 
@@ -856,7 +908,19 @@ cursor
 
 
 
+
+
+
+
 pointer
+
+
+
+
+
+
+
+
 
 
 
@@ -1133,6 +1197,14 @@ pointer
 
 
 
+
+
+
+
+
+
+
+
 :not
 
 
@@ -1189,7 +1261,15 @@ pointer
 
 
 
+
+
+
+
  
+
+
+
+
 
 
 
@@ -1302,7 +1382,15 @@ pointer
 
 
 
+
+
+
+
  
+
+
+
+
 
 
 
@@ -1415,7 +1503,15 @@ pointer
 
 
 
+
+
+
+
  
+
+
+
+
 
 
 
@@ -1528,7 +1624,15 @@ pointer
 
 
 
+
+
+
+
  
+
+
+
+
 
 
 
@@ -1697,7 +1801,19 @@ cursor
 
 
 
+
+
+
+
+
+
+
+
 :
+
+
+
+
 
 
 
@@ -1809,7 +1925,19 @@ cursor
 
 
 
+
+
+
+
 pointer
+
+
+
+
+
+
+
+
 
 
 
@@ -2038,10 +2166,9 @@ pointer
 
 	<!-------------------Product Search Bar--------------->
 	<div class="search-box">
-		<form>
-			<input type="text" name="searchName" placeholder="Search here"
-				id="searchName"> <input type="submit" name="submit"
-				value="Search" onclick="electronicSearch()">
+		<form action="#">
+			<input type="text" placeholder="Search here"
+				id="searchName"> <input type="submit" value="Search">
 		</form>
 	</div>
 	<!-------------------END Product Search Bar--------------->
@@ -2107,7 +2234,7 @@ pointer
 						</div>
 					</figure>
 					<div class="product-summary">
-						<h4 class="productName">Munchee Snacks Cracker 260g</h4>
+						<h4 class="productName">Beetroot</h4>
 						<h6 class="price">
 							Rs <span class="priceValue">310</span> / Unit
 						</h6>
@@ -2126,7 +2253,7 @@ pointer
 						</div>
 					</figure>
 					<div class="product-summary">
-						<h4 class="productName">Ratthi Set Yoghurt Multi Pack 320G 4S</h4>
+						<h4 class="productName">Big Onion</h4>
 						<h6 class="price">
 							Rs <span class="priceValue">170</span> / Unit
 						</h6>
@@ -2164,7 +2291,7 @@ pointer
 						</div>
 					</figure>
 					<div class="product-summary">
-						<h4 class="productName">Watawala Kahata Tea Pouch 400g</h4>
+						<h4 class="productName">LED Light Speaker Wireless Smart Bulb</h4>
 						<h6 class="price">
 							Rs <span class="priceValue">500</span> / Unit
 						</h6>
@@ -2183,7 +2310,7 @@ pointer
 						</div>
 					</figure>
 					<div class="product-summary">
-						<h4 class="productName">Munchee Snacks Cracker 260g</h4>
+						<h4 class="productName">Wools clothing</h4>
 						<h6 class="price">
 							Rs <span class="priceValue">310</span> / Unit
 						</h6>
@@ -2202,7 +2329,7 @@ pointer
 						</div>
 					</figure>
 					<div class="product-summary">
-						<h4 class="productName">Ratthi Set Yoghurt Multi Pack 320G 4S</h4>
+						<h4 class="productName">Kids Pencil box and book pack</h4>
 						<h6 class="price">
 							Rs <span class="priceValue">170</span> / Unit
 						</h6>
@@ -2221,10 +2348,10 @@ pointer
 						</div>
 					</figure>
 					<div class="product-summary">
-						<h4 class="productName">Baraka Wild Bees Honey 100% Pure 275g</h4>
+						<h4 class="productName">Packet Meats 870g</h4>
 						<h6 class="price">
-							<span class="product-card-original-price ">Rs 170.00 | </span> Rs
-							<span class="priceValue">1255</span> / Unit
+							<span class="product-card-original-price ">Rs 1700.00 | </span>
+							Rs <span class="priceValue">1255</span> / Unit
 						</h6>
 					</div>
 				</div>
@@ -2241,10 +2368,10 @@ pointer
 						</div>
 					</figure>
 					<div class="product-summary">
-						<h4 class="productName">Baraka Wild Bees Honey 100% Pure 275g</h4>
+						<h4 class="productName">Aust. Lamb Leg Boneless</h4>
 						<h6 class="price">
-							<span class="product-card-original-price ">Rs 170.00 | </span> Rs
-							<span class="priceValue">1255</span> / Unit
+							<span class="product-card-original-price ">Rs 820.00 | </span> Rs
+							<span class="priceValue">790</span> / Unit
 						</h6>
 					</div>
 				</div>
@@ -2261,10 +2388,10 @@ pointer
 						</div>
 					</figure>
 					<div class="product-summary">
-						<h4 class="productName">Baraka Wild Bees Honey 100% Pure 275g</h4>
+						<h4 class="productName">Smart Band 4</h4>
 						<h6 class="price">
-							<span class="product-card-original-price ">Rs 170.00 | </span> Rs
-							<span class="priceValue">1255</span> / Unit
+							<span class="product-card-original-price ">Rs 1560.00 | </span>
+							Rs <span class="priceValue">1400</span> / Unit
 						</h6>
 					</div>
 				</div>
@@ -2281,10 +2408,10 @@ pointer
 						</div>
 					</figure>
 					<div class="product-summary">
-						<h4 class="productName">Baraka Wild Bees Honey 100% Pure 275g</h4>
+						<h4 class="productName">Smooth Ribbon</h4>
 						<h6 class="price">
-							<span class="product-card-original-price ">Rs 170.00 | </span> Rs
-							<span class="priceValue">1255</span> / Unit
+							<span class="product-card-original-price ">Rs 135.00 | </span> Rs
+							<span class="priceValue">120</span> / Unit
 						</h6>
 					</div>
 				</div>
@@ -2301,10 +2428,10 @@ pointer
 						</div>
 					</figure>
 					<div class="product-summary">
-						<h4 class="productName">Baraka Wild Bees Honey 100% Pure 275g</h4>
+						<h4 class="productName">6-Pack 75W Eq. LED Bulb 60-Chip Corn</h4>
 						<h6 class="price">
-							<span class="product-card-original-price ">Rs 170.00 | </span> Rs
-							<span class="priceValue">1255</span> / Unit
+							<span class="product-card-original-price ">Rs 720.00 | </span> Rs
+							<span class="priceValue">650</span> / Unit
 						</h6>
 					</div>
 				</div>
@@ -2321,10 +2448,10 @@ pointer
 						</div>
 					</figure>
 					<div class="product-summary">
-						<h4 class="productName">Baraka Wild Bees Honey 100% Pure 275g</h4>
+						<h4 class="productName">Banana</h4>
 						<h6 class="price">
 							<span class="product-card-original-price ">Rs 170.00 | </span> Rs
-							<span class="priceValue">1255</span> / Unit
+							<span class="priceValue">65</span> / Unit
 						</h6>
 					</div>
 				</div>
@@ -2341,10 +2468,10 @@ pointer
 						</div>
 					</figure>
 					<div class="product-summary">
-						<h4 class="productName">Baraka Wild Bees Honey 100% Pure 275g</h4>
+						<h4 class="productName">Pumpkin</h4>
 						<h6 class="price">
-							<span class="product-card-original-price ">Rs 170.00 | </span> Rs
-							<span class="priceValue">1255</span> / Unit
+							<span class="product-card-original-price ">Rs 6270.00 | </span>
+							Rs <span class="priceValue">45</span> / Unit
 						</h6>
 					</div>
 				</div>
@@ -2361,10 +2488,10 @@ pointer
 						</div>
 					</figure>
 					<div class="product-summary">
-						<h4 class="productName">Baraka Wild Bees Honey 100% Pure 275g</h4>
+						<h4 class="productName">Melon Yellibean</h4>
 						<h6 class="price">
-							<span class="product-card-original-price ">Rs 170.00 | </span> Rs
-							<span class="priceValue">1255</span> / Unit
+							<span class="product-card-original-price ">Rs 43.00 | </span> Rs
+							<span class="priceValue">40</span> / Unit
 						</h6>
 					</div>
 				</div>
@@ -2381,10 +2508,10 @@ pointer
 						</div>
 					</figure>
 					<div class="product-summary">
-						<h4 class="productName">Baraka Wild Bees Honey 100% Pure 275g</h4>
+						<h4 class="productName">Corn (Bada Iringu)</h4>
 						<h6 class="price">
-							<span class="product-card-original-price ">Rs 170.00 | </span> Rs
-							<span class="priceValue">1255</span> / Unit
+							<span class="product-card-original-price ">Rs 60.00 | </span> Rs
+							<span class="priceValue">55</span> / Unit
 						</h6>
 					</div>
 				</div>

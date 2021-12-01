@@ -931,9 +931,9 @@ pointer
 
 	<!-------------------Product Search Bar--------------->
 	<div class="search-box">
-		<form action="##" method="POST">
-			<input type="text" name="search" placeholder="search here...">
-			<input type="submit" name="submit" value="search">
+		<form action="searchbeauty" method="POST">
+			<input type="text" name="name" placeholder="search here...">
+			<input type="submit" value="search">
 		</form>
 	</div>
 	<!-------------------END Product Search Bar--------------->
@@ -990,7 +990,6 @@ pointer
 							</figure>
 							<div class="product-summary">
 								<h4 class="productName">${pro.name}</h4>
-								<p>${pro.description}</p>
 								<h6 class="price">
 									Rs <span class="priceValue">${pro.price}</span> / Unit
 								</h6>

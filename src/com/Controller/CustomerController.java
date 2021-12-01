@@ -821,7 +821,86 @@ public class CustomerController {
 		lastOrderId = proDetails.getOrderId();
 		System.out.println("Customer id : " + lastOrderId);
 		service.cancelorderCashOnDelivery(lastOrderId);
+		request.setAttribute("cusName", cusName);
 		return "cart";
 	}
 
+	// Search vegitable products
+	@PostMapping("/searchvegi")
+	public String searchvegi(@ModelAttribute("searchvegi") AdminAddProductEntity searchvegi, HttpSession session,
+			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String n = searchvegi.getName();
+		List<AdminAddProductEntity> adpro = service.searchVegiProList(n);
+		request.setAttribute("cusName", cusName);
+		request.setAttribute("proDetails", adpro);
+		return "categoery-vegi";
+	}
+
+	// Search fruit products
+	@PostMapping("/searchfru")
+	public String searchfru(@ModelAttribute("searchfru") AdminAddProductEntity searchfru, HttpSession session,
+			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String n = searchfru.getName();
+		List<AdminAddProductEntity> frupro = service.searchFruitProList(n);
+		request.setAttribute("cusName", cusName);
+		request.setAttribute("proDetails", frupro);
+		return "categoery-fruit";
+	}
+
+	// Search meat products
+	@PostMapping("/searchmeat")
+	public String searchmeat(@ModelAttribute("searchmeat") AdminAddProductEntity searchmeat, HttpSession session,
+			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String n = searchmeat.getName();
+		List<AdminAddProductEntity> searchmeatpro = service.searchMeatProList(n);
+		request.setAttribute("cusName", cusName);
+		request.setAttribute("proDetails", searchmeatpro);
+		return "categoery-meat";
+	}
+
+	// Search homeware products
+	@PostMapping("/searchhome")
+	public String searchhome(@ModelAttribute("searchhome") AdminAddProductEntity searchhome, HttpSession session,
+			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String n = searchhome.getName();
+		List<AdminAddProductEntity> searchhomepro = service.searchHomeWareProList(n);
+		request.setAttribute("cusName", cusName);
+		request.setAttribute("proDetails", searchhomepro);
+		return "categoery-homeware";
+	}
+
+	// Search beauty products
+	@PostMapping("/searchbeauty")
+	public String searchbeauty(@ModelAttribute("searchbeauty") AdminAddProductEntity searchbeauty, HttpSession session,
+			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String n = searchbeauty.getName();
+		List<AdminAddProductEntity> searchbeautypro = service.searchBeautyProList(n);
+		request.setAttribute("cusName", cusName);
+		request.setAttribute("proDetails", searchbeautypro);
+		return "categoery-beauty";
+	}
+
+	// Search electronic products
+	@PostMapping("/searchelectro")
+	public String searchelectronic(@ModelAttribute("searchelectro") AdminAddProductEntity searchelectro,
+			HttpSession session, HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String n = searchelectro.getName();
+		List<AdminAddProductEntity> searchelectropro = service.searchElectProList(n);
+		request.setAttribute("cusName", cusName);
+		request.setAttribute("proDetails", searchelectropro);
+		return "categoery-electronic";
+	}
+
+	/*
+	 * // Search all products
+	 * 
+	 * @PostMapping("/searchall") public String
+	 * searchall(@ModelAttribute("searchall") AdminAddProductEntity searchall,
+	 * HttpSession session, HttpServletRequest request, HttpServletResponse
+	 * response) throws ServletException, IOException { String n =
+	 * searchall.getName(); List<AdminAddProductEntity> searchallPro =
+	 * service.searchallProList(n); request.setAttribute("cusName", cusName);
+	 * request.setAttribute("proDetails", searchallPro); return "all-product"; }
+	 */
 }

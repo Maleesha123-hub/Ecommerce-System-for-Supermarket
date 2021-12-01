@@ -5,7 +5,6 @@ import java.util.List;
 import com.Entity.AdminAddProductEntity;
 import com.Entity.AdminCustomerEntity;
 import com.Entity.AdminMessageEntity;
-import com.Entity.AdminUserAddEntity;
 import com.Entity.Order;
 import com.Entity.OrderDetail;
 
@@ -35,6 +34,38 @@ public interface CustomerRepositaryDao {
 
 	public List<AdminAddProductEntity> getAllBeautyProList();
 
+	// -- SEARCH
+	// PRODUCTS------------------------------------------------------------------------------------//
+
+	// Search vegitable page
+	public List<AdminAddProductEntity> searchVegiProList(String vegisrc);
+
+	// Search Fruit page
+	public List<AdminAddProductEntity> searchFruitProList(String fruitsrc);
+
+	// Search Meat page
+	public List<AdminAddProductEntity> searchMeatProList(String meatsrc);
+
+	// Search Homeware Item page
+	public List<AdminAddProductEntity> searchHomeWareProList(String homesrc);
+
+	// Search electtronic page
+	public List<AdminAddProductEntity> searchElectProList(String electsrc);
+
+	// Search beauty page
+	public List<AdminAddProductEntity> searchBeautyProList(String beausrc);
+
+	/*
+	 * // Search all pro page public List<AdminAddProductEntity>
+	 * searchallProList(String allp);
+	 */
+
+	// ------------------------------------------------------------------------------------//
+	// ------------------------------------------------------------------------------------//
+	// ------------------------------------------------------------------------------------//
+	// ---
+	// ---
+	// ---
 	// -- PASSWORD
 	// RECOVERY------------------------------------------------------------------------------------//
 	public boolean recover(AdminCustomerEntity ue);
@@ -61,9 +92,10 @@ public interface CustomerRepositaryDao {
 
 	public List<AdminCustomerEntity> getAllCustomerListVerify(String enail);
 
-	//Get Past Order Details of Customer
+	// Get Past Order Details of Customer
 	public List<Order> getAllPastOrderByCusID(int cusiid);
 
-	//Get Past Order Details of Customer by orderid
+	// Get Past Order Details of Customer by orderid
 	public List<OrderDetail> getAllOrderDetailByIdFC(String orderId);
+
 }

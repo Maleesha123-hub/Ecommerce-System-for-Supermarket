@@ -201,4 +201,47 @@ public class CustomerService implements CustomerServiceBd {
 		return repositary.getAllOrderDetailByIdFC(orderId);
 	}
 
+	// Search vegitable page
+	@Override
+	public List<AdminAddProductEntity> searchVegiProList(String vegisrc) {
+		return repositary.searchVegiProList(vegisrc);
+	}
+
+	// Search Fruit page
+	@Override
+	public List<AdminAddProductEntity> searchFruitProList(String fruitsrc) {
+		return repositary.searchFruitProList(fruitsrc);
+	}
+
+	// Search Meat page
+	@Override
+	public List<AdminAddProductEntity> searchMeatProList(String meatsrc) {
+		return repositary.searchMeatProList(meatsrc);
+	}
+
+	// Search Homeware Item page
+	@Override
+	public List<AdminAddProductEntity> searchHomeWareProList(String homesrc) {
+		return repositary.searchHomeWareProList(homesrc);
+	}
+
+	// Search electtronic page
+	@Override
+	public List<AdminAddProductEntity> searchElectProList(String electsrc) {
+		return repositary.searchElectProList(electsrc);
+	}
+
+	// Search beauty page
+	@Override
+	public List<AdminAddProductEntity> searchBeautyProList(String beausrc) {
+		return repositary.searchBeautyProList(beausrc);
+	}
+
+	/*
+	 * // Search all pro page
+	 * 
+	 * @Override public List<AdminAddProductEntity> searchallProList(String allp) {
+	 * return repositary.searchallProList(allp); }
+	 */
+
 }
