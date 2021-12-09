@@ -236,7 +236,7 @@ function refresh(){
 			dataType : 'json',
 			success : function(response) {
 
-				$("#reply").val("Your order, (OID number : " + response.orderId + ")" + " | " + "(Amount : " + response.subtotal + ") "), 
+				$("#reply").val("Mrs/Mr. " + response.name + ", Your order, (OID number : " + response.orderId + ")" + " | " + "(Amount : " + response.subtotal + ") "), 
 				$("#name").val(response.name), 
 				$("#email").val(response.email), 
 				$("#telephone").val(response.telephone), 
@@ -261,7 +261,7 @@ function refresh(){
 			dataType : 'json',
 			success : function(response) {
 
-				$("#reply").val("Your order, (OID number : " + response.orderId + ")" + " | " + "(Amount : " + response.subtotal + ")" + " was " + response.status + " by Parakrama Supermarket!"), 
+				$("#reply").val("Mrs/Mr. " + response.name + ", Your order, (OID number : " + response.orderId + ")" + " | " + "(Amount : " + response.subtotal + ")" + " was " + response.status + " by Parakrama Supermarket!"), 
 				$("#name").val(response.name), 
 				$("#email").val(response.email), 
 				$("#telephone").val(response.telephone), 
@@ -286,7 +286,7 @@ function refresh(){
 			dataType : 'json',
 			success : function(response) {
 
-				$("#reply").val("Your order, (OID number : " + response.orderId + ")" + " | " + "(Amount : " + response.subtotal + ")" + " was " + response.status + " successfully. " + "*** Thank you for dealing with Parakrama Supermarket & Come again! ***"), 
+				$("#reply").val("Mrs/Mr. " + response.name + ", Your order, (OID number : " + response.orderId + ")" + " | " + "(Amount : " + response.subtotal + ")" + " was " + response.status + " successfully. " + "*** Thank you for dealing with Parakrama Supermarket & Come again! ***"), 
 				$("#name").val(response.name), 
 				$("#email").val(response.email), 
 				$("#telephone").val(response.telephone), 

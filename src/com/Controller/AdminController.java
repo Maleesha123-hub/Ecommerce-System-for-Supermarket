@@ -1,7 +1,6 @@
 package com.Controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -28,7 +27,6 @@ import com.Entity.AdminUserAddEntity;
 import com.Entity.Order;
 import com.Entity.OrderDetail;
 import com.Entity.SalesAnalytics;
-import com.paypal.api.payments.Sale;
 
 import interf.Servicebd.AdminServiceBd;
 

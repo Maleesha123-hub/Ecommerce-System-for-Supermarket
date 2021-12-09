@@ -93,9 +93,12 @@ function emailCancel() {
 			dataType : 'json',
 			success : function(response) {
 
-				$("#id").val(response.id), $("#name").val(response.name), $(
-						"#email").val(response.email), $("#message").val(
-						response.message), $("#publishedDate").val(response.publishedDate)
+				$("#id").val(response.id), 
+				$("#name").val(response.name), 
+				$("#email").val(response.email), 
+				$("#message").val(response.message), 
+				$("#publishedDate").val(response.publishedDate)
+				$("#reply").val("PARAKRAMA SUPERMARKET Administrative, Mrs/Mr. " + response.name)
 			},
 			error : function(err) {
 				alert("error is" + err)
